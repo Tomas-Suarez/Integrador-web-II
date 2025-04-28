@@ -1,15 +1,63 @@
-const { Sequelize } = require('sequelize');
+const { Model, DataTypes } = require("sequelize");
+const sequelize = require("./db");
 
-// Option 3: Passing parameters separately (other dialects)
-const sequelize = new Sequelize('hospital', 'admin', '123', {
-    host: 'localhost',
-    dialect: 'mysql',
-    port: 3006
+class Paciente extends Model{}
+
+Paciente.init(
+  {
+    id_paciente: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    nombre: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    documento: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    telefono: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    domicilio: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    edad: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    genero: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    estatura: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+    },
+    peso: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+    },
+    contacto_emergencia: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    seguro_medico: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
+    activo: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
+  },
+  {
+    sequelize,
+    modelName: 'Paciente',
   });
 
-  try {
-    await sequelize.authenticate();
-    console.log('Connection has been established successfully.');
-  } catch (error) {
-    console.error('Unable to connect to the database:', error);
-  }
+  module.exports = Paciente;
