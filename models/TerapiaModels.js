@@ -32,6 +32,7 @@ Terapia.init(
   {
     sequelize,
     modelName: "Terapia",
+    timestamps: false,
   }
 );
 

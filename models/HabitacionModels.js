@@ -26,6 +26,7 @@ Habitacion.init(
   {
     sequelize,
     modelName: "Habitacion",
+    timestamps: false,
   }
 );
 

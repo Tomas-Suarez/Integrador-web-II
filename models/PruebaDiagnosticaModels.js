@@ -36,6 +36,7 @@ PruebaDiagnostica.init(
   {
     sequelize,
     modelName: "PruebaDiagnostica",
+    timestamps: false,
   }
 );
 

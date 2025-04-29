@@ -22,6 +22,7 @@ Medico.init(
   {
     sequelize,
     modelName: "Medico",
+    timestamps: false,
   }
 );
 

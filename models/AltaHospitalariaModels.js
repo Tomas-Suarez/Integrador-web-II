@@ -40,6 +40,7 @@ AltaHospitalaria.init(
   {
     sequelize,
     modelName: "AltaHospitalaria",
+    timestamps: false,
   }
 );
 

@@ -42,6 +42,7 @@ AsignacionDormitorio.init(
   {
     sequelize,
     modelName: "AsignacionDormitorio",
+    timestamps: false,
   }
 );
 

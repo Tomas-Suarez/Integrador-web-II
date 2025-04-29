@@ -2,7 +2,7 @@ const { Model, DataTypes } = require("sequelize");
 const sequelize = require("./db");
 const Historial = require("./HistorialMedicoModels");
 
-class Alergia extends Model{}
+class Alergia extends Model {}
 
 Alergia.init(
   {
@@ -14,24 +14,26 @@ Alergia.init(
     id_historial: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references:{
+      references: {
         model: Historial,
-        key: 'id_historial'
+        key: "id_historial",
       },
-      onDelete: 'CASCADE',
+      onDelete: "CASCADE",
     },
     alergia: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     reaccion: {
-        type: DataTypes.STRING,
-        allowNull: false,
+      type: DataTypes.STRING,
+      allowNull: false,
     },
   },
   {
     sequelize,
-    modelName: 'Alergia',
-  });
+    modelName: "Alergia",
+    timestamps: false,
+  }
+);
 
-  module.exports = Alergia;
+module.exports = Alergia;

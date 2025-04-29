@@ -22,6 +22,7 @@ Enfermero.init(
   {
     sequelize,
     modelName: "Enfermero",
+    timestamps: false,
   }
 );
 

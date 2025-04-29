@@ -2,7 +2,7 @@ const { Model, DataTypes } = require("sequelize");
 const sequelize = require("./db");
 const Historial = require("./HistorialMedicoModels");
 
-class AntecentesMedicos extends Model{}
+class AntecentesMedicos extends Model {}
 
 AntecentesMedicos.init(
   {
@@ -14,28 +14,30 @@ AntecentesMedicos.init(
     id_historial: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references:{
+      references: {
         model: Historial,
-        key: 'id_historial'
+        key: "id_historial",
       },
-      onDelete: 'CASCADE',
+      onDelete: "CASCADE",
     },
     tipo: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     descripcion: {
-        type: DataTypes.STRING,
-        allowNull: false,
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     fecha: {
-        type: DataTypes.DATE,
-        allowNull: false,
+      type: DataTypes.DATE,
+      allowNull: false,
     },
   },
   {
     sequelize,
-    modelName: 'AntecentesMedicos',
-  });
+    modelName: "AntecentesMedicos",
+    timestamps: false,
+  }
+);
 
-  module.exports = AntecentesMedicos;
+module.exports = AntecentesMedicos;

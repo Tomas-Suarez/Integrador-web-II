@@ -28,6 +28,7 @@ Cama.init(
   {
     sequelize,
     modelName: "Cama",
+    timestamps: false,
   }
 );
 

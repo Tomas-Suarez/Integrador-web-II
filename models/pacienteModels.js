@@ -1,7 +1,7 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("./db");
 
-class Paciente extends Model{}
+class Paciente extends Model {}
 
 Paciente.init(
   {
@@ -57,7 +57,9 @@ Paciente.init(
   },
   {
     sequelize,
-    modelName: 'Paciente',
-  });
+    modelName: "Paciente",
+    timestamps: false,
+  }
+);
 
-  module.exports = Paciente;
+module.exports = Paciente;

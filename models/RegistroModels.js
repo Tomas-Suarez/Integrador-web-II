@@ -32,6 +32,7 @@ Registro.init(
   {
     sequelize,
     modelName: "Registro",
+    timestamps: false,
   }
 );
 

@@ -42,6 +42,7 @@ Evaluacion.init(
   {
     sequelize,
     modelName: "Evaluacion",
+    timestamps: false,
   }
 );
 

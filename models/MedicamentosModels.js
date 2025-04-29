@@ -40,6 +40,7 @@ MedicamentosActuales.init(
   {
     sequelize,
     modelName: "MedicamentosActuales",
+    timestamps: false,
   }
 );
 

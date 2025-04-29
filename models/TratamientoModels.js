@@ -36,6 +36,7 @@ Tratamiento.init(
   {
     sequelize,
     modelName: "Tratamiento",
+    timestamps: false,
   }
 );
 
