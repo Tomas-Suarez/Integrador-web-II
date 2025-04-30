@@ -1,38 +1,38 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("./db");
-const Registro = require("./RegistroModels");
+const Admision = require("./AdmisionModels");
 
 class AltaHospitalaria extends Model {}
 
 AltaHospitalaria.init(
   {
-    id_alta_hospitalaria: {
+    id_Alta_Hospitalaria: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    id_registro: {
+    id_Admision: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: Registro,
-        key: "id_registro",
+        model: Admision,
+        key: "id_Admision",
       },
       onDelete: "CASCADE",
     },
-    instrucciones_cuidados: {
+    Instrucciones_cuidados: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    recetas_medicas: {
+    Recetas_medicas: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    recomendaciones: {
+    Recomendaciones: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    activo: {
+    Activo: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
     },

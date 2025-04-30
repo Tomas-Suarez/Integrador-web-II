@@ -5,20 +5,24 @@ class Habitacion extends Model {}
 
 Habitacion.init(
   {
-    id_habitacion: {
+    id_Habitacion: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    ala: {
+    Ala: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    numero: {
+    Genero: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    Numero: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    capacidad: {
+    Capacidad: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },

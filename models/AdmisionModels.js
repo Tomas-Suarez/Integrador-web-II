@@ -1,43 +1,39 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("./db");
-const Evaluacion = require("./EvaluacionModels");
+const Paciente = require("./PacienteModels");
 
-class PruebaDiagnostica extends Model {}
+class Admision extends Model {}
 
-PruebaDiagnostica.init(
+Admision.init(
   {
-    id_prueba_diagnostica: {
+    id_Admision: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    id_evaluacion: {
+    id_Paciente: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: Evaluacion,
-        key: "id_evaluacion",
+        model: Paciente,
+        key: "id_Paciente",
       },
       onDelete: "CASCADE",
     },
-    tipo_prueba: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    resultado: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    fecha: {
+    Fecha: {
       type: DataTypes.DATE,
+      allowNull: false,
+    },
+    Motivo: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
   },
   {
     sequelize,
-    modelName: "PruebaDiagnostica",
+    modelName: "Admision",
     timestamps: false,
   }
 );
 
-module.exports = PruebaDiagnostica;
+module.exports = Admision;

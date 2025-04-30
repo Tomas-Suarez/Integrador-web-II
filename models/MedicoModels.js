@@ -5,16 +5,16 @@ class Medico extends Model {}
 
 Medico.init(
   {
-    id_medico: {
+    id_Medico: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    nombre: {
+    Nombre: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    especialidad: {
+    Especialidad: {
       type: DataTypes.STRING,
       allowNull: false,
     },

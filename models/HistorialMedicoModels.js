@@ -6,25 +6,25 @@ class HistorialMedico extends Model {}
 
 HistorialMedico.init(
   {
-    id_historial: {
+    id_Historial: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    id_paciente: {
+    id_Paciente: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: Paciente,
-        key: "id_paciente",
+        key: "id_Paciente",
       },
       onDelete: "CASCADE",
     },
-    motivo_internacion: {
+    Motivo_internacion: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    sintomas_principales: {
+    Sintomas_principales: {
       type: DataTypes.STRING,
       allowNull: false,
     },

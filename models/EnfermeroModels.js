@@ -5,16 +5,16 @@ class Enfermero extends Model {}
 
 Enfermero.init(
   {
-    id_enfermero: {
+    id_Enfermero: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    nombre: {
+    Nombre: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    turno: {
+    Turno: {
       type: DataTypes.STRING,
       allowNull: false,
     },

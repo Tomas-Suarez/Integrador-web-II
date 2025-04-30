@@ -5,52 +5,48 @@ class Paciente extends Model {}
 
 Paciente.init(
   {
-    id_paciente: {
+    id_Paciente: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    nombre: {
+    Nombre: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    documento: {
+    Documento: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    telefono: {
+    Telefono: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    domicilio: {
+    Domicilio: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    edad: {
+    Edad: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    genero: {
+    Genero: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    estatura: {
+    Estatura: {
       type: DataTypes.FLOAT,
       allowNull: false,
     },
-    peso: {
+    Peso: {
       type: DataTypes.FLOAT,
       allowNull: false,
     },
-    contacto_emergencia: {
+    Contacto_emergencia: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    seguro_medico: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-    },
-    activo: {
+    Seguro_medico: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
     },

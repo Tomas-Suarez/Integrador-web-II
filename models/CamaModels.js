@@ -6,17 +6,17 @@ class Cama extends Model {}
 
 Cama.init(
   {
-    id_cama: {
+    id_Cama: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    id_habitacion: {
+    id_Habitacion: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: Habitacion,
-        key: "id_habitacion",
+        key: "id_Habitacion",
       },
       onDelete: "CASCADE",
     },

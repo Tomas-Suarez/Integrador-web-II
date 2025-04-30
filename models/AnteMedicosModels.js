@@ -6,29 +6,29 @@ class AntecentesMedicos extends Model {}
 
 AntecentesMedicos.init(
   {
-    id_antecedentes_Medicos: {
+    id_Antecedentes_Medicos: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    id_historial: {
+    id_Historial: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: Historial,
-        key: "id_historial",
+        key: "id_Historial",
       },
       onDelete: "CASCADE",
     },
-    tipo: {
+    Motivo_internacion: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    descripcion: {
+    Descripcion: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    fecha: {
+    Fecha: {
       type: DataTypes.DATE,
       allowNull: false,
     },

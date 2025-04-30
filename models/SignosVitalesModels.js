@@ -1,38 +1,38 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("./db");
-const Historial = require("./HistorialMedicoModels");
+const EvaluacionEnfermeria = require("./EvaluacionEnfermeriaModels");
 
 class SignosVitales extends Model {}
 
 SignosVitales.init(
   {
-    id_signos_vitales: {
+    id_Signos_vitales: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    id_historial: {
+    id_Historial: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: Historial,
-        key: "id_historial",
+        model: EvaluacionEnfermeria,
+        key: "id_Evaluacion_Enfermeria",
       },
       onDelete: "CASCADE",
     },
-    presion_arterial: {
+    Presion_arterial: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    frecuencia_cardiaca: {
+    Frecuencia_cardiaca: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    frecuencia_respiratoria: {
+    Frecuencia_respiratoria: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    temperatura_corporal: {
+    Temperatura_corporal: {
       type: DataTypes.FLOAT,
       allowNull: false,
     },

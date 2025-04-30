@@ -1,27 +1,27 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("./db");
-const Registro = require("./RegistroModels");
+const Admision = require("./AdmisionModels");
 const Cama = require("./CamaModels");
 
 class AsignacionDormitorio extends Model {}
 
 AsignacionDormitorio.init(
   {
-    id_asignacion_dormitorio: {
+    id_Asignacion_dormitorio: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    id_registro: {
+    id_Admision: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: Registro,
-        key: "id_registro",
+        model: Admision,
+        key: "id_Admision",
       },
       onDelete: "CASCADE",
     },
-    id_cama: {
+    id_Cama: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -30,11 +30,11 @@ AsignacionDormitorio.init(
       },
       onDelete: "CASCADE",
     },
-    fecha_ingreso: {
+    Fecha_ingreso: {
       type: DataTypes.DATE,
       allowNull: false,
     },
-    fecha_salida: {
+    Fecha_salida: {
       type: DataTypes.DATE,
       allowNull: true,
     },

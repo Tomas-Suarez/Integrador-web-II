@@ -1,24 +1,20 @@
 const sequlize = require("../models/db");
 
-require("../models/AlergiaModels");
+require("../models/AdmisionModels");
 require("../models/AltaHospitalariaModels");
-require("../models/AnteFamiliaresModels");
 require("../models/AnteMedicosModels");
 require("../models/AsignDormitorioModels");
 require("../models/CamaModels");
 require("../models/EnfermeroModels");
-require("../models/EvaluacionModels");
+require("../models/EvaluacionEnfermeriaModels");
+require("../models/EvaluacionMedicaModels");
 require("../models/HabitacionModels");
 require("../models/HistorialMedicoModels");
-require("../models/MedicamentosModels");
 require("../models/MedicoModels");
 require("../models/PacienteModels");
-require("../models/PlanCuidadosModels");
-require("../models/PruebaDiagnosticaModels");
-require("../models/RegistroModels");
 require("../models/SignosVitalesModels");
-require("../models/TerapiaModels");
-require("../models/TratamientoModels");
+
+
 
 (async () => {
   try {
