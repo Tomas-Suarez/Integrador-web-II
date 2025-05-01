@@ -1,0 +1,50 @@
+mixin nav()
+    link(rel='stylesheet', href='/css/nav.css')
+    div.sidebar
+        div.logo
+            img(src="/img/logo.png", alt="logo")
+        ul.nav-menu
+            li
+                a(href="#", class="nav-item") 
+                    img(src="/img/icon-paciente.png", alt="paciente")
+                    | Pacientes
+                ul.submenu
+                    li: a(href="*") Registrar paciente
+                    li: a(href="*") Editar informacion personal
+                    li: a(href="*") Ver historial medico
+            li
+                a(href="#", class="nav-item")
+                    img(src="/img/icon-medico.png", alt="enfemera")
+                    | Medicos y enfermeros 
+                ul.submenu
+                    li: a(href="*") Registrar medico
+                    li: a(href="*") Registrar enfermero
+                    li: a(href="*") Ver lista de medicos/enfemeros
+
+            li
+                a(href="#", class="nav-item") 
+                    img(src="/img/icon-admision.png", alt="admision")
+                    | Admisiones 
+                ul.submenu
+                    li: a(href="*") Registrar admision hospitalaria
+                    li: a(href="*") Registrar alta hospitalaria
+                    li: a(href="*") Consultar historial de admisiones y altas
+            li
+                a(href="#", class="nav-item")  
+                    img(src="/img/icon-habitacion.png", alt="habitacion")
+                    | Habitaciones y Camas
+                ul.submenu
+                    li: a(href="*") Registrar habitacion
+                    li: a(href="*") Registrar cama
+                    li: a(href="*") Liberar cama
+            li
+                a(href="#", class="nav-item") 
+                    img(src="/img/icon-evaluacion.png", alt="habitacion")
+                    | Evaluaciones 
+                ul.submenu
+                    li: a(href="*") Registrar evaluacion medica
+                    li: a(href="*") Registrar evaluacion de enfermeria
+                    li: a(href="*") Registrar signos vitales del paciente
+                    li: a(href="*") Consultar evaluaciones por paciente
+
+                
