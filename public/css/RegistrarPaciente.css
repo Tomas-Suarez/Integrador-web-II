@@ -1,0 +1,91 @@
+body {
+    background-color: #eaffff;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
+  
+  .separador {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .container {
+    margin-left: 5%;
+    width: 75%;
+    height: 90%;
+    margin-top: 2.5%;
+    background-color: #8bd9e4;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .container img {
+    display: block;
+    width: 125px;
+    height: 125px;
+    margin-left: 46%;
+    margin-bottom: 2%;
+  }
+  
+  .formulario {
+    font-size: 18px;
+  }
+  
+  .nombre-apellido {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .nombre-apellido div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .nombre-apellido input {
+    height: 30px;
+    padding: 5px 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+  }
+  
+  .ordenamiento {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .ordenamiento div {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .ordenamiento input,
+  .ordenamiento select {
+    height: 30px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+  }
+  
+  .container button {
+    height: 45px;
+    width: 260px;
+    font-size: 20px;
+    margin-left: 42%;
+    display: block;
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .container button:hover {
+    background-color: #d6f5f9;
+  }
+  

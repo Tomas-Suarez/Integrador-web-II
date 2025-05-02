@@ -1,0 +1,55 @@
+doctype html
+html(lang="es")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Document
+    link(rel="stylesheet", href="/css/RegistrarPaciente.css")
+  body
+    .separador
+      include ../includes/nav.pug
+      +nav()
+      .container
+        img(src="/img/icon-pacienteForm.png", alt="icon-form")
+        form(action="/registro", method="POST", class="formulario")
+          .nombre-apellido
+            div
+              label(for="fnombre") Nombre:
+              input(type="text", name="fnombre", id="fnombre", required)
+            div
+              label(for="fapellido") Apellido:
+              input(type="text", name="fapellido", id="fapellido", required)
+          .ordenamiento
+            div
+              label(for="fdocumento") Documento:
+              input(type="text", name="fdocumento", id="fdocumento", required)
+            div
+              label(for="ftelefono") Teléfono:
+              input(type="text", name="ftelefono", id="ftelefono", required)
+            div
+              label(for="fedad") Edad:
+              input(type="text", name="fedad", id="fedad", required)
+            div
+              label(for="fgenero") Género:
+              select(name="fgenero", id="fgenero")
+                option(value="" disabled selected) Seleccione una opción
+                option(value="masculino") Masculino
+                option(value="femenino") Femenino
+                option(value="otro") Otro
+            div
+              label(for="festatura") Estatura:
+              input(type="text", name="festatura", id="festatura", required)
+            div
+              label(for="fpeso") Peso:
+              input(type="text", name="fpeso", id="fpeso", required)
+            div
+              label(for="fcontacto") Contacto de emergencia:
+              input(type="text", name="fcontacto", id="fcontacto", required)
+            div
+              label(for="fseguro") ¿Posee seguro médico?:
+              select(name="fseguro", id="fseguro", required)
+                option(value="" disabled selected) Seleccione una opción
+                option(value="si") Sí posee
+                option(value="no") No posee
+            div
+              button(type="submit") Registrar

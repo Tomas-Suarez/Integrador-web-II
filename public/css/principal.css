@@ -1,0 +1,12 @@
+.separador {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .img-principal {
+    margin-left: 16%;
+    max-height: 100vh;
+    width: auto;
+    display: block;
+  }

@@ -16,7 +16,7 @@ app.use(logging);
 app.use('/pacientes', pacienteRoutes);
 
 app.get('/', (req, res) => {
-    res.render('Principal');
+    res.render('Pacientes/RegistrarPaciente');
   });
 
 app.use(error404);
