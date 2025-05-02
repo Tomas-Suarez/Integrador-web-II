@@ -13,11 +13,15 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(logging);
+
+app.use(express.urlencoded({ extende: true }));
+app.use(express.json());
+
 app.use('/pacientes', pacienteRoutes);
 
-app.get('/', (req, res) => {
-    res.render('Pacientes/RegistrarPaciente');
-  });
+app.get('/', (req, res) =>{
+    res.render('Principal');
+})
 
 app.use(error404);
 

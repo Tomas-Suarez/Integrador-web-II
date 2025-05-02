@@ -13,7 +13,7 @@ function logging(req, res, next){
         let path = req.originalUrl;
         let status = res.statusCode;
     
-        console.log(`[${day}/${month}/${year} ${hours}:${minutes}:${seconds}] *${method} ${path}* ${status}`);
+        console.log(`[INFO][${day}/${month}/${year} ${hours}:${minutes}:${seconds}] *${method} ${path}* ${status}`);
     });
     
     next();

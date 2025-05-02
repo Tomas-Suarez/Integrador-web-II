@@ -11,24 +11,27 @@ html(lang="es")
       +nav()
       .container
         img(src="/img/icon-pacienteForm.png", alt="icon-form")
-        form(action="/registro", method="POST", class="formulario")
+        form(action="/pacientes/registro", method="POST", class="formulario")
           .nombre-apellido
             div
               label(for="fnombre") Nombre:
-              input(type="text", name="fnombre", id="fnombre", required)
+              input(type="text", name="fnombre", id="fnombre")
             div
               label(for="fapellido") Apellido:
-              input(type="text", name="fapellido", id="fapellido", required)
+              input(type="text", name="fapellido", id="fapellido")
           .ordenamiento
             div
-              label(for="fdocumento") Documento:
-              input(type="text", name="fdocumento", id="fdocumento", required)
+              label(for="fedad") Edad:
+              input(type="text", name="fedad", id="fedad")
+            div
+              label(for="fdocumento") DNI:
+              input(type="text", name="fdocumento", id="fdocumento")
             div
               label(for="ftelefono") Teléfono:
-              input(type="text", name="ftelefono", id="ftelefono", required)
+              input(type="text", name="ftelefono", id="ftelefono")
             div
-              label(for="fedad") Edad:
-              input(type="text", name="fedad", id="fedad", required)
+              label(for="fdomicilio") Domicilio:
+              input(type="text", name="fdomicilio", id="fdomicilio")
             div
               label(for="fgenero") Género:
               select(name="fgenero", id="fgenero")
@@ -38,18 +41,18 @@ html(lang="es")
                 option(value="otro") Otro
             div
               label(for="festatura") Estatura:
-              input(type="text", name="festatura", id="festatura", required)
+              input(type="text", name="festatura", id="festatura")
             div
               label(for="fpeso") Peso:
-              input(type="text", name="fpeso", id="fpeso", required)
+              input(type="text", name="fpeso", id="fpeso")
             div
               label(for="fcontacto") Contacto de emergencia:
-              input(type="text", name="fcontacto", id="fcontacto", required)
+              input(type="text", name="fcontacto", id="fcontacto")
             div
               label(for="fseguro") ¿Posee seguro médico?:
-              select(name="fseguro", id="fseguro", required)
+              select(name="fseguro", id="fseguro")
                 option(value="" disabled selected) Seleccione una opción
-                option(value="si") Sí posee
-                option(value="no") No posee
+                option(value="true") Sí posee
+                option(value="false") No posee
             div
               button(type="submit") Registrar

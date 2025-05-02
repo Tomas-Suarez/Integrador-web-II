@@ -17,6 +17,7 @@ Paciente.init(
     Documento: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
     Telefono: {
       type: DataTypes.STRING,
