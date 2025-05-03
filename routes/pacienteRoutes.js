@@ -1,26 +1,31 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const pacientecontroller = require('../controllers/PacienteController');
-const { validarPaciente } = require('../middlewares/pacienteValidator');
-const { validationResult } = require('express-validator');
+const pacientecontroller = require("../controllers/PacienteController");
+const { validarPaciente } = require("../middlewares/pacienteValidator");
+const { validationResult } = require("express-validator");
 
-router.get('/registro', (req, res) => {
-    res.render('Pacientes/RegistrarPaciente');
+router.get("/ListaPaciente", pacientecontroller.getAllPacientes);
+
+router.get("/registro", (req, res) => {
+  res.render("Pacientes/RegistrarPaciente");
 });
 
-router.get('/', pacientecontroller.getAllPacientes);
-
-router.post('/registro', validarPaciente, (req, res, next) => {
+router.post(
+  "/registro",
+  validarPaciente,
+  (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).render('Pacientes/RegistrarPaciente', {
+      return res.status(400).render("Pacientes/RegistrarPaciente", {
         errors: errors.array(),
-        oldData: req.body
+        oldData: req.body,
       });
     }
     next();
-  }, pacientecontroller.createPaciente);
+  },
+  pacientecontroller.createPaciente
+);
 
-router.get('/:id', pacientecontroller.getPacienteById);
+router.post("/actualizar", pacientecontroller.updatePaciente);
 
 module.exports = router;

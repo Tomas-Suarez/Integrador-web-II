@@ -1,0 +1,96 @@
+doctype html
+html(lang="es")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Lista de Pacientes
+    link(rel="stylesheet", href="/css/ListaPaciente.css")
+    link(rel="stylesheet", href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css")
+    script(src="https://code.jquery.com/jquery-3.6.0.min.js")
+    script(src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js")
+    script(src="/js/DataTablePaciente.js")
+  body
+    .container
+      include ../includes/nav.pug
+      +nav()
+      .contenido
+        h1 Lista de Pacientes
+        table#TablaPaciente
+          thead
+            tr
+              th Nombre completo
+              th Edad 
+              th Género 
+              th Documento 
+              th Acciones
+          tbody
+            each paciente in pacientes 
+              tr
+                td= paciente.Nombre
+                td #{paciente.Edad} años
+                td= paciente.Genero 
+                td= paciente.Documento
+                td 
+                  button.btn-editar(
+                    type="button",
+                    data-id=paciente.id_Paciente,
+                    data-nombre=paciente.Nombre,
+                    data-edad=paciente.Edad,
+                    data-genero=paciente.Genero,
+                    data-documento=paciente.Documento,
+                    data-telefono=paciente.Telefono,
+                    data-domicilio=paciente.Domicilio,
+                    data-estatura=paciente.Estatura,
+                    data-peso=paciente.Peso,
+                    data-contacto_emergencia=paciente.Contacto_emergencia,
+                    data-seguro_medico=(paciente.Seguro_medico ? 'true' : 'false')
+                  )
+                    img(src="/img/icon-editar.png", alt="editar")
+                  a.btn-historial(href=`/pacientes/historial/${paciente.id}`)
+                    img(src="/img/icon-historial.png", alt="historial")
+
+    #modal-editar.hidden
+      .modal-contenido
+        h2 Editar Paciente
+        form(method="POST", action="/pacientes/actualizar")
+          input(type="hidden", name="id_Paciente", id="edit-id")
+          .nombre-apellido
+            div
+              label(for="edit-nombre") Nombre:
+              input(type="text", name="Nombre", id="edit-nombre", required)
+            div
+              label(for="edit-telefono") Teléfono:
+              input(type="text", name="Telefono", id="edit-telefono", required)
+            div
+              label(for="edit-domicilio") Domicilio:
+              input(type="text", name="Domicilio", id="edit-domicilio", required)
+          .ordenamiento
+            div
+              label(for="edit-edad") Edad:
+              input(type="number", name="Edad", id="edit-edad", required)
+            div
+              label(for="edit-documento") Documento:
+              input(type="text", name="Documento", id="edit-documento", required)
+            div
+              label(for="edit-genero") Género:
+              select(name="Genero", id="edit-genero", required)
+                option(value="Masculino") Masculino
+                option(value="Femenino") Femenino
+                option(value="Otro") Otro
+            div
+              label(for="edit-estatura") Estatura:
+              input(type="text", name="Estatura", id="edit-estatura", required)
+            div
+              label(for="edit-peso") Peso:
+              input(type="text", name="Peso", id="edit-peso", required)
+            div
+              label(for="edit-contacto_emergencia") Contacto de emergencia:
+              input(type="text", name="Contacto_emergencia", id="edit-contacto_emergencia", required)
+            div
+              label(for="edit-seguro") ¿Posee seguro médico?:
+              select(name="Seguro_medico", id="edit-seguro", required)
+                option(value="true") Sí posee
+                option(value="false") No posee
+          div
+            button(type="submit") Guardar Cambios
+            button(type="button", id="cerrar-modal") Cancelar
