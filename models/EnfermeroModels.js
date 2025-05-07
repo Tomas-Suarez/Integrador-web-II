@@ -14,6 +14,14 @@ Enfermero.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    Apellido: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    Matricula: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     Turno: {
       type: DataTypes.STRING,
       allowNull: false,

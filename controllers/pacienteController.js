@@ -13,25 +13,24 @@ const getAllPacientes = async (req, res) => {
 
 const createPaciente = async (req, res) => {
   try {
-    let nombrePaciente = req.body.fnombre;
-    let apellidoPaciente = req.body.fapellido;
     const datos = {
-      Nombre: nombrePaciente.concat(" ", apellidoPaciente),
-      Documento: req.body.fdocumento,
-      Telefono: req.body.ftelefono,
-      Domicilio: req.body.fdomicilio,
-      Edad: parseInt(req.body.fedad),
-      Genero: req.body.fgenero,
-      Estatura: parseFloat(req.body.festatura),
-      Peso: parseFloat(req.body.fpeso),
-      Contacto_emergencia: req.body.fcontacto,
-      Seguro_medico: req.body.fseguro === "true",
+      Nombre: req.body.Nombre,
+      Apellido: req.body.Apellido,
+      Documento: req.body.Documento,
+      Telefono: req.body.Telefono,
+      Domicilio: req.body.Domicilio,
+      Edad: parseInt(req.body.Edad),
+      Genero: req.body.Genero,
+      Estatura: parseFloat(req.body.Estatura),
+      Peso: parseFloat(req.body.Peso),
+      Contacto_emergencia: req.body.Contacto_emergencia,
+      Seguro_medico: req.body.Seguro_medico === "true",
     };
 
     const { paciente, creado } = await pacienteService.crearPaciente(datos);
 
     if (creado) {
-      res.redirect("/");
+      res.redirect("/pacientes/ListaPaciente/");
     } else {
       res
         .status(409)
@@ -44,11 +43,13 @@ const createPaciente = async (req, res) => {
   }
 };
 
+
 const updatePaciente = async (req, res) => {
   try {
     const datos = {
       id_Paciente: req.body.id_Paciente,
       Nombre: req.body.Nombre,
+      Apellido: req.body.Apellido,
       Documento: req.body.Documento,
       Telefono: req.body.Telefono,
       Domicilio: req.body.Domicilio,
@@ -64,7 +65,7 @@ const updatePaciente = async (req, res) => {
 
     console.log("soy datos");
     console.log(datos);
-    res.redirect("/");
+    res.redirect("/pacientes/ListaPaciente/");
   } catch (error) {
     console.log("soy un error");
     res

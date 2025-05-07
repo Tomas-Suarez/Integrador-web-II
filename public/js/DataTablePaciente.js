@@ -1,13 +1,37 @@
 $(document).ready(function () {
   $("#TablaPaciente").DataTable({
     language: {
-      url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json"
-    }
+      url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json",
+    },
   });
 
+  function limpiarFormulario() {
+    $("#edit-id").val("");
+    $("#edit-nombre").val("");
+    $("#edit-apellido").val("");
+    $("#edit-documento").val("");
+    $("#edit-edad").val("");
+    $("#edit-genero").val("Masculino");
+    $("#edit-telefono").val("");
+    $("#edit-domicilio").val("");
+    $("#edit-estatura").val("");
+    $("#edit-peso").val("");
+    $("#edit-contacto_emergencia").val("");
+    $("#edit-seguro").val("true");
+  }
+
+  // Creamos el paciente
+  $("#btn-abrir-crearPaciente").on("click", function () {
+    limpiarFormulario();
+    $("#form-paciente").attr("action", "/pacientes/registro/");
+    $("#modal-editar").removeClass("hidden");
+  });
+
+  // Editamos el paciente
   $(document).on("click", ".btn-editar", function () {
     const id = $(this).data("id");
     const nombre = $(this).data("nombre");
+    const apellido = $(this).data("apellido");
     const documento = $(this).data("documento") || "";
     const edad = $(this).data("edad");
     const generoRaw = $(this).data("genero");
@@ -27,8 +51,10 @@ $(document).ready(function () {
       ? genero
       : "Otro";
 
+    $("#form-paciente").attr("action", "/pacientes/actualizar/");
     $("#edit-id").val(id);
     $("#edit-nombre").val(nombre);
+    $("#edit-apellido").val(apellido);
     $("#edit-documento").val(documento);
     $("#edit-edad").val(edad);
     $("#edit-genero").val(generoValido);

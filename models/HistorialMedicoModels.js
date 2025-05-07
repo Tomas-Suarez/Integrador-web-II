@@ -20,6 +20,10 @@ HistorialMedico.init(
       },
       onDelete: "CASCADE",
     },
+    Fecha: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
     Motivo_internacion: {
       type: DataTypes.STRING,
       allowNull: false,

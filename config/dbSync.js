@@ -2,7 +2,6 @@ const sequlize = require("../models/db");
 
 require("../models/AdmisionModels");
 require("../models/AltaHospitalariaModels");
-require("../models/AnteMedicosModels");
 require("../models/AsignDormitorioModels");
 require("../models/CamaModels");
 require("../models/EnfermeroModels");

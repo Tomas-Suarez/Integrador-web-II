@@ -14,6 +14,10 @@ Paciente.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    Apellido: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     Documento: {
       type: DataTypes.STRING,
       allowNull: false,

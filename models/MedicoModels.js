@@ -14,6 +14,14 @@ Medico.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    Apellido: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    Matricula: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     Especialidad: {
       type: DataTypes.STRING,
       allowNull: false,

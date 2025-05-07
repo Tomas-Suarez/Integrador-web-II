@@ -1,6 +1,5 @@
 const Admision = require("./AdmisionModels");
 const AltaHospitalaria = require("./AltaHospitalariaModels");
-const AntecedentesMedicos = require("./AnteMedicosModels");
 const AsignacionDormitorio = require("./AsignDormitorioModels");
 const Cama = require("./CamaModels");
 const Enfermero = require("./EnfermeroModels");
@@ -42,8 +41,5 @@ AsignacionDormitorio.belongsTo(Cama, { foreignKey: "id_Cama", as: "cama" });
 Habitacion.hasMany(Cama, { foreignKey: "id_Habitacion", as: "camas" });
 Cama.belongsTo(Habitacion, { foreignKey: "id_Habitacion", as: "habitacion" });
 
-Paciente.hasOne(HistorialMedico, { foreignKey: "id_Paciente", as: "historial" });
+Paciente.hasMany(HistorialMedico, { foreignKey: "id_Paciente", as: "historial" });
 HistorialMedico.belongsTo(Paciente, { foreignKey: "id_Paciente", as: "paciente" });
-
-HistorialMedico.hasMany(AntecedentesMedicos, { foreignKey: "id_Historial", as: "antecedentes" });
-AntecedentesMedicos.belongsTo(HistorialMedico, { foreignKey: "id_Historial", as: "historial" });

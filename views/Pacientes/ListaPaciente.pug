@@ -15,10 +15,12 @@ html(lang="es")
       +nav()
       .contenido
         h1 Lista de Pacientes
+        button#btn-abrir-crearPaciente.btn-crearPaciente Crear Paciente
         table#TablaPaciente
           thead
             tr
-              th Nombre completo
+              th Nombre
+              th Apellido
               th Edad 
               th Género 
               th Documento 
@@ -27,6 +29,7 @@ html(lang="es")
             each paciente in pacientes 
               tr
                 td= paciente.Nombre
+                td= paciente.Apellido
                 td #{paciente.Edad} años
                 td= paciente.Genero 
                 td= paciente.Documento
@@ -35,6 +38,7 @@ html(lang="es")
                     type="button",
                     data-id=paciente.id_Paciente,
                     data-nombre=paciente.Nombre,
+                    data-apellido=paciente.Apellido,
                     data-edad=paciente.Edad,
                     data-genero=paciente.Genero,
                     data-documento=paciente.Documento,
@@ -52,12 +56,15 @@ html(lang="es")
     #modal-editar.hidden
       .modal-contenido
         h2 Editar Paciente
-        form(method="POST", action="/pacientes/actualizar")
+        form#form-paciente(method="POST", action="/pacientes/actualizar")
           input(type="hidden", name="id_Paciente", id="edit-id")
           .nombre-apellido
             div
               label(for="edit-nombre") Nombre:
               input(type="text", name="Nombre", id="edit-nombre", required)
+            div
+              label(for="edit-apellido") Apellido:
+              input(type="text", name="Apellido", id="edit-apellido", required)
             div
               label(for="edit-telefono") Teléfono:
               input(type="text", name="Telefono", id="edit-telefono", required)

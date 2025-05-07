@@ -17,6 +17,7 @@ const crearPaciente = async (datos) => {
       where: { Documento: datos.Documento },
       defaults: {
         Nombre: datos.Nombre,
+        Apellido: datos.Apellido,
         Telefono: datos.Telefono,
         Domicilio: datos.Domicilio,
         Edad: datos.Edad,
@@ -38,6 +39,7 @@ const actualizarPaciente = async (datos) => {
     const [pacienteActualizado] = await Paciente.update(
       {
         Nombre: datos.Nombre,
+        Apellido: datos.Apellido,
         Telefono: datos.Telefono,
         Domicilio: datos.Domicilio,
         Edad: datos.Edad,
