@@ -18,12 +18,20 @@ Medico.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    Genero: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     Matricula: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     Especialidad: {
       type: DataTypes.STRING,
+      allowNull: false,
+    },
+    Estado: {
+      type: DataTypes.BOOLEAN,
       allowNull: false,
     },
   },

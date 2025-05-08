@@ -18,12 +18,20 @@ Enfermero.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    Genero: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     Matricula: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     Turno: {
       type: DataTypes.STRING,
+      allowNull: false,
+    },
+    estado: {
+      type: DataTypes.BOOLEAN,
       allowNull: false,
     },
   },

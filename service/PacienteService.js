@@ -1,6 +1,6 @@
 const Paciente = require("../models/PacienteModels");
 
-const obtenerTodosLosPacientes = async () => {
+const getAllPacientes = async () => {
   try {
     const pacientes = await Paciente.findAll();
     return pacientes;
@@ -11,7 +11,7 @@ const obtenerTodosLosPacientes = async () => {
   }
 };
 
-const crearPaciente = async (datos) => {
+const createPaciente = async (datos) => {
   try {
     const [paciente, creado] = await Paciente.findOrCreate({
       where: { Documento: datos.Documento },
@@ -34,7 +34,7 @@ const crearPaciente = async (datos) => {
   }
 };
 
-const actualizarPaciente = async (datos) => {
+const updatePaciente = async (datos) => {
   try {
     const [pacienteActualizado] = await Paciente.update(
       {
@@ -42,6 +42,7 @@ const actualizarPaciente = async (datos) => {
         Apellido: datos.Apellido,
         Telefono: datos.Telefono,
         Domicilio: datos.Domicilio,
+        Documento: datos.Documento,
         Edad: datos.Edad,
         Genero: datos.Genero,
         Estatura: datos.Estatura,
@@ -66,7 +67,7 @@ const actualizarPaciente = async (datos) => {
 };
 
 module.exports = {
-  obtenerTodosLosPacientes,
-  crearPaciente,
-  actualizarPaciente,
+  getAllPacientes,
+  createPaciente,
+  updatePaciente,
 };

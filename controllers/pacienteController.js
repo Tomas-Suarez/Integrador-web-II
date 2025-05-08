@@ -2,7 +2,7 @@ const pacienteService = require("../service/PacienteService");
 
 const getAllPacientes = async (req, res) => {
   try {
-    const pacientes = await pacienteService.obtenerTodosLosPacientes();
+    const pacientes = await pacienteService.getAllPacientes();
     res.render("Pacientes/ListaPaciente", { pacientes });
   } catch (error) {
     res
@@ -27,7 +27,7 @@ const createPaciente = async (req, res) => {
       Seguro_medico: req.body.Seguro_medico === "true",
     };
 
-    const { paciente, creado } = await pacienteService.crearPaciente(datos);
+    const { paciente, creado } = await pacienteService.createPaciente(datos);
 
     if (creado) {
       res.redirect("/pacientes/ListaPaciente/");
@@ -61,7 +61,7 @@ const updatePaciente = async (req, res) => {
       Seguro_medico: req.body.Seguro_medico === "true",
     };
 
-    await pacienteService.actualizarPaciente(datos);
+    await pacienteService.updatePaciente(datos);
 
     console.log("soy datos");
     console.log(datos);
