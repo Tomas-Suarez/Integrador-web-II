@@ -7,7 +7,7 @@ const getAllPacientes = async (req, res) => {
   } catch (error) {
     res
       .status(500)
-      .send("Ocurrio un error en obtener los pacientes..", error.message);
+      .send("Ocurrio un error en obtener los pacientes.."+ error.message);
   }
 };
 

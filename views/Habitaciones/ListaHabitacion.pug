@@ -1,0 +1,35 @@
+doctype html
+html(lang="es")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Informacion de las habitaciones
+    link(rel="stylesheet", href="/css/ListaPaciente.css")
+    link(rel="stylesheet", href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css")
+    script(src="https://code.jquery.com/jquery-3.6.0.min.js")
+    script(src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js")
+    script(src="/js/DataTableHabitacion.js")
+  body
+    .container
+      include ../includes/nav.pug
+      +nav()
+      .contenido
+        h1 Informacion de las habitaciones
+        table#TablaHabitacion
+          thead
+            tr
+              th N° Habitacion
+              th Ala
+              th Genero permitido 
+              th Capacidad
+              th Estado Cama N°1
+              th Estado Cama N°2
+          tbody
+            each habitacion in habitaciones 
+              tr
+                td= habitacion.Numero
+                td= habitacion.Ala
+                td= habitacion.Genero
+                td= habitacion.Capacidad
+                td= habitacion.EstadoCama1 ? 'Libre' : 'Ocupado'
+                td= habitacion.EstadoCama2 ? 'Libre' : 'Ocupado'

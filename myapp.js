@@ -8,6 +8,8 @@ const app = express();
 const pacienteRoutes = require('./routes/pacienteRoutes');
 const medicoRoutes = require('./routes/MedicoRoutes');
 const enfermeroRoutes = require('./routes/EnfermeroRoutes');
+//Falta admision
+const habitacionRoutes = require('./routes/HabitacionRoutes');
 
 
 app.set('view engine', 'pug');
@@ -23,6 +25,9 @@ app.use(express.json());
 app.use('/pacientes', pacienteRoutes);
 app.use('/medicos', medicoRoutes);
 app.use('/enfermeros', enfermeroRoutes);
+//Admision
+app.use('/habitaciones', habitacionRoutes);
+
 
 app.get('/', (req, res) =>{
     res.render('Principal');
