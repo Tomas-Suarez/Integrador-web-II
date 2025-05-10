@@ -30,7 +30,7 @@ Enfermero.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    estado: {
+    Estado: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
     },

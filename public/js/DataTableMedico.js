@@ -1,4 +1,3 @@
-// public/js/DataTableMedico.js
 $(document).ready(function () {
     $("#TablaMedico").DataTable({
       language: {

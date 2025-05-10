@@ -39,7 +39,6 @@ html(lang="es")
                 td= medico.Especialidad 
                 td= medico.Estado ? 'Activo' : 'Inactivo'
                 td 
-                  // Botón de editar
                   button.btn-editar(
                     type="button",
                     data-id=medico.id_Medico,
@@ -51,7 +50,6 @@ html(lang="es")
                   )
                     img(src="/img/icon-editar.png", alt="editar", title="Editar")
 
-                  // Botón de cambiar estado
                   form(method="POST", action="/medicos/cambiar-estado", style="display:inline")
                     input(type="hidden", name="id_Medico", value=medico.id_Medico)
                     input(type="hidden", name="Estado", value=medico.Estado ? 'false' : 'true')
@@ -61,7 +59,6 @@ html(lang="es")
                       else
                         img(src="/img/icon-activo.png", alt="Dar de alta", title="Dar alta")
 
-    // Modal de edición
     #modal-editar.hidden
       .modal-contenido
         h2 Editar Médico
