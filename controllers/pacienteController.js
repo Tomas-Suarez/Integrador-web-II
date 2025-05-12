@@ -3,7 +3,7 @@ const pacienteService = require("../service/PacienteService");
 const getAllPacientes = async (req, res) => {
   try {
     const pacientes = await pacienteService.getAllPacientes();
-    res.render("Pacientes/ListaPaciente", { pacientes });
+    res.render("Admision/Gestion", { pacientes });
   } catch (error) {
     res
       .status(500)
@@ -30,7 +30,7 @@ const createPaciente = async (req, res) => {
     const { paciente, creado } = await pacienteService.createPaciente(datos);
 
     if (creado) {
-      res.redirect("/pacientes/ListaPaciente/");
+      res.redirect("/pacientes/GestionPaciente");
     } else {
       res
         .status(409)
@@ -65,7 +65,7 @@ const updatePaciente = async (req, res) => {
 
     console.log("soy datos");
     console.log(datos);
-    res.redirect("/pacientes/ListaPaciente/");
+    res.redirect("/pacientes/GestionPaciente");
   } catch (error) {
     console.log("soy un error");
     res

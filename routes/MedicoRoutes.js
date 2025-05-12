@@ -4,7 +4,7 @@ const medicoController = require("../controllers/MedicoController");
 const { validarMedico } = require("../middlewares/medicoValidator");
 const { validationResult } = require("express-validator");
 
-router.get("/ListaMedico", medicoController.getAllMedico);
+router.get("/GestionMedico", medicoController.getAllMedico);
 
 router.post(
     "/registro",

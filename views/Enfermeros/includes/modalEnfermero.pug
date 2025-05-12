@@ -1,0 +1,6 @@
+include ../includes/formEnfermero.pug
+mixin modalEnfermero()
+  #modal-editar.hidden
+    .modal-contenido 
+      h2 Editar Enfermero 
+      +formEnfermero("/enfermeros/actualizar", "edit-id")

@@ -1,0 +1,25 @@
+mixin formMedico(action="/medicos/actualizar")
+  form#form-medico(method="POST", action=action)
+    input(type="hidden", name="id_Medico", id="edit-id")
+    .nombre-apellido
+      div
+        label(for="edit-nombre") Nombre:
+        input(type="text", name="Nombre", id="edit-nombre", required)
+      div
+        label(for="edit-apellido") Apellido:
+        input(type="text", name="Apellido", id="edit-apellido", required)
+      div
+        label(for="edit-genero") Género:
+        select(name="Genero", id="edit-genero", required)
+          option(value="Masculino") Masculino
+          option(value="Femenino") Femenino
+          option(value="Otro") Otro
+      div
+        label(for="edit-matricula") Matrícula:
+        input(type="text", name="Matricula", id="edit-matricula", required)
+      div
+        label(for="edit-especialidad") Especialidad:
+        input(type="text", name="Especialidad", id="edit-especialidad", required)
+    div
+      button(type="submit") Guardar Cambios
+      button(type="button", id="cerrar-modal") Cancelar

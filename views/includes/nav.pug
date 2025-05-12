@@ -6,32 +6,24 @@ mixin nav()
         ul.nav-menu
             li
                 a(href="#", class="nav-item") 
-                    img(src="/img/icon-paciente.png", alt="paciente")
-                    | Pacientes
+                    img(src="/img/icon-admision.png", alt="admision")
+                    | Admisiones 
                 ul.submenu
-                    li: a(href="/pacientes/ListaPaciente") Ver lista de pacientes
+                    li: a(href="/pacientes/GestionPaciente/") Gestionar pacientes
+                    li: a(href="*") Consultar historial de admisiones
             li
                 a(href="#", class="nav-item")
                     img(src="/img/icon-medico.png", alt="enfemera")
                     | Medicos y enfermeros 
                 ul.submenu
-                    li: a(href="/medicos/ListaMedico") Ver lista de Medicos
-                    li: a(href="/enfermeros/ListaEnfermero") Ver lista de Enfermeros
-
-            li
-                a(href="#", class="nav-item") 
-                    img(src="/img/icon-admision.png", alt="admision")
-                    | Admisiones 
-                ul.submenu
-                    li: a(href="*") Registrar admision hospitalaria
-                    li: a(href="*") Registrar alta hospitalaria
-                    li: a(href="*") Consultar historial de admisiones y altas
+                    li: a(href="/medicos/GestionMedico/") Ver lista de Medicos
+                    li: a(href="/enfermeros/GestionEnfermero/") Ver lista de Enfermeros
             li
                 a(href="#", class="nav-item")  
                     img(src="/img/icon-habitacion.png", alt="habitacion")
                     | Habitaciones y Camas
                 ul.submenu
-                    li: a(href="/habitaciones/ListaHabitacion") Consultar estado de las habitaciones
+                    li: a(href="/habitaciones/ListaHabitacion/") Consultar estado de las habitaciones
             li
                 a(href="#", class="nav-item") 
                     img(src="/img/icon-evaluacion.png", alt="habitacion")

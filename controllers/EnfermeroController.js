@@ -3,7 +3,7 @@ const enfermeroService = require("../service/EnfermeroService");
 const getAllEnfermero = async (req, res) => {
   try {
     const enfermeros = await enfermeroService.getAllEnfermero();
-    res.render("Enfermeros/ListaEnfermero", { enfermeros });
+    res.render("Enfermeros/GestionEnfermeros", { enfermeros });
   } catch (error) {
     res
       .status(500)
@@ -25,7 +25,7 @@ const createEnfermero = async (req, res) => {
     const { enfermero, creado } = await enfermeroService.createEnfermero(datos);
 
     if (creado) {
-      res.redirect("/enfermeros/ListaEnfermero/");
+      res.redirect("/enfermeros/GestionEnfermero/");
     } else {
       res.status(409).send("Error. El enfermero ya fue registrado anteriormente!");
     }
@@ -49,7 +49,7 @@ const updateEnfermero = async (req, res) => {
 
     await enfermeroService.updateEnfermero(datos);
 
-    res.redirect("/enfermeros/ListaEnfermero/");
+    res.redirect("/enfermeros/GestionEnfermero/");
   } catch (error) {
     res
       .status(500)
@@ -66,7 +66,7 @@ const changeStatusEnfermero = async (req, res) => {
 
     await enfermeroService.changeStatusEnfermero(datos);
 
-    res.redirect("/enfermeros/ListaEnfermero");
+    res.redirect("/enfermeros/GestionEnfermero");
   } catch (error) {
     res.status(500).send("Ocurrió un error al cambiar el estado del enfermero: " + error.message);
   }

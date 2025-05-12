@@ -3,7 +3,7 @@ const medicoService = require("../service/MedicoService");
 const getAllMedico = async (req, res) => {
   try {
     const medicos = await medicoService.getAllMedicos();
-    res.render("Medicos/ListaMedico", { medicos });
+    res.render("Medicos/GestionMedicos", { medicos });
   } catch (error) {
     res
       .status(500)
@@ -25,7 +25,7 @@ const createMedico = async (req, res) => {
     const { medico, creado } = await medicoService.createMedico(datos);
 
     if (creado) {
-      res.redirect("/medicos/ListaMedico/");
+      res.redirect("/medicos/GestionMedico/");
     } else {
       res.status(409).send("Error. El medico ya fue registrado anteriormente!");
     }
@@ -49,7 +49,7 @@ const updateMedico = async (req, res) => {
 
     await medicoService.updateMedico(datos);
 
-    res.redirect("/medicos/ListaMedico/");
+    res.redirect("/medicos/GestionMedico/");
   } catch (error) {
     res
       .status(500)
@@ -66,7 +66,7 @@ const changeStatusMedico = async (req, res) => {
 
     await medicoService.changeStatusMedico(datos);
 
-    res.redirect("/medicos/ListaMedico");
+    res.redirect("/medicos/GestionMedico");
   } catch (error) {
     res.status(500).send("Ocurrió un error al cambiar el estado del medico: " + error.message);
   }

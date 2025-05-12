@@ -1,0 +1,46 @@
+mixin formPaciente(action="/pacientes/actualizar")
+  form#form-paciente(method="POST", action=action)
+    input(type="hidden", name="id_Paciente", id="edit-id")
+    .nombre-apellido
+      div
+        label(for="edit-nombre") Nombre:
+        input(type="text", name="Nombre", id="edit-nombre", required)
+      div
+        label(for="edit-apellido") Apellido:
+        input(type="text", name="Apellido", id="edit-apellido", required)
+      div
+        label(for="edit-telefono") Teléfono:
+        input(type="text", name="Telefono", id="edit-telefono", required)
+      div
+        label(for="edit-domicilio") Domicilio:
+        input(type="text", name="Domicilio", id="edit-domicilio", required)
+    .ordenamiento
+      div
+        label(for="edit-edad") Edad:
+        input(type="number", name="Edad", id="edit-edad", required)
+      div
+        label(for="edit-documento") Documento:
+        input(type="text", name="Documento", id="edit-documento", required)
+      div
+        label(for="edit-genero") Género:
+        select(name="Genero", id="edit-genero", required)
+          option(value="Masculino") Masculino
+          option(value="Femenino") Femenino
+          option(value="Otro") Otro
+      div
+        label(for="edit-estatura") Estatura:
+        input(type="text", name="Estatura", id="edit-estatura", required)
+      div
+        label(for="edit-peso") Peso:
+        input(type="text", name="Peso", id="edit-peso", required)
+      div
+        label(for="edit-contacto_emergencia") Contacto de emergencia:
+        input(type="text", name="Contacto_emergencia", id="edit-contacto_emergencia", required)
+      div
+        label(for="edit-seguro") ¿Posee seguro médico?:
+        select(name="Seguro_medico", id="edit-seguro", required)
+          option(value="true") Sí posee
+          option(value="false") No posee
+    div
+      button(type="submit") Guardar Cambios
+      button(type="button", id="cerrar-modal") Cancelar

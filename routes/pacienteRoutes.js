@@ -4,7 +4,7 @@ const pacientecontroller = require("../controllers/PacienteController");
 const { validarPaciente } = require("../middlewares/pacienteValidator");
 const { validationResult } = require("express-validator");
 
-router.get("/ListaPaciente", pacientecontroller.getAllPacientes);
+router.get("/GestionPaciente", pacientecontroller.getAllPacientes);
 
 router.get("/registro", (req, res) => {
   res.render("Pacientes/RegistrarPaciente");

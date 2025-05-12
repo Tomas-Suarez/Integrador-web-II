@@ -1,0 +1,6 @@
+include ../includes/formMedico.pug
+mixin modalMedico()
+  #modal-editar.hidden
+    .modal-contenido
+      h2 Editar Medico
+      +formMedico("medicos/actualizar", "edit-id")

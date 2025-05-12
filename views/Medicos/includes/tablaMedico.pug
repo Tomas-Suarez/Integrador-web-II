@@ -1,0 +1,47 @@
+mixin filaMedico(medico)
+  tr
+    td= medico.Nombre
+    td= medico.Apellido
+    td= medico.Genero
+    td= medico.Matricula
+    td= medico.Especialidad 
+    td= medico.Estado ? 'Activo' : 'Inactivo'
+    td 
+      button.btn-editar(
+        type="button",
+        data-id=medico.id_Medico,
+        data-nombre=medico.Nombre,
+        data-apellido=medico.Apellido,
+        data-genero=medico.Genero,
+        data-matricula=medico.Matricula,
+        data-especialidad=medico.Especialidad
+      )
+        img(src="/img/icon-editar.png", alt="editar", title="Editar")
+
+      form(method="POST", action="/medicos/cambiar-estado", style="display:inline")
+        input(type="hidden", name="id_Medico", value=medico.id_Medico)
+        input(type="hidden", name="Estado", value=medico.Estado ? 'false' : 'true')
+        button(type="submit", class="btn-cambiar-estado")
+          if medico.Estado
+            img(src="/img/icon-inactivo.png", alt="Dar de baja", title="Dar baja")
+          else
+            img(src="/img/icon-activo.png", alt="Dar de alta", title="Dar alta")
+
+mixin tablaMedicos(medicos)
+  .contenido
+    h1 Lista de Médicos
+    button#btn-abrir-crearMedico.btn-crearMedico Crear Médico
+
+    table#TablaMedico
+      thead
+        tr
+          th Nombre
+          th Apellido
+          th Género
+          th Matrícula
+          th Especialidad
+          th Estado
+          th Acciones
+      tbody
+        each medico in medicos
+          +filaMedico(medico)

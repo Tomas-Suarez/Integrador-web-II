@@ -1,0 +1,47 @@
+mixin filaEnfermero(enfermero)
+  tr
+    td= enfermero.Nombre
+    td= enfermero.Apellido
+    td= enfermero.Genero
+    td= enfermero.Matricula
+    td= enfermero.Turno 
+    td= enfermero.Estado ? 'Activo' : 'Inactivo'
+    td 
+      button.btn-editar(
+        type="button",
+        data-id=enfermero.id_Enfermero,
+        data-nombre=enfermero.Nombre,
+        data-apellido=enfermero.Apellido,
+        data-genero=enfermero.Genero,
+        data-matricula=enfermero.Matricula,
+        data-turno=enfermero.Turno
+      )
+        img(src="/img/icon-editar.png", alt="editar", title="Editar")
+
+      form(method="POST", action="/enfermeros/cambiar-estado", style="display:inline")
+        input(type="hidden", name="id_Enfermero", value=enfermero.id_Enfermero)
+        input(type="hidden", name="Estado", value=enfermero.Estado ? 'false' : 'true')
+        button(type="submit", class="btn-cambiar-estado")
+          if enfermero.Estado
+            img(src="/img/icon-inactivo.png", alt="Dar de baja", title="Dar baja")
+          else
+            img(src="/img/icon-activo.png", alt="Dar de alta", title="Dar alta")
+
+mixin tablaEnfermeros(enfermeros)
+  .contenido
+    h1 Lista de Enfermeros
+    button#btn-abrir-crearEnfermero.btn-crearEnfermero Crear Enfermero
+
+    table#TablaEnfermero
+      thead
+        tr
+          th Nombre
+          th Apellido
+          th Género
+          th Matrícula
+          th Turno
+          th Estado
+          th Acciones
+      tbody
+        each enfermero in enfermeros 
+          +filaEnfermero(enfermero)

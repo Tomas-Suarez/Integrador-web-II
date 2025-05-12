@@ -4,7 +4,7 @@ const enfermeroController = require("../controllers/EnfermeroController");
 const { validarEnfermero } = require("../middlewares/enfermeroValidator");
 const { validationResult } = require("express-validator");
 
-router.get("/ListaEnfermero", enfermeroController.getAllEnfermero);
+router.get("/GestionEnfermero", enfermeroController.getAllEnfermero);
 
 router.post(
     "/registro",

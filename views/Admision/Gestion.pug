@@ -1,0 +1,22 @@
+doctype html
+html(lang="es")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Lista de Pacientes
+    link(rel="stylesheet", href="/css/ListaPaciente.css")
+    link(rel="stylesheet", href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css")
+    script(src="https://code.jquery.com/jquery-3.6.0.min.js")
+    script(src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js")
+    script(src="/js/DataTablePaciente.js")
+  body
+    .container
+      include ../includes/nav.pug
+      include includes/tablaPaciente.pug
+      include includes/modalPaciente.pug
+      include includes/formPacientes.pug
+
+      +nav()
+      +tablaPacientes(pacientes)
+      +modalPaciente()
+      +modalAdmision()
