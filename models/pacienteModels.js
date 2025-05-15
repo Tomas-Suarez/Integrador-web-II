@@ -1,65 +1,69 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("./db");
+const SeguroMedico = require("./SeguroMedicoModels");
 
 class Paciente extends Model {}
 
 Paciente.init(
   {
-    id_Paciente: {
+    id_paciente: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    Nombre: {
+    id_seguro: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: SeguroMedico,
+        key: "id_seguro",
+      },
+      onDelete: "CASCADE",
+    },
+    nombre: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Apellido: {
+    apellido: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Documento: {
+    documento: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
     },
-    Telefono: {
+    telefono: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Domicilio: {
+    fecha_nacimiento: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    domicilio: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Edad: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    Genero: {
+    genero: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Estatura: {
+    estatura: {
       type: DataTypes.FLOAT,
       allowNull: false,
     },
-    Peso: {
+    peso: {
       type: DataTypes.FLOAT,
-      allowNull: false,
-    },
-    Contacto_emergencia: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    Seguro_medico: {
-      type: DataTypes.BOOLEAN,
       allowNull: false,
     },
   },
   {
     sequelize,
     modelName: "Paciente",
+    tableName: "paciente",
     timestamps: false,
+    freezeTableName: true,
   }
 );
 

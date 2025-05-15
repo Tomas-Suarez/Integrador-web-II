@@ -1,28 +1,34 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("./db");
+const Ala = require("./AlaModels");
 
 class Habitacion extends Model {}
 
 Habitacion.init(
   {
-    id_Habitacion: {
+    id_habitacion: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    Ala: {
+    id_ala: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: Ala,
+        key: "id_ala",
+      },
+      onDelete: "CASCADE",
+    },
+    genero: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Genero: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    Numero: {
+    numero: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    Capacidad: {
+    capacidad: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
@@ -30,6 +36,8 @@ Habitacion.init(
   {
     sequelize,
     modelName: "Habitacion",
+    tableName: "habitacion",
+    freezeTableName: true,
     timestamps: false,
   }
 );

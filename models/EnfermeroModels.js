@@ -1,36 +1,48 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("./db");
+const Turno = require("./TurnoModels");
 
 class Enfermero extends Model {}
 
 Enfermero.init(
   {
-    id_Enfermero: {
+    id_enfermero: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    Nombre: {
+    id_turno: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: Turno,
+        key: "id_turno",
+      },
+      onDelete: "CASCADE",
+    },
+    nombre: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Apellido: {
+    apellido: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Genero: {
+    genero: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Matricula: {
+    documento: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
-    Turno: {
+    matricula: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
-    Estado: {
+    estado: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
     },
@@ -38,6 +50,8 @@ Enfermero.init(
   {
     sequelize,
     modelName: "Enfermero",
+    tableName: "enfermero",
+    freezeTableName: true,
     timestamps: false,
   }
 );

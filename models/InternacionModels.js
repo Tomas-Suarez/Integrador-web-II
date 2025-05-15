@@ -1,14 +1,13 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("./db");
 const Paciente = require("./PacienteModels");
-const Medico = require("./MedicoModels");
-const Tipo = require("./TipoIngresoModels");
+const Motivo = require("./MotivoInternacionModels");
 
-class Admision extends Model {}
+class Internacion extends Model {}
 
-Admision.init(
+Internacion.init(
   {
-    id_admision: {
+    id_internacion: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
@@ -22,36 +21,35 @@ Admision.init(
       },
       onDelete: "CASCADE",
     },
-    id_medico: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: Medico,
-        key: "id_medico",
-      },
-      onDelete: "CASCADE",
-    },
-    id_tipo: {
+    id_motivo: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: Tipo,
-        key: "id_tipo",
+        model: Motivo,
+        key: "id_motivo",
       },
       onDelete: "CASCADE",
     },
-    fecha_emision: {
+    fecha_ingreso: {
       type: DataTypes.DATE,
+      allowNull: false,
+    },
+    fecha_salida: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+    estado: {
+      type: DataTypes.BOOLEAN,
       allowNull: false,
     },
   },
   {
     sequelize,
-    modelName: "Admision",
-    tableName: "admision",
-    timestamps: false,
+    modelName: "Internacion",
+    tableName: "internacion",
     freezeTableName: true,
+    timestamps: false,
   }
 );
 
-module.exports = Admision;
+module.exports = Internacion;

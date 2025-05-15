@@ -1,47 +1,49 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("./db");
-const Admision = require("./AdmisionModels");
+const Paciente = require("./PacienteModels");
 
-class AltaHospitalaria extends Model {}
+class ContactoEmergencia extends Model {}
 
-AltaHospitalaria.init(
+ContactoEmergencia.init(
   {
-    id_Alta_Hospitalaria: {
+    id_contacto: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    id_Admision: {
+    id_paciente: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: Admision,
-        key: "id_Admision",
+        model: Paciente,
+        key: "id_paciente",
       },
       onDelete: "CASCADE",
     },
-    Instrucciones_cuidados: {
+    nombre: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Recetas_medicas: {
+    apellido: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Recomendaciones: {
+    telefono: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Activo: {
-      type: DataTypes.BOOLEAN,
+    relacion: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
   },
   {
     sequelize,
-    modelName: "AltaHospitalaria",
+    modelName: "ContactoEmergencia",
+    tableName: "contacto_emergencia",
     timestamps: false,
+    freezeTableName: true,
   }
 );
 
-module.exports = AltaHospitalaria;
+module.exports = ContactoEmergencia;

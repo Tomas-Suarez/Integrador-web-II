@@ -1,40 +1,46 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("./db");
 const Enfermero = require("./EnfermeroModels");
-const Admision = require("./AdmisionModels");
+const Internacion = require("./InternacionModels");
+const Plan = require("./PlanCuidadosModels");
 
 class EvaluacionEnfermeria extends Model {}
 
 EvaluacionEnfermeria.init(
   {
-    id_Evaluacion_Enfermeria: {
+    id_evaluacion_enfermeria: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    id_Enfermero: {
+    id_enfermero: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: Enfermero,
-        key: "id_Enfermero",
+        key: "id_enfermero",
       },
       onDelete: "CASCADE",
     },
-    id_Admision: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-          model: Admision,
-          key: "id_Admision",
-        },
-        onDelete: "CASCADE",
-      },
-    Observaciones: {
-      type: DataTypes.STRING,
+    id_internacion: {
+      type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: Internacion,
+        key: "id_internacion",
+      },
+      onDelete: "CASCADE",
     },
-    Plan_cuidados: {
+    id_plan: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: Plan,
+        key: "id_plan",
+      },
+      onDelete: "CASCADE",
+    },
+    observaciones: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -42,7 +48,9 @@ EvaluacionEnfermeria.init(
   {
     sequelize,
     modelName: "EvaluacionEnfermeria",
+    tableName: "evaluacion_enfermeria",
     timestamps: false,
+    freezeTableName: true,
   }
 );
 

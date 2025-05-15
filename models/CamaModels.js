@@ -6,21 +6,21 @@ class Cama extends Model {}
 
 Cama.init(
   {
-    id_Cama: {
+    id_cama: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    id_Habitacion: {
+    id_habitacion: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: Habitacion,
-        key: "id_Habitacion",
+        key: "id_habitacion",
       },
       onDelete: "CASCADE",
     },
-    Libre: {
+    libre: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
     },
@@ -28,6 +28,8 @@ Cama.init(
   {
     sequelize,
     modelName: "Cama",
+    tableName: "cama",
+    freezeTableName: true,
     timestamps: false,
   }
 );

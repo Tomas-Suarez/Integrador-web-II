@@ -1,36 +1,58 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("./db");
+const Especialidad = require("./EspecialidadModels");
+const Turno = require("./TurnoModels");
 
 class Medico extends Model {}
 
 Medico.init(
   {
-    id_Medico: {
+    id_medico: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    Nombre: {
+    id_especialidad: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: Especialidad,
+        key: "id_especialidad",
+      },
+      onDelete: "CASCADE",
+    },
+    id_turno: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: Turno,
+        key: "id_turno",
+      },
+      onDelete: "CASCADE",
+    },
+    nombre: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Apellido: {
+    apellido: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Genero: {
+    documento: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+    },
+    genero: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Matricula: {
+    matricula: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
-    Especialidad: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    Estado: {
+    estado: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
     },
@@ -38,7 +60,9 @@ Medico.init(
   {
     sequelize,
     modelName: "Medico",
+    tableName: "medico",
     timestamps: false,
+    freezeTableName: true,
   }
 );
 
