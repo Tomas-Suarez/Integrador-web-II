@@ -1,72 +1,98 @@
 const Medico = require("../models/MedicoModels");
+const Guardia = require("../models/GuardiaModels");
+const Especialidad = require("../models/EspecialidadModels");
 
 const getAllMedicos = async () => {
   try {
-    const medicos = await Medico.findAll();
+    const medicos = await Medico.findAll({
+      include: [
+        {
+          model: Especialidad,
+          attributes: ["id_especialidad", "nombre"],
+        },
+        {
+          model: Guardia,
+          attributes: ["id_guardia", "nombre"],
+        },
+      ],
+    });
     return medicos;
   } catch (error) {
-    throw new Error(
-      "Ocurrio un error al obtener los medicos: " + error.message
-    );
+    throw new Error("Ocurrió un error al obtener los médicos: " + error.message);
   }
 };
 
 const createMedico = async (datos) => {
   try {
-    const [medico, creado] = await Medico.findOrCreate({
-      where: { Matricula: datos.Matricula },
-      defaults: {
-        Nombre: datos.Nombre,
-        Apellido: datos.Apellido,
-        Genero: datos.Genero,
-        Especialidad: datos.Especialidad,
-        Estado: datos.Estado,
-      },
+    const existeMatricula = await Medico.findOne({
+      where: { matricula: datos.matricula },
     });
-    return { medico, creado };
+
+    if (existeMatricula) {
+      throw new Error("La matrícula ya está registrada.");
+    }
+
+    const existeDocumento = await Medico.findOne({
+      where: { documento: datos.documento },
+    });
+
+    if (existeDocumento) {
+      throw new Error("El documento ya está registrado.");
+    }
+
+    const medico = await Medico.create({
+      nombre: datos.nombre,
+      apellido: datos.apellido,
+      genero: datos.genero,
+      documento: datos.documento,
+      matricula: datos.matricula,
+      id_especialidad: datos.id_especialidad,
+      id_guardia: datos.id_guardia,
+      estado: datos.estado,
+    });
+
+    return { medico, creado: true };
   } catch (error) {
-    throw new Error("Ocurrio un error al crear el medico" + error.message);
+    throw new Error("Ocurrió un error al crear el médico: " + error.message);
   }
 };
 
 const updateMedico = async (datos) => {
   try {
-    const [MedicoActualizado] = await Medico.update(
+    const [actualizado] = await Medico.update(
       {
-        Nombre: datos.Nombre,
-        Apellido: datos.Apellido,
-        Genero: datos.Genero,
-        Matricula: datos.Matricula,
-        Especialidad: datos.Especialidad,
+        nombre: datos.nombre,
+        apellido: datos.apellido,
+        genero: datos.genero,
+        matricula: datos.matricula,
+        id_especialidad: datos.id_especialidad,
+        id_guardia: datos.id_guardia,
       },
       {
         where: {
-          id_Medico: datos.id_Medico,
+          id_medico: datos.id_medico,
         },
       }
     );
-    if (MedicoActualizado === 0) {
-      throw new Error("No se encontro ningun medico para actualizar!");
+    if (actualizado === 0) {
+      throw new Error("No se encontró ningún médico para actualizar.");
     }
   } catch (error) {
-    throw new Error("Ocurrio un error al actualizar el medico" + error.message);
+    throw new Error("Ocurrió un error al actualizar el médico: " + error.message);
   }
 };
 
 const changeStatusMedico = async (datos) => {
   try {
-    const [MedicoActualizado] = await Medico.update(
-      { Estado: datos.Estado },
-      { where: { id_Medico: datos.id_Medico } }
+    const [actualizado] = await Medico.update(
+      { estado: datos.estado },
+      { where: { id_medico: datos.id_medico } }
     );
-
-    if (MedicoActualizado === 0) {
-      throw new Error("No se encontro ningun medico para cambiar el estado!");
+    if (actualizado === 0) {
+      throw new Error("No se encontró ningún médico para cambiar el estado.");
     }
   } catch (error) {
-    throw new Error(
-      "Ocurrio un error al cambiar el estado del medico" + error.message
-    );
+    throw new Error("Ocurrió un error al cambiar el estado del médico: " + error.message);
   }
 };
 

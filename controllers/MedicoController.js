@@ -1,9 +1,13 @@
-const medicoService = require("../service/MedicoService");
+const MedicoService = require("../service/MedicoService");
+const GuardiaService = require("../service/GuardiaService");
+const EspecialidadService = require("../service/EspecialidadService");
 
 const getAllMedico = async (req, res) => {
   try {
-    const medicos = await medicoService.getAllMedicos();
-    res.render("Medicos/GestionMedicos", { medicos });
+    const medicos = await MedicoService.getAllMedicos();
+    const guardias = await GuardiaService.getAllGuardia();
+    const especialidades = await EspecialidadService.getAllEspecialidad();
+    res.render("Medicos/GestionMedicos", { medicos, guardias, especialidades });
   } catch (error) {
     res
       .status(500)
@@ -14,40 +18,43 @@ const getAllMedico = async (req, res) => {
 const createMedico = async (req, res) => {
   try {
     const datos = {
-      Nombre: req.body.Nombre,
-      Apellido: req.body.Apellido,
-      Genero: req.body.Genero,
-      Matricula: req.body.Matricula,
-      Especialidad: req.body.Especialidad,
-      Estado: true,
+      nombre: req.body.nombre,
+      apellido: req.body.apellido,
+      genero: req.body.genero,
+      documento: req.body.documento,
+      matricula: req.body.matricula,
+      id_especialidad: parseInt(req.body.id_especialidad),
+      id_guardia: parseInt(req.body.id_guardia),
+      estado: true,
     };
 
-    const { medico, creado } = await medicoService.createMedico(datos);
+    const { medico, creado } = await MedicoService.createMedico(datos);
 
     if (creado) {
       res.redirect("/medicos/GestionMedico/");
     } else {
-      res.status(409).send("Error. El medico ya fue registrado anteriormente!");
+      res.status(409).send("Error. El médico ya fue registrado anteriormente!");
     }
   } catch (error) {
     res
       .status(500)
-      .send("Ocurrio un error al crear el medico: " + error.message);
+      .send("Ocurrió un error al crear el médico: " + error.message);
   }
 };
 
 const updateMedico = async (req, res) => {
   try {
     const datos = {
-      id_Medico: req.body.id_Medico,
-      Nombre: req.body.Nombre,
-      Apellido: req.body.Apellido,
-      Genero: req.body.Genero,
-      Matricula: req.body.Matricula,
-      Especialidad: req.body.Especialidad,
+      id_medico: req.body.id_medico,
+      nombre: req.body.nombre,
+      apellido: req.body.apellido,
+      genero: req.body.genero,
+      matricula: req.body.matricula,
+      id_especialidad: req.body.id_especialidad,
+      id_guardia: req.body.id_guardia,
     };
 
-    await medicoService.updateMedico(datos);
+    await MedicoService.updateMedico(datos);
 
     res.redirect("/medicos/GestionMedico/");
   } catch (error) {
@@ -59,22 +66,27 @@ const updateMedico = async (req, res) => {
 
 const changeStatusMedico = async (req, res) => {
   try {
+    console.log("BODY:", req.body);
     const datos = {
-      id_Medico: req.body.id_Medico,
-      Estado: req.body.Estado === 'true'
+      id_medico: req.body.id_medico,
+      estado: req.body.estado === "true",
     };
 
-    await medicoService.changeStatusMedico(datos);
+    await MedicoService.changeStatusMedico(datos);
 
-    res.redirect("/medicos/GestionMedico");
+    res.redirect("/medicos/GestionMedico/");
   } catch (error) {
-    res.status(500).send("Ocurrió un error al cambiar el estado del medico: " + error.message);
+    res
+      .status(500)
+      .send(
+        "Ocurrió un error al cambiar el estado del medico: " + error.message
+      );
   }
 };
 
-  module.exports = {
-    getAllMedico,
-    createMedico,
-    updateMedico,
-    changeStatusMedico,
-  }
+module.exports = {
+  getAllMedico,
+  createMedico,
+  updateMedico,
+  changeStatusMedico,
+};

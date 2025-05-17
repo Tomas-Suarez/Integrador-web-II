@@ -10,7 +10,7 @@ Guardia.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    nombre_guardia: {
+    nombre: {
       type: DataTypes.STRING,
       allowNull: false,
     },

@@ -12,6 +12,7 @@ const PlanCuidados = require("./PlanCuidadosModels");
 const Tratamiento = require("./TratamientoModels");
 const TipoIngreso = require("./TipoIngresoModels");
 const Especialidad = require("./EspecialidadModels");
+const Guardia = require("./GuardiaModels");
 const ContactoEmergencia = require("./ContactoEmergenciaModels");
 const SeguroMedico = require("./SeguroMedicoModels");
 const MotivoInternacion = require("./MotivoInternacionModels");
@@ -73,6 +74,10 @@ Admision.belongsTo(Medico, { foreignKey: "id_medico" });
 // Relación Medico - Especialidad
 Especialidad.hasMany(Medico, { foreignKey: "id_especialidad" });
 Medico.belongsTo(Especialidad, { foreignKey: "id_especialidad" });
+
+// Relación Medico - Guardia
+Guardia.hasMany(Medico, { foreignKey: "id_guardia" });
+Medico.belongsTo(Guardia, { foreignKey: "id_guardia" });
 
 // Relación Habitacion - Cama
 Habitacion.hasMany(Cama, { foreignKey: "id_habitacion" });

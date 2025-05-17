@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-
   const formPaciente = document.getElementById("form-paciente");
   const modal = document.getElementById("modal-editar");
   const cerrarModalBtn = document.getElementById("cerrar-modal");
@@ -19,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   document.querySelectorAll(".btn-editar").forEach((btn) => {
-      console.log("Paciente:", btn.dataset, "Seguro:", btn.dataset.id_seguro);
+    console.log("Paciente:", btn.dataset, "Seguro:", btn.dataset.id_seguro);
     btn.addEventListener("click", () => {
       formPaciente.action = "/pacientes/actualizar/";
 
@@ -46,7 +45,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
       document.getElementById("edit-fecha_nacimiento").value = fechaFormateada;
-
       document.getElementById("edit-estatura").value = btn.dataset.estatura || "";
       document.getElementById("edit-peso").value = btn.dataset.peso || "";
 
@@ -56,9 +54,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const genero = btn.dataset.genero || "Otro";
-      document.getElementById("edit-genero").value = ["Masculino", "Femenino", "Otro"].includes(genero)
-        ? genero
-        : "Otro";
+      document.getElementById("edit-genero").value =
+        ["Masculino", "Femenino", "Otro"].includes(genero) ? genero : "Otro";
 
       document.getElementById("edit-seguro").value = btn.dataset.id_seguro || "null";
 
