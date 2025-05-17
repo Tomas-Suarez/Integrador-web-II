@@ -1,16 +1,16 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("./db");
 
-class Turno extends Model {}
+class Guardia extends Model {}
 
-Turno.init(
+Guardia.init(
   {
-    id_turno: {
+    id_guardia: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    nombre_turno: {
+    nombre_guardia: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -25,11 +25,11 @@ Turno.init(
   },
   {
     sequelize,
-    modelName: "Turno",
-    tableName: "turno",
+    modelName: "Guardia",
+    tableName: "guardia",
     freezeTableName: true,
     timestamps: false,
   }
 );
 
-module.exports = Turno;
+module.exports = Guardia;

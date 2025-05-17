@@ -1,30 +1,36 @@
 const pacienteService = require("../service/PacienteService");
+const SeguroService = require("../service/SeguroMedicoService");
 
 const getAllPacientes = async (req, res) => {
   try {
     const pacientes = await pacienteService.getAllPacientes();
-    res.render("Admision/Gestion", { pacientes });
+    const seguros = await SeguroService.getAllSegurosMedicos();
+    res.render("Paciente/GestionPaciente", { pacientes, seguros });
   } catch (error) {
     res
       .status(500)
-      .send("Ocurrio un error en obtener los pacientes.."+ error.message);
+      .send("Ocurrio un error en obtener los pacientes.." + error.message);
   }
 };
 
 const createPaciente = async (req, res) => {
   try {
+    const idSeguro =
+      req.body.id_seguro === "null" || req.body.id_seguro === ""
+        ? null
+        : parseInt(req.body.id_seguro);
+
     const datos = {
-      Nombre: req.body.Nombre,
-      Apellido: req.body.Apellido,
-      Documento: req.body.Documento,
-      Telefono: req.body.Telefono,
-      Domicilio: req.body.Domicilio,
-      Edad: parseInt(req.body.Edad),
-      Genero: req.body.Genero,
-      Estatura: parseFloat(req.body.Estatura),
-      Peso: parseFloat(req.body.Peso),
-      Contacto_emergencia: req.body.Contacto_emergencia,
-      Seguro_medico: req.body.Seguro_medico === "true",
+      nombre: req.body.nombre,
+      apellido: req.body.apellido,
+      documento: req.body.documento,
+      telefono: req.body.telefono,
+      domicilio: req.body.domicilio,
+      fecha_nacimiento: req.body.fecha_nacimiento,
+      genero: req.body.genero,
+      estatura: parseFloat(req.body.estatura),
+      peso: parseFloat(req.body.peso),
+      id_seguro: idSeguro,
     };
 
     const { paciente, creado } = await pacienteService.createPaciente(datos);
@@ -39,35 +45,35 @@ const createPaciente = async (req, res) => {
   } catch (error) {
     res
       .status(500)
-      .send("Ocurrio un error al crear el paciente: " + error.message);
+      .send("Ocurrió un error al crear el paciente: " + error.message);
   }
 };
 
-
 const updatePaciente = async (req, res) => {
   try {
+    const idSeguro =
+      req.body.id_seguro === "null" || req.body.id_seguro === ""
+        ? null
+        : parseInt(req.body.id_seguro);
+
     const datos = {
-      id_Paciente: req.body.id_Paciente,
-      Nombre: req.body.Nombre,
-      Apellido: req.body.Apellido,
-      Documento: req.body.Documento,
-      Telefono: req.body.Telefono,
-      Domicilio: req.body.Domicilio,
-      Edad: parseInt(req.body.Edad),
-      Genero: req.body.Genero,
-      Estatura: parseFloat(req.body.Estatura),
-      Peso: parseFloat(req.body.Peso),
-      Contacto_emergencia: req.body.Contacto_emergencia,
-      Seguro_medico: req.body.Seguro_medico === "true",
+      id_paciente: req.body.id_paciente,
+      nombre: req.body.nombre,
+      apellido: req.body.apellido,
+      documento: req.body.documento,
+      telefono: req.body.telefono,
+      domicilio: req.body.domicilio,
+      fecha_nacimiento: req.body.fecha_nacimiento,
+      genero: req.body.genero,
+      estatura: parseFloat(req.body.estatura),
+      peso: parseFloat(req.body.peso),
+      id_seguro: idSeguro,
     };
 
     await pacienteService.updatePaciente(datos);
 
-    console.log("soy datos");
-    console.log(datos);
     res.redirect("/pacientes/GestionPaciente");
   } catch (error) {
-    console.log("soy un error");
     res
       .status(500)
       .send("Ocurrió un error al actualizar el paciente: " + error.message);

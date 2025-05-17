@@ -1,21 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const pacientecontroller = require("../controllers/PacienteController");
+const pacienteController = require("../controllers/PacienteController");
 const { validarPaciente } = require("../middlewares/pacienteValidator");
 const { validationResult } = require("express-validator");
 
-router.get("/GestionPaciente", pacientecontroller.getAllPacientes);
-
-router.get("/registro", (req, res) => {
-  res.render("Pacientes/RegistrarPaciente");
-});
-
+// Crear paciente
 router.post(
   "/registro",
   validarPaciente,
-  (req, res, next) => {
+  async (req, res, next) => {
     const errors = validationResult(req);
-    console.log(errors)
     if (!errors.isEmpty()) {
       return res.status(400).render("Pacientes/RegistrarPaciente", {
         errors: errors.array(),
@@ -24,9 +18,14 @@ router.post(
     }
     next();
   },
-  pacientecontroller.createPaciente
+  pacienteController.createPaciente
 );
 
-router.post("/actualizar", pacientecontroller.updatePaciente);
+
+// Actualizar paciente
+router.post("/actualizar", pacienteController.updatePaciente);
+
+// Mostrar todos los pacientes
+router.get("/GestionPaciente", pacienteController.getAllPacientes);
 
 module.exports = router;

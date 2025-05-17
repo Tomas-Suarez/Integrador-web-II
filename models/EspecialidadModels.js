@@ -14,10 +14,6 @@ Especialidad.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    descripcion: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
   },
   {
     sequelize,

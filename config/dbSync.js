@@ -19,7 +19,7 @@ require("../models/SeguroMedicoModels");
 require("../models/TipoIngresoModels");
 require("../models/TratamientoModels");
 require("../models/AlaModels");
-require("../models/TurnoModels");
+require("../models/GuardiaModels");
 
 
 (async () => {

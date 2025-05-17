@@ -1,0 +1,61 @@
+//- mixin para una fila de paciente
+mixin filaPaciente(paciente)
+  tr
+    td= paciente.nombre
+    td= paciente.apellido
+    td.edad(data-fecha=paciente.fecha_nacimiento)
+    td= paciente.genero
+    td= paciente.documento
+    if paciente.SeguroMedico
+      td= paciente.SeguroMedico.nombre
+    else
+      td Sin seguro
+    td 
+      button.btn-editar(
+        type="button",
+        data-id=paciente.id_paciente,
+        data-nombre=paciente.nombre,
+        data-apellido=paciente.apellido,
+        data-fecha_nacimiento=paciente.fecha_nacimiento,
+        data-genero=paciente.genero,
+        data-documento=paciente.documento,
+        data-telefono=paciente.telefono,
+        data-domicilio=paciente.domicilio,
+        data-estatura=paciente.estatura,
+        data-peso=paciente.peso,
+        data-contacto_emergencia=paciente.contacto_emergencia,
+        data-id_seguro=paciente.id_seguro
+      ) Editar
+      a.btn-historial(href=`/pacientes/historial/${paciente.id_paciente}`) Historial
+
+//- mixin para la tabla de pacientes
+mixin tablaPacientes(pacientes)
+  .contenido
+    h1 Lista de Pacientes
+    button#btn-abrir-crearPaciente.btn-crearPaciente Crear Paciente
+    table#TablaPaciente
+      thead
+        tr
+          th Nombre
+          th Apellido
+          th Edad
+          th Género
+          th Documento
+          th Seguro médico
+          th Acciones
+      tbody
+        each paciente in pacientes
+          +filaPaciente(paciente)
+
+  //- Script para calcular la edad
+  script. 
+    document.querySelectorAll('.edad').forEach(td => {
+      const fecha = new Date(td.dataset.fecha);
+      const hoy = new Date();
+      let edad = hoy.getFullYear() - fecha.getFullYear();
+      const mes = hoy.getMonth() - fecha.getMonth();
+      if (mes < 0 || (mes === 0 && hoy.getDate() < fecha.getDate())) {
+        edad--;
+      }
+      td.textContent = `${edad} años`;
+    });

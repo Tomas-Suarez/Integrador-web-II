@@ -1,6 +1,6 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("./db");
-const Turno = require("./TurnoModels");
+const Guardia = require("./GuardiaModels");
 
 class Enfermero extends Model {}
 
@@ -11,12 +11,12 @@ Enfermero.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    id_turno: {
+    id_guardia: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: Turno,
-        key: "id_turno",
+        model: Guardia,
+        key: "id_guardia",
       },
       onDelete: "CASCADE",
     },

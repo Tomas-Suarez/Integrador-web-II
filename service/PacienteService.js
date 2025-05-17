@@ -1,12 +1,18 @@
 const Paciente = require("../models/PacienteModels");
+const SeguroMedico = require("../models/SeguroMedicoModels");
 
 const getAllPacientes = async () => {
   try {
-    const pacientes = await Paciente.findAll();
+    const pacientes = await Paciente.findAll({
+      include: {
+        model: SeguroMedico,
+        attributes: ["id_seguro", "nombre"],
+      },
+    });
     return pacientes;
   } catch (error) {
     throw new Error(
-      "Ocurrio un error al obtener los pacientes: " + error.message
+      "Ocurrió un error al obtener los pacientes: " + error.message
     );
   }
 };
@@ -14,18 +20,17 @@ const getAllPacientes = async () => {
 const createPaciente = async (datos) => {
   try {
     const [paciente, creado] = await Paciente.findOrCreate({
-      where: { Documento: datos.Documento },
+      where: { documento: datos.documento },
       defaults: {
-        Nombre: datos.Nombre,
-        Apellido: datos.Apellido,
-        Telefono: datos.Telefono,
-        Domicilio: datos.Domicilio,
-        Edad: datos.Edad,
-        Genero: datos.Genero,
-        Estatura: datos.Estatura,
-        Peso: datos.Peso,
-        Contacto_emergencia: datos.Contacto_emergencia,
-        Seguro_medico: datos.Seguro_medico,
+        nombre: datos.nombre,
+        apellido: datos.apellido,
+        telefono: datos.telefono,
+        domicilio: datos.domicilio,
+        fecha_nacimiento: datos.fecha_nacimiento,
+        genero: datos.genero,
+        estatura: datos.estatura,
+        peso: datos.peso,
+        id_seguro: datos.id_seguro,
       },
     });
     return { paciente, creado };
@@ -38,21 +43,20 @@ const updatePaciente = async (datos) => {
   try {
     const [pacienteActualizado] = await Paciente.update(
       {
-        Nombre: datos.Nombre,
-        Apellido: datos.Apellido,
-        Telefono: datos.Telefono,
-        Domicilio: datos.Domicilio,
-        Documento: datos.Documento,
-        Edad: datos.Edad,
-        Genero: datos.Genero,
-        Estatura: datos.Estatura,
-        Peso: datos.Peso,
-        Contacto_emergencia: datos.Contacto_emergencia,
-        Seguro_medico: datos.Seguro_medico,
+        nombre: datos.nombre,
+        apellido: datos.apellido,
+        telefono: datos.telefono,
+        domicilio: datos.domicilio,
+        documento: datos.documento,
+        fecha_nacimiento: datos.fecha_nacimiento,
+        genero: datos.genero,
+        estatura: datos.estatura,
+        peso: datos.peso,
+        id_seguro: datos.id_seguro,
       },
       {
         where: {
-          id_Paciente: datos.id_Paciente,
+          id_paciente: datos.id_paciente,
         },
       }
     );
