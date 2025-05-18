@@ -1,0 +1,242 @@
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.contenido {
+  flex: 1;
+  padding: 20px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+#TablaPaciente {
+  width: 100%;
+  border-radius: 8px;
+  font-weight: 300;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+}
+
+#TablaPaciente thead th {
+  background-color: #28b3ca;
+  color: rgb(0, 0, 0);
+  padding: 12px;
+  text-align: left;
+}
+
+#TablaPaciente td {
+  background-color: #8bd9e4;
+  border: 1px solid #bcecf2;
+  border-radius: 3px;
+  padding: 10px;
+}
+
+
+button, .btn-editar, .btn-historial {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+/* MODAL */
+#modal-editar {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-contenido {
+  background: #eeffff;
+  padding: 30px;
+  border-radius: 8px;
+  width: 400px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.hidden {
+  display: none !important;
+}
+
+.modal-contenido input,
+.modal-contenido select {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.modal-contenido button[type="submit"] {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.modal-contenido button#cerrar-modal {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.icono-info {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+/* Botón Historial */
+.historial-boton {
+  display: inline-flex;
+  align-items: center;
+  background-color: #c48b22;
+  color: #e6e1e1;
+  font-weight: bold;
+  padding: 6px 10px;
+  border-radius: 4px;
+  text-align: center;
+  border: 1px solid #81d4fa;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.historial-boton:hover {
+  background-color: #eea620;
+}
+
+/* Botón Información */
+.informacion-boton {
+  display: inline-flex;
+  align-items: center;
+  background-color: #2143db;
+  padding: 6px 10px;
+  border-radius: 4px;
+  color: #e6e1e1;
+  font-weight: bold;
+  border: 1px solid #90caf9;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.informacion-boton:hover {
+  background-color: #3756db;
+}
+
+/* Botón Editar */
+.editar-boton {
+  display: inline-flex;
+  align-items: center;
+  background-color: #2a9e64;
+  padding: 6px 10px;
+  border-radius: 4px;
+  color: #e6e1e1;
+  font-weight: bold;
+  border: 1px solid #1e7e34;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Botón Contacto Emergencia */
+.contacto-boton {
+  display: inline-flex;
+  align-items: center;
+  background-color: #b62b59;
+  padding: 6px 10px;
+  border-radius: 4px;
+  color: #e6e1e1;
+  font-weight: bold;
+  border: 1px solid #90caf9;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.contacto-boton:hover {
+  background-color: #af3f65;
+}
+
+.editar-boton:hover {
+  background-color: #1ba179;
+}
+
+/* Columna accion */
+#TablaPaciente td:last-child,
+#TablaPaciente th:last-child {
+  white-space: nowrap;
+  width: 1%;
+}
+
+.estado-indicador {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+.estado-indicador.activo {
+  background-color: #4CAF50;
+}
+.estado-indicador.inactivo {
+  background-color: #F44336;
+}
+
+.estado-boton-verde {
+  display: inline-flex;
+  align-items: center;
+  background-color: #28a745;
+  color: #e6e1e1;
+  font-weight: bold;
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: 1px solid #1e7e34;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.estado-boton-verde:hover {
+  background-color: #218838;
+}
+
+.estado-boton-rojo {
+  display: inline-flex;
+  align-items: center;
+  background-color: #dc3545;
+  color: #e6e1e1;
+  font-weight: bold;
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: 1px solid #c82333;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.estado-boton-rojo:hover {
+  background-color: #c82333;
+}
+
+button, .btn-editar, .btn-historial, .btn-cambiar-estado, 
+.historial-boton, .informacion-boton, .editar-boton, 
+.estado-boton-verde, .estado-boton-rojo {
+  font-family: 'Arial', sans-serif; /* o la que uses en el sitio */
+  font-weight: bold;
+  font-size: 14px; /* podés ajustar */
+  color: #e6e1e1; /* para que todos los textos tengan el mismo color */
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+}
+

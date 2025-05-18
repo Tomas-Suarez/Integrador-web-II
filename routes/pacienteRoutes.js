@@ -28,4 +28,7 @@ router.post("/actualizar", pacienteController.updatePaciente);
 // Mostrar todos los pacientes
 router.get("/GestionPaciente", pacienteController.getAllPacientes);
 
+// Cambiar el estado del paciente
+router.post("/cambiar-estado", pacienteController.changeStatusPaciente);
+
 module.exports = router;

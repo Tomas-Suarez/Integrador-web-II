@@ -1,40 +1,29 @@
 const Habitacion = require("../models/HabitacionModels");
 const Cama = require("../models/CamaModels");
+const Ala = require("../models/AlaModels");
 
-const getHabitacionesConCamas = async () => {
+const getAllHabitaciones = async () => {
   try {
     const habitaciones = await Habitacion.findAll({
-      attributes: ["Numero", "Ala", "Genero", "Capacidad"],
+      attributes: ["numero", "genero", "capacidad"],
       include: [
         {
+          model: Ala,
+          attributes: ["nombre"],
+        },
+        {
           model: Cama,
-          as: "camas",
-          attributes: ["Libre"],
+          attributes: ["libre"],
         },
       ],
     });
 
-    const resultado = habitaciones.map((habitacion) => {
-      const camas = habitacion.camas.slice(0, 2);
-      return {
-        Numero: habitacion.Numero,
-        Ala: habitacion.Ala,
-        Genero: habitacion.Genero,
-        Capacidad: habitacion.Capacidad,
-        EstadoCama1: camas[0]?.Libre ?? null,
-        EstadoCama2: camas[1]?.Libre ?? null,
-      };
-    });
-
-    return resultado;
+    return habitaciones;
   } catch (error) {
-    throw new Error("Error al obtener habitaciones y camas: " + error.message);
+    throw new Error("Error al obtener habitaciones: " + error.message);
   }
 };
 
-//Estaria faltando, ver por cual paciente se encuentra ocupada la cama.
-
-
 module.exports = {
-  getHabitacionesConCamas,
+  getAllHabitaciones,
 };

@@ -1,16 +1,16 @@
-const habitacionService = require("../service/HabitacionService");
+const HabitacionService = require("../service/HabitacionService");
 
-const getHabitacionesConCamas = async (req, res) => {
+const getHabitaciones = async (req, res) => {
   try {
-    const habitaciones = await habitacionService.getHabitacionesConCamas();
+    const habitaciones = await HabitacionService.getAllHabitaciones();
     res.render("Habitaciones/ListaHabitacion", { habitaciones });
   } catch (error) {
     res
       .status(500)
-      .send("Ocurrio un error en obtener las habitaciones con las camas.."+ error.message);
+      .send("Ocurrió un error al obtener las habitaciones: " + error.message);
   }
 };
 
 module.exports = {
-    getHabitacionesConCamas,
+  getHabitaciones,
 };

@@ -1,0 +1,13 @@
+include ../includes/formPacientes.pug
+
+mixin modalPaciente(seguros=[])
+  #modal-editar.hidden
+    .modal-contenido
+      h2 Editar Paciente
+      +formPaciente("/pacientes/actualizar", seguros)
+
+mixin modalAdmision(seguros=[])
+  #modal-registrarAdmision.hidden
+    .modal-contenido
+      h2 Registrar Admisión
+      +formPaciente("/admisiones/registrar", seguros)

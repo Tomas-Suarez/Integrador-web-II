@@ -31,6 +31,7 @@ const createPaciente = async (datos) => {
         estatura: datos.estatura,
         peso: datos.peso,
         id_seguro: datos.id_seguro,
+        estado: true,
       },
     });
     return { paciente, creado };
@@ -70,8 +71,23 @@ const updatePaciente = async (datos) => {
   }
 };
 
+const changeStatusPaciente = async (datos) => {
+  try {
+    const [actualizado] = await Paciente.update(
+      { estado: datos.estado },
+      { where: { id_paciente: datos.id_paciente } }
+    );
+    if (actualizado === 0) {
+      throw new Error("No se encontró ningún paciente para cambiar el estado.");
+    }
+  } catch (error) {
+    throw new Error("Ocurrió un error al cambiar el estado del paciente: " + error.message);
+  }
+};
+
 module.exports = {
   getAllPacientes,
   createPaciente,
   updatePaciente,
+  changeStatusPaciente,
 };

@@ -31,6 +31,7 @@ const createPaciente = async (req, res) => {
       estatura: parseFloat(req.body.estatura),
       peso: parseFloat(req.body.peso),
       id_seguro: idSeguro,
+      estado: true,
     };
 
     const { paciente, creado } = await pacienteService.createPaciente(datos);
@@ -80,8 +81,29 @@ const updatePaciente = async (req, res) => {
   }
 };
 
+const changeStatusPaciente = async (req, res) => {
+  try {
+    console.log("BODY:", req.body);
+    const datos = {
+      id_paciente: req.body.id_paciente,
+      estado: req.body.estado === "true",
+    };
+
+    await pacienteService.changeStatusPaciente(datos);
+
+    res.redirect("/pacientes/GestionPaciente");
+  } catch (error) {
+    res
+      .status(500)
+      .send(
+        "Ocurrió un error al cambiar el estado del paciente: " + error.message
+      );
+  }
+};
+
 module.exports = {
   getAllPacientes,
   createPaciente,
   updatePaciente,
+  changeStatusPaciente,
 };

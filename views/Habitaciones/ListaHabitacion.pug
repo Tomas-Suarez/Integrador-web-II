@@ -3,7 +3,7 @@ html(lang="es")
   head
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title Informacion de las habitaciones
+    title Información de las habitaciones
     link(rel="stylesheet", href="/css/ListaPaciente.css")
     link(rel="stylesheet", href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css")
     script(src="https://code.jquery.com/jquery-3.6.0.min.js")
@@ -14,22 +14,22 @@ html(lang="es")
       include ../includes/nav.pug
       +nav()
       .contenido
-        h1 Informacion de las habitaciones
+        h1 Información de las habitaciones
         table#TablaHabitacion
           thead
             tr
-              th N° Habitacion
+              th N° Habitación
               th Ala
-              th Genero permitido 
+              th Género permitido
               th Capacidad
               th Estado Cama N°1
               th Estado Cama N°2
           tbody
-            each habitacion in habitaciones 
+            each habitacion in habitaciones
               tr
-                td= habitacion.Numero
-                td= habitacion.Ala
-                td= habitacion.Genero
-                td= habitacion.Capacidad
-                td= habitacion.EstadoCama1 ? 'Libre' : 'Ocupado'
-                td= habitacion.EstadoCama2 ? 'Libre' : 'Ocupado'
+                td= habitacion.numero
+                td= habitacion.Ala.nombre
+                td= habitacion.genero
+                td= habitacion.capacidad
+                td= habitacion.Camas && habitacion.Camas.length > 0 && habitacion.Camas[0].libre ? 'Libre' : 'Ocupado'
+                td= habitacion.Camas && habitacion.Camas.length > 1 && habitacion.Camas[1].libre ? 'Libre' : 'Ocupado'

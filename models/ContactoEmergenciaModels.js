@@ -14,25 +14,18 @@ ContactoEmergencia.init(
     id_paciente: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      unique: true,
       references: {
         model: Paciente,
         key: "id_paciente",
       },
       onDelete: "CASCADE",
     },
-    nombre: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    apellido: {
+    nombre_completo: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     telefono: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    relacion: {
       type: DataTypes.STRING,
       allowNull: false,
     },
