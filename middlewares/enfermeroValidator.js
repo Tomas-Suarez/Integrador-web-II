@@ -1,12 +1,21 @@
 const { body } = require('express-validator');
 
 const validarEnfermero = [
-    body('Nombre').notEmpty().withMessage('El nombre es un campo obligatorio!'),
-    body('Apellido').notEmpty().withMessage('El apellido es un campo obligatorio!'),
-    body('Genero').notEmpty().withMessage('Selecciona un genero!'),
-    body('Matricula').notEmpty().withMessage('El campo de la matricula es obligatorio!'),
-    body('Turno').notEmpty().withMessage('El campo del turno es obligatorio!'),
+  body('nombre')
+    .notEmpty()
+    .withMessage('El nombre es un campo obligatorio!')
+    .isLength({ min: 2 })
+    .withMessage('El nombre debe tener al menos 2 caracteres.'),
+  
+  body('apellido')
+    .notEmpty()
+    .withMessage('El apellido es un campo obligatorio!')
+    .isLength({ min: 2 })
+    .withMessage('El apellido debe tener al menos 2 caracteres.'),
 
+  body('genero')
+    .notEmpty()
+    .withMessage('Selecciona un género válido!'),
 ];
 
-module.exports = { validarEnfermero } ;
+module.exports = { validarEnfermero };

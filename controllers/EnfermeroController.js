@@ -1,9 +1,11 @@
-const enfermeroService = require("../service/EnfermeroService");
+const EnfermeroService = require("../service/EnfermeroService");
+const GuardiaService = require("../service/GuardiaService");
 
 const getAllEnfermero = async (req, res) => {
   try {
-    const enfermeros = await enfermeroService.getAllEnfermero();
-    res.render("Enfermeros/GestionEnfermeros", { enfermeros });
+    const enfermeros = await EnfermeroService.getAllEnfermeros();
+    const guardias = await GuardiaService.getAllGuardia();
+    res.render("Enfermeros/GestionEnfermeros", { enfermeros, guardias });
   } catch (error) {
     res
       .status(500)
@@ -14,15 +16,16 @@ const getAllEnfermero = async (req, res) => {
 const createEnfermero = async (req, res) => {
   try {
     const datos = {
-      Nombre: req.body.Nombre,
-      Apellido: req.body.Apellido,
-      Genero: req.body.Genero,
-      Matricula: req.body.Matricula,
-      Turno: req.body.Turno,
-      Estado: true,
+      nombre: req.body.nombre,
+      apellido: req.body.apellido,
+      genero: req.body.genero,
+      documento: req.body.documento,
+      matricula: req.body.matricula,
+      id_guardia: parseInt(req.body.id_guardia),
+      estado: true,
     };
 
-    const { enfermero, creado } = await enfermeroService.createEnfermero(datos);
+    const { enfermeros, creado } = await EnfermeroService.createEnfermero(datos);
 
     if (creado) {
       res.redirect("/enfermeros/GestionEnfermero/");
@@ -32,22 +35,22 @@ const createEnfermero = async (req, res) => {
   } catch (error) {
     res
       .status(500)
-      .send("Ocurrio un error al crear el enfermero: " + error.message);
+      .send("Ocurrió un error al crear el enfermero: " + error.message);
   }
 };
 
 const updateEnfermero = async (req, res) => {
   try {
     const datos = {
-      id_Enfermero: req.body.id_Enfermero,
-      Nombre: req.body.Nombre,
-      Apellido: req.body.Apellido,
-      Genero: req.body.Genero,
-      Matricula: req.body.Matricula,
-      Turno: req.body.Turno,
+      id_enfermero: req.body.id_enfermero,
+      nombre: req.body.nombre,
+      apellido: req.body.apellido,
+      genero: req.body.genero,
+      matricula: req.body.matricula,
+      id_guardia: req.body.id_guardia,
     };
 
-    await enfermeroService.updateEnfermero(datos);
+    await EnfermeroService.updateEnfermero(datos);
 
     res.redirect("/enfermeros/GestionEnfermero/");
   } catch (error) {
@@ -59,22 +62,27 @@ const updateEnfermero = async (req, res) => {
 
 const changeStatusEnfermero = async (req, res) => {
   try {
+    console.log("BODY:", req.body);
     const datos = {
-      id_Enfermero: req.body.id_Enfermero,
-      Estado: req.body.Estado === 'true'
+      id_enfermero: req.body.id_enfermero,
+      estado: req.body.estado === "true",
     };
 
-    await enfermeroService.changeStatusEnfermero(datos);
+    await EnfermeroService.changeStatusEnfermero(datos);
 
-    res.redirect("/enfermeros/GestionEnfermero");
+    res.redirect("/enfermeros/GestionEnfermero/");
   } catch (error) {
-    res.status(500).send("Ocurrió un error al cambiar el estado del enfermero: " + error.message);
+    res
+      .status(500)
+      .send(
+        "Ocurrió un error al cambiar el estado del enfermero: " + error.message
+      );
   }
 };
 
-  module.exports = {
-    getAllEnfermero,
-    createEnfermero,
-    updateEnfermero,
-    changeStatusEnfermero,
-  }
+module.exports = {
+  getAllEnfermero,
+  createEnfermero,
+  updateEnfermero,
+  changeStatusEnfermero,
+};
