@@ -1,0 +1,49 @@
+//- mixin para una fila de pacientes activos
+mixin filaPaciente(paciente)
+  tr
+    td= paciente.documento
+    td= paciente.nombre
+    td= paciente.apellido
+    td.edad(data-fecha=paciente.fecha_nacimiento)
+    td= paciente.genero
+    td
+      button.btn-abrir-Registro(type="button"
+        data-id=paciente.id_paciente
+        data-nombre=paciente.nombre
+        data-apellido=paciente.apellido
+        data-fecha_nacimiento=paciente.fecha_nacimiento,
+        data-documento=paciente.documento)
+        span.editar-boton
+          img.icono-info(src="/img/icon-crearPaciente.png", alt="crear")
+          |  Registrar admisión
+    
+
+//- mixin para la tabla de pacientes
+mixin tablaPacientes(pacientes)
+  .contenido
+    h1 Registro de admision
+    table#TablaPaciente
+      thead
+        tr
+          th Documento
+          th Nombre
+          th Apellido
+          th Edad
+          th Género
+          th Accion
+      tbody
+        each paciente in pacientes
+          +filaPaciente(paciente)
+
+  //- Script para calcular la edad
+  script.
+    document.querySelectorAll('.edad').forEach(td => {
+      const fecha = new Date(td.dataset.fecha);
+      const hoy = new Date();
+      let edad = hoy.getFullYear() - fecha.getFullYear();
+      const mes = hoy.getMonth() - fecha.getMonth();
+      if (mes < 0 || (mes === 0 && hoy.getDate() < fecha.getDate())) {
+        edad--;
+      }
+      td.textContent = `${edad} años`;
+    });

@@ -71,10 +71,6 @@ EvaluacionMedica.belongsTo(Medico, { foreignKey: "id_medico" });
 TipoIngreso.hasMany(Admision, { foreignKey: "id_tipo" });
 Admision.belongsTo(TipoIngreso, { foreignKey: "id_tipo" });
 
-// Relación Admision - Medico
-Medico.hasMany(Admision, { foreignKey: "id_medico" });
-Admision.belongsTo(Medico, { foreignKey: "id_medico" });
-
 // Relación Medico - Especialidad
 Especialidad.hasMany(Medico, { foreignKey: "id_especialidad" });
 Medico.belongsTo(Especialidad, { foreignKey: "id_especialidad" });

@@ -1,0 +1,30 @@
+mixin formAdmision(action="/admisiones/registrar")
+  h1 Registrar admisión
+  h5 Datos sobre el paciente
+  br
+  form#form-admision(method="POST", action=action)
+    input(type="hidden", name="id_paciente", id="llenar-id")
+    div
+      label(for="llenar-nombre") Nombre:
+      input(type="text", name="nombre", id="llenar-nombre", readonly)
+    div
+      label(for="llenar-apellido") Apellido:
+      input(type="text", name="apellido", id="llenar-apellido", readonly)
+    div
+      label(for="llenar-fechaNacimiento") Fecha de nacimiento:
+      input(type="text", name="fechaNacimiento", id="llenar-fechaNacimiento", readonly)
+    div
+      label(for="llenar-documento") Documento:
+      input(type="text", name="documento", id="llenar-documento", readonly)
+    div
+      label(for="registro-tipo") Seguro médico:
+      select(name="id_tipo", id="registro-tipo", required)
+        option(disabled selected value="") -- Seleccione el ingreso --
+        each ingreso in ingresos
+          option(value=ingreso.id_tipo)= ingreso.detalles
+    div
+      label(for="registro-detalles") Detalles:
+      input(type="text", name="detalles", id="registro-detalles")
+    div
+      button(type="submit") Admitir paciente
+      button(type="button", id="cerrar-modal") Cancelar

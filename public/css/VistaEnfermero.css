@@ -10,21 +10,21 @@
   box-sizing: border-box;
 }
 
-#TablaPaciente {
+#TablaEnfermero {
   width: 100%;
   border-radius: 8px;
   font-weight: 300;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
 }
 
-#TablaPaciente thead th {
+#TablaEnfermero thead th {
   background-color: #28b3ca;
   color: rgb(0, 0, 0);
   padding: 12px;
   text-align: left;
 }
 
-#TablaPaciente td {
+#TablaEnfermero td {
   background-color: #8bd9e4;
   border: 1px solid #bcecf2;
   border-radius: 3px;
@@ -173,8 +173,8 @@ button, .btn-editar, .btn-historial {
 }
 
 /* Columna accion */
-#TablaPaciente td:last-child,
-#TablaPaciente th:last-child {
+#TablaEnfermero td:last-child,
+#TablaEnfermero th:last-child {
   white-space: nowrap;
   width: 1%;
 }

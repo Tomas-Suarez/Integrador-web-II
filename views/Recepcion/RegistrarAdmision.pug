@@ -3,21 +3,20 @@ html(lang="es")
   head
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title Gestion de pacientes
+    title Registrar admision
     link(rel="stylesheet", href="/css/VistaPaciente.css")
     link(rel="stylesheet", href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css")
     script(src="https://code.jquery.com/jquery-3.6.0.min.js")
     script(src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js")
     script(src="/js/DataTablePaciente.js")
-    script(src="/js/paciente.js")
+    script(src="/js/Admision.js")
   body
     .container
       include ../includes/nav.pug
       include includes/tablaPaciente.pug
-      include includes/modalPaciente.pug
-      include includes/formPacientes.pug
+      include includes/modalAdmision.pug
+      include includes/formAdmision.pug
 
       +nav()
       +tablaPacientes(pacientes)
-      +modalPaciente(seguros)
-      +modalAdmision(seguros)
+      +modalAdmision()

@@ -13,6 +13,18 @@ const getAllPacientes = async (req, res) => {
   }
 };
 
+//Para la admision
+const getAllPacientesActivos = async (req, res) => {
+  try {
+    const pacientes = await pacienteService.getAllPacientesActivos();
+    res.render("Recepcion/RegistrarAdmision", { pacientes });
+  } catch (error) {
+    res
+      .status(500)
+      .send("Ocurrio un error en obtener los pacientes.." + error.message);
+  }
+};
+
 const createPaciente = async (req, res) => {
   try {
     const idSeguro =
@@ -103,6 +115,7 @@ const changeStatusPaciente = async (req, res) => {
 
 module.exports = {
   getAllPacientes,
+  getAllPacientesActivos,
   createPaciente,
   updatePaciente,
   changeStatusPaciente,

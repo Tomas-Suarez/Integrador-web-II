@@ -22,15 +22,6 @@ Admision.init(
       },
       onDelete: "CASCADE",
     },
-    id_medico: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: Medico,
-        key: "id_medico",
-      },
-      onDelete: "CASCADE",
-    },
     id_tipo: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -42,6 +33,14 @@ Admision.init(
     },
     fecha_emision: {
       type: DataTypes.DATE,
+      allowNull: false,
+    },
+    detalles: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    estado: {
+      type: DataTypes.BOOLEAN,
       allowNull: false,
     },
   },

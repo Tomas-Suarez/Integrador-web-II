@@ -17,6 +17,19 @@ const getAllPacientes = async () => {
   }
 };
 
+const getAllPacientesActivos = async () => {
+  try {
+    const pacientes = await Paciente.findAll({
+      where: { estado: true },
+    });
+    return pacientes;
+  } catch (error) {
+    throw new Error(
+      "Ocurrió un error al obtener los pacientes activos: " + error.message
+    );
+  }
+};
+
 const createPaciente = async (datos) => {
   try {
     const [paciente, creado] = await Paciente.findOrCreate({
@@ -87,6 +100,7 @@ const changeStatusPaciente = async (datos) => {
 
 module.exports = {
   getAllPacientes,
+  getAllPacientesActivos,
   createPaciente,
   updatePaciente,
   changeStatusPaciente,

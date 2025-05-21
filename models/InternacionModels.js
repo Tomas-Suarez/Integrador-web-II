@@ -1,6 +1,6 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("./db");
-const Paciente = require("./PacienteModels");
+const Admision = require("./AdmisionModels");
 const Motivo = require("./MotivoInternacionModels");
 
 class Internacion extends Model {}
@@ -12,12 +12,12 @@ Internacion.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    id_paciente: {
+    id_admision: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: Paciente,
-        key: "id_paciente",
+        model: Admision,
+        key: "id_admision",
       },
       onDelete: "CASCADE",
     },

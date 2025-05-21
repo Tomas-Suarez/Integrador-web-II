@@ -7,10 +7,10 @@ mixin nav()
             li
                 a(href="#", class="nav-item") 
                     img(src="/img/icon-admision.png", alt="admision")
-                    | Admisiones 
+                    | Recepcion 
                 ul.submenu
-                    li: a(href="/pacientes/GestionPaciente/") Gestionar pacientes
-                    li: a(href="*") Consultar historial de admisiones
+                    li: a(href="/pacientes/RegistrarAdmision/") Registrar admisiones
+                    li: a(href="*") Gestion de internaciones
             li
                 a(href="#", class="nav-item") 
                     img(src="/img/icon-paciente.png", alt="admision")
@@ -20,14 +20,14 @@ mixin nav()
             li
                 a(href="#", class="nav-item")
                     img(src="/img/icon-medico.png", alt="enfemera")
-                    | Medicos y enfermeros 
+                    | Personal de salud
                 ul.submenu
                     li: a(href="/medicos/GestionMedico/") Ver lista de Medicos
                     li: a(href="/enfermeros/GestionEnfermero/") Ver lista de Enfermeros
             li
                 a(href="#", class="nav-item")  
                     img(src="/img/icon-habitacion.png", alt="habitacion")
-                    | Habitaciones y Camas
+                    | Habitaciones
                 ul.submenu
                     li: a(href="/habitaciones/ListaHabitacion/") Consultar estado de las habitaciones
             li

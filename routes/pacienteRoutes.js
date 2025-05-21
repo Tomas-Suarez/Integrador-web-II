@@ -28,6 +28,10 @@ router.post("/actualizar", pacienteController.updatePaciente);
 // Mostrar todos los pacientes
 router.get("/GestionPaciente", pacienteController.getAllPacientes);
 
+//Mostrar todos los pacientes activos en mi admision
+router.get("/RegistrarAdmision", pacienteController.getAllPacientesActivos);
+
+
 // Cambiar el estado del paciente
 router.post("/cambiar-estado", pacienteController.changeStatusPaciente);
 
