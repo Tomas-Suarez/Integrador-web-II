@@ -4,6 +4,7 @@ mixin formAdmision(action="/admisiones/registrar")
   br
   form#form-admision(method="POST", action=action)
     input(type="hidden", name="id_paciente", id="llenar-id")
+    input(type="hidden", id="genero-paciente", value="")
     div
       label(for="llenar-nombre") Nombre:
       input(type="text", name="nombre", id="llenar-nombre", readonly)
@@ -11,17 +12,33 @@ mixin formAdmision(action="/admisiones/registrar")
       label(for="llenar-apellido") Apellido:
       input(type="text", name="apellido", id="llenar-apellido", readonly)
     div
-      label(for="llenar-fechaNacimiento") Fecha de nacimiento:
-      input(type="text", name="fechaNacimiento", id="llenar-fechaNacimiento", readonly)
-    div
       label(for="llenar-documento") Documento:
       input(type="text", name="documento", id="llenar-documento", readonly)
     div
-      label(for="registro-tipo") Seguro médico:
+      label(for="registro-tipo") Via de ingreso:
       select(name="id_tipo", id="registro-tipo", required)
         option(disabled selected value="") -- Seleccione el ingreso --
         each ingreso in ingresos
-          option(value=ingreso.id_tipo)= ingreso.detalles
+          option(value=ingreso.id_tipo)= ingreso.descripcion
+    div
+      label(for="registro-motivo") Motivo:
+      select(name="id_motivo", id="registro-motivo", required)
+        option(disabled selected value="") -- Seleccione el motivo --
+        each motivo in motivos
+          option(value=motivo.id_motivo)= motivo.descripcion
+    div
+      label(for="llenar-fecharInternar") Fecha para internar:
+      input(type="date", name="fechaInternar", id="llenar-fecharInternar")
+    div
+      label(for="registro-ala") Ala:
+      select(name="id_ala", id="registro-ala", required)
+        option(disabled selected value="") -- Seleccione el Ala --
+        each ala in alas
+          option(value=ala.id_ala)= ala.nombre
+    div
+      label(for="registro-habitacion") Habitación:
+      select(name="id_habitacion", id="registro-habitacion", required)
+        option(disabled selected value="") -- Seleccione la habitación --
     div
       label(for="registro-detalles") Detalles:
       input(type="text", name="detalles", id="registro-detalles")

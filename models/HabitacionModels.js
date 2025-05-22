@@ -20,10 +20,6 @@ Habitacion.init(
       },
       onDelete: "CASCADE",
     },
-    genero: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
     numero: {
       type: DataTypes.INTEGER,
       allowNull: false,

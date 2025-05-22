@@ -18,24 +18,54 @@ const getAllAdmisiones = async () => {
   }
 };
 
+// Control para ver si tenemos una admision activa, para evitar duplicados
+const getAdmisionActivaByPaciente = async (id_paciente) => {
+  try {
+    const admisionActiva = await Admision.findOne({
+      where: {
+        id_paciente,
+        estado: true,
+      },
+    });
+    return admisionActiva;
+  } catch (error) {
+    throw new Error("Ocurrio un error al obtener la admision activa");
+  }
+};
+
 // Crea la admision
+
 const createAdmision = async (datos) => {
   try {
+    // REVISAR, Si un paciente es NN (Se salta la verificacion) - ANOTACION //
+
+    //Si no es paciente NN, revisa si existe una admision activa
+    if (datos.id_paciente !== 1) {
+      const admisionExistente = await getAdmisionActivaByPaciente(
+        datos.id_paciente
+      );
+      if (admisionExistente) {
+        return { admision: null, creado: false };
+      }
+    }
+
+    // Crear la admisión
     const admision = await Admision.create({
       id_paciente: datos.id_paciente,
       id_tipo: datos.id_tipo,
-      fecha_emision: new Date(), //Nos devuelve la fecha actual de nuestra "Base de datos"
+      id_motivo: datos.id_motivo,
+      fecha_entrada: datos.fecha_entrada,
       detalles: datos.detalles,
-      estado: true, //El estado de la admision, esta iniciada en true, al crearla
+      estado: true,
     });
 
     return { admision, creado: true };
   } catch (error) {
-    throw new Error("Ocurrió un error al crear la admision: " + error.message);
+    throw new Error("Ocurrio un error al crear la admision");
   }
 };
 
 module.exports = {
   getAllAdmisiones,
   createAdmision,
-}
+};

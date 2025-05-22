@@ -1,9 +1,9 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("./db");
 
-class MotivoInternacion extends Model {}
+class MotivoAdmision extends Model {}
 
-MotivoInternacion.init(
+MotivoAdmision.init(
   {
     id_motivo: {
       type: DataTypes.INTEGER,
@@ -17,11 +17,11 @@ MotivoInternacion.init(
   },
   {
     sequelize,
-    modelName: "MotivoInternacion",
-    tableName: "motivo_internacion",
+    modelName: "MotivoAdmision",
+    tableName: "motivo_admision",
     freezeTableName: true,
     timestamps: false,
   }
 );
 
-module.exports = MotivoInternacion;
+module.exports = MotivoAdmision;

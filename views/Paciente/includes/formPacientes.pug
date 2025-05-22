@@ -1,4 +1,4 @@
-mixin formPaciente(action="/pacientes/actualizar", seguros=[])
+mixin formPaciente(action)
   form#form-paciente(method="POST", action=action)
     input(type="hidden", name="id_paciente", id="edit-id")
     div

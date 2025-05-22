@@ -29,17 +29,17 @@ mixin filaPaciente(paciente)
           img.icono-info(src="/img/icon-editar.png", alt="editar")
           |  Editar
 
-      a.btn-historial(href=`/pacientes/historial/${paciente.id_paciente}`)
+      a.btn-historial(href="#")
         span.historial-boton
           img.icono-info(src="/img/icon-historial.png", alt="historial")
           |  Historial
 
-      a.btn-historial(href=`/pacientes/historial/${paciente.id_paciente}`)
+      a.btn-informacion(href="#")
         span.informacion-boton
           img.icono-info(src="/img/icon-info.png", alt="info")
           |  Información
 
-      form(method="POST", action="/pacientes/cambiar-estado", style="display:inline")
+      form(method="POST", action=`/pacientes/cambiar-estado/${paciente.id_paciente}`, style="display:inline")
         input(type="hidden", name="id_paciente", value=paciente.id_paciente)
         input(type="hidden", name="estado", value=paciente.estado ? 'false' : 'true')
         button(type="submit", class="btn-cambiar-estado")

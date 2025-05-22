@@ -1,9 +1,11 @@
 const AdmisionService = require("../service/AdmisionService");
+const TipoIngresoService = require("../service/TipoIngresoService");
 
 const getAllAdmisiones = async (req, res) => {
   try {
     const admisiones = await AdmisionService.getAllAdmisiones();
-    res.render("Admisiones/GestionAdmision", { admisiones });
+    const ingresos = await TipoIngresoService.getAllIngreso();
+    res.render("Admisiones/GestionAdmision", { admisiones, ingresos });
   } catch (error) {
     res
       .status(500)
@@ -13,28 +15,34 @@ const getAllAdmisiones = async (req, res) => {
 
 const createAdmision = async (req, res) => {
   try {
-    const datos = { //Pasamos los datos del form
+    console.log("BODY: ", req.body);
+
+    const datos = {
+      //Pasamos los datos del form
       id_paciente: req.body.id_paciente,
       id_tipo: req.body.id_tipo,
+      id_motivo: req.body.id_motivo,
+      fecha_entrada: req.body.fechaInternar,
       detalles: req.body.detalles,
     };
 
-    const { enfermeros, creado } = await AdmisionService.createAdmision(datos);
+    const { admisiones, creado } = await AdmisionService.createAdmision(datos);
 
     if (creado) {
       res.redirect("/admisiones/GestionAdmision/");
     } else {
-        res.status(400).send("No se pudo crear la admision.");
+      res
+        .status(400)
+        .send("No se pudo crear la admision. Ya existe un admision activa");
     }
-
   } catch (error) {
     res
       .status(500)
-      .send("Ocurrió un error al crear el enfermero: " + error.message);
+      .send("Ocurrió un error al crear la admision: " + error.message);
   }
 };
 
 module.exports = {
-    getAllAdmisiones,
-    createAdmision,
-}
+  getAllAdmisiones,
+  createAdmision,
+};

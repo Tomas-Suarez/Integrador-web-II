@@ -12,7 +12,8 @@ mixin filaPaciente(paciente)
         data-nombre=paciente.nombre
         data-apellido=paciente.apellido
         data-fecha_nacimiento=paciente.fecha_nacimiento,
-        data-documento=paciente.documento)
+        data-documento=paciente.documento,
+        data-genero=paciente.genero)
         span.editar-boton
           img.icono-info(src="/img/icon-crearPaciente.png", alt="crear")
           |  Registrar admisión

@@ -7,22 +7,23 @@ document.addEventListener("DOMContentLoaded", () => {
   const limpiarFormulario = () => {
     formPaciente.reset();
     document.getElementById("edit-id").value = "";
+    formPaciente.action = "/pacientes/registro";
   };
 
   if (crearBtn) {
     crearBtn.addEventListener("click", () => {
       limpiarFormulario();
-      formPaciente.action = "/pacientes/registro/";
       modal.classList.remove("hidden");
     });
   }
 
   document.querySelectorAll(".btn-editar").forEach((btn) => {
-    console.log("Paciente:", btn.dataset, "Seguro:", btn.dataset.id_seguro);
     btn.addEventListener("click", () => {
-      formPaciente.action = "/pacientes/actualizar/";
+      const pacienteId = btn.dataset.id;
 
-      document.getElementById("edit-id").value = btn.dataset.id;
+      formPaciente.action = `/pacientes/actualizar/${pacienteId}`;
+
+      document.getElementById("edit-id").value = pacienteId;
       document.getElementById("edit-nombre").value = btn.dataset.nombre || "";
       document.getElementById("edit-apellido").value = btn.dataset.apellido || "";
       document.getElementById("edit-documento").value = btn.dataset.documento || "";
@@ -45,13 +46,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
       document.getElementById("edit-fecha_nacimiento").value = fechaFormateada;
+
       document.getElementById("edit-estatura").value = btn.dataset.estatura || "";
       document.getElementById("edit-peso").value = btn.dataset.peso || "";
-
-      const contactoEmergenciaInput = document.getElementById("edit-contacto_emergencia");
-      if (contactoEmergenciaInput) {
-        contactoEmergenciaInput.value = btn.dataset.contacto_emergencia || "";
-      }
 
       const genero = btn.dataset.genero || "Otro";
       document.getElementById("edit-genero").value =

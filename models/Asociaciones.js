@@ -15,8 +15,7 @@ const Especialidad = require("./EspecialidadModels");
 const Guardia = require("./GuardiaModels");
 const ContactoEmergencia = require("./ContactoEmergenciaModels");
 const SeguroMedico = require("./SeguroMedicoModels");
-const MotivoInternacion = require("./MotivoInternacionModels");
-const Internacion = require("./InternacionModels");
+const MotivoAdmision = require("./MotivoAdmisionModels");
 const Ala = require("./AlaModels");
 
 // Relación Paciente - Admision
@@ -31,17 +30,17 @@ ContactoEmergencia.belongsTo(Paciente, { foreignKey: "id_paciente" });
 SeguroMedico.hasMany(Paciente, { foreignKey: "id_seguro" });
 Paciente.belongsTo(SeguroMedico, { foreignKey: "id_seguro" });
 
-// Relación Paciente - Internacion
-Paciente.hasMany(Internacion, { foreignKey: "id_paciente" });
-Internacion.belongsTo(Paciente, { foreignKey: "id_paciente" });
+// Relación Paciente - Admision
+Paciente.hasMany(Admision, { foreignKey: "id_paciente" });
+Admision.belongsTo(Paciente, { foreignKey: "id_paciente" });
 
-// Relación Internacion - MotivoInternacion
-MotivoInternacion.hasMany(Internacion, { foreignKey: "id_motivo" });
-Internacion.belongsTo(MotivoInternacion, { foreignKey: "id_motivo" });
+// Relación Admision - MotivoAdmision
+MotivoAdmision.hasMany(Admision, { foreignKey: "id_motivo" });
+Admision.belongsTo(MotivoAdmision, { foreignKey: "id_motivo" });
 
-// Relación Internacion - EvaluacionEnfermeria
-Internacion.hasMany(EvaluacionEnfermeria, { foreignKey: "id_internacion" });
-EvaluacionEnfermeria.belongsTo(Internacion, { foreignKey: "id_internacion" });
+// Relación Admision - EvaluacionEnfermeria
+Admision.hasMany(EvaluacionEnfermeria, { foreignKey: "id_admision" });
+EvaluacionEnfermeria.belongsTo(Admision, { foreignKey: "id_admision" });
 
 // Relación Enfermero - EvaluacionEnfermeria
 Enfermero.hasMany(EvaluacionEnfermeria, { foreignKey: "id_enfermero" });
@@ -55,9 +54,9 @@ Enfermero.belongsTo(Guardia, { foreignKey: "id_guardia" });
 PlanCuidados.hasMany(EvaluacionEnfermeria, { foreignKey: "id_plan" });
 EvaluacionEnfermeria.belongsTo(PlanCuidados, { foreignKey: "id_plan" });
 
-// Relación Internacion - EvaluacionMedica
-Internacion.hasMany(EvaluacionMedica, { foreignKey: "id_internacion" });
-EvaluacionMedica.belongsTo(Internacion, { foreignKey: "id_internacion" });
+// Relación Admision - EvaluacionMedica
+Admision.hasMany(EvaluacionMedica, { foreignKey: "id_admision" });
+EvaluacionMedica.belongsTo(Admision, { foreignKey: "id_admision" });
 
 // Relación Tratamiento - EvaluacionMedica
 Tratamiento.hasMany(EvaluacionMedica, { foreignKey: "id_tratamiento" });
@@ -87,9 +86,9 @@ Cama.belongsTo(Habitacion, { foreignKey: "id_habitacion" });
 Ala.hasMany(Habitacion, { foreignKey: "id_ala" });
 Habitacion.belongsTo(Ala, { foreignKey: "id_ala" });
 
-// Relación Internacion - AsignacionDormitorio
-Internacion.hasMany(AsignacionDormitorio, { foreignKey: "id_internacion" });
-AsignacionDormitorio.belongsTo(Internacion, { foreignKey: "id_internacion" });
+// Relación Admision - AsignacionDormitorio
+Admision.hasMany(AsignacionDormitorio, { foreignKey: "id_admision" });
+AsignacionDormitorio.belongsTo(Admision, { foreignKey: "id_admision" });
 
 // Relación Cama - AsignacionDormitorio
 Cama.hasMany(AsignacionDormitorio, { foreignKey: "id_cama" });
