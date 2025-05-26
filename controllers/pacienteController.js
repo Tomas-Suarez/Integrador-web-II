@@ -24,7 +24,7 @@ const getAllPacientesActivos = async (req, res) => {
     const ingresos = await IngresoService.getAllIngreso();
     const motivos = await MotivoService.getAllMotivos();
     const alas = await AlaService.getAllAlas();
-    res.render("Recepcion/RegistrarAdmision", {
+    res.render("Admision/RegistrarAdmision", {
       pacientes,
       ingresos,
       motivos,
@@ -32,7 +32,7 @@ const getAllPacientesActivos = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(500).render("Recepcion/RegistrarAdmision", {
+    res.status(500).render("Admision/RegistrarAdmision", {
       error: "Error al mostrar pacientes activos",
     });
   }

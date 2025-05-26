@@ -1,11 +1,11 @@
 const AdmisionService = require("../service/AdmisionService");
-const TipoIngresoService = require("../service/TipoIngresoService");
+const AlaService = require("../service/AlaService");
 
 const getAllAdmisiones = async (req, res) => {
   try {
     const admisiones = await AdmisionService.getAllAdmisiones();
-    const ingresos = await TipoIngresoService.getAllIngreso();
-    res.render("Admisiones/GestionAdmision", { admisiones, ingresos });
+    const alas = await AlaService.getAllAlas();
+    res.render("Internacion/GestionInternacion", { admisiones, alas });
   } catch (error) {
     res
       .status(500)

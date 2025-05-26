@@ -1,16 +1,32 @@
 const Admision = require("../models/AdmisionModels");
-const Ingreso = require("../models/TipoIngresoModels");
+const TipoIngreso = require("../models/TipoIngresoModels");
+const Paciente = require("../models/PacienteModels");
+const AsignacionDormitorio = require("../models/AsignDormitorioModels");
 
-// Obtiene todas las admisiones - incluyendo los datos de "Ingreso".
+//Obtenemos todas las admisiones - incluyendo los datos de "Ingreso" y algunos de "Paciente"
 const getAllAdmisiones = async () => {
   try {
     const admisiones = await Admision.findAll({
-      include: {
-        model: Ingreso,
-        attributes: ["id_tipo", "descripcion"],
-      },
+      include: [
+        {
+          model: TipoIngreso,
+          attributes: ["id_tipo", "descripcion"],
+        },
+        {
+          model: Paciente,
+          attributes: ["id_paciente", "nombre", "apellido", "documento"],
+        },
+        {
+          model: AsignacionDormitorio,
+          required: false,
+        },
+      ],
     });
-    return admisiones;
+
+    // Filtrar solo las admisiones que no tienen ninguna asignación
+    const sinAsignacion = admisiones.filter(admision => admision.AsignacionDormitorios.length === 0);
+
+    return sinAsignacion;
   } catch (error) {
     throw new Error(
       "Ocurrió un error al obtener las admisiones: " + error.message
@@ -18,7 +34,10 @@ const getAllAdmisiones = async () => {
   }
 };
 
+
 // Control para ver si tenemos una admision activa, para evitar duplicados
+
+//SE USA EN EL CODIGO DE ABAJO
 const getAdmisionActivaByPaciente = async (id_paciente) => {
   try {
     const admisionActiva = await Admision.findOne({
@@ -34,13 +53,13 @@ const getAdmisionActivaByPaciente = async (id_paciente) => {
 };
 
 // Crea la admision
-
 const createAdmision = async (datos) => {
   try {
     // REVISAR, Si un paciente es NN (Se salta la verificacion) - ANOTACION //
 
     //Si no es paciente NN, revisa si existe una admision activa
     if (datos.id_paciente !== 1) {
+      //ID DEL NN
       const admisionExistente = await getAdmisionActivaByPaciente(
         datos.id_paciente
       );

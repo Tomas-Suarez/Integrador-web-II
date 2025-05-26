@@ -28,8 +28,20 @@ const getAllHabitaciones = async () => {
 };
 
 // Filtramos las habitaciones segun el genero del paciente y el ala seleccionada.
-const getHabitacionesFiltradasPorAlaYGenero = async (alaId, genero) => {
+const getHabitacionesFiltradasPorAlaYGenero = async (alaId, pacienteId) => {
   try {
+    // Obtenemos el paciente por id
+    const paciente = await Paciente.findByPk(pacienteId);
+
+    // Controlamos para ver si existe el paciente
+    if (!paciente) {
+      throw new Error("Paciente no encontrado");
+    }
+
+    // Pasamos el genero del paciente a una variable, para que sea mas legible
+    const generoPaciente = paciente.genero;
+
+    // Juntamos las tablas - JOIN
     const habitaciones = await Habitacion.findAll({
       where: { id_ala: alaId },
       attributes: ["id_habitacion", "numero", "capacidad"],
@@ -66,38 +78,47 @@ const getHabitacionesFiltradasPorAlaYGenero = async (alaId, genero) => {
     });
 
     // Filtramos las habitaciones
-    const habitacionesFiltradas = habitaciones.filter((habitacion) => {
+    // - Si esta ocupadas las dos camas de la habitacion
+    // - Si hay un paciente internado en una cama, entonces el paciente el cual queremos internar debe ser del mismo genero
+    const habitacionFiltrada = habitaciones.filter((habitacion) => {
       const camas = habitacion.Camas || [];
-
+      
       // Obtenemos las camas ocupadas
-      const ocupadas = camas.filter((c) => !c.libre);
+      const camasOcupadas = camas.filter((c) => !c.libre);
 
-      //Verificamos si no tenemos camas ocupadas
-      if (ocupadas.length === 0) {
+      // Si estan todas las camas ocupadas, entonces no me va a figurar la habitacion
+      if (camasOcupadas.length === camas.length) {
+        return false;
+      }
+
+      // Si estan las 2 camas desocupadas, entonces si me va a figurar
+      if (camasOcupadas.length === 0) {
         return true;
       }
 
-      // Si posee una cama ocupada, verificamos si el genero del paciente coincide con el otro
-      if (ocupadas.length === 1) {
-        const camaOcupada = ocupadas[0];
+      // Obtenemos el genero de los pacientes que se encuentran ocupando las camas
+      const generosOcupantes = camasOcupadas.map((cama) => {
+        const asignaciones = cama.AsignacionDormitorios || [];
+        const asignacion = asignaciones.find((a) => a?.Admision?.estado === true);
+        return asignacion?.Admision?.Paciente?.genero;
+      });
 
-        const asignacion = camaOcupada.AsignacionDormitorio?.[0];
-        const pacienteAsignado = asignacion?.Admision?.Paciente;
-
-        return pacienteAsignado?.genero === genero;
+      // Evaluar si todos coinciden con el género del paciente
+      for (let i = 0; i < generosOcupantes.length; i++) {
+        if (!generosOcupantes[i] || generosOcupantes[i] !== generoPaciente) {
+          return false;
+        }
       }
 
-      //Si tenemos mas de una cama ocupada, o si los pacientes no coinciden con el genero, descartamos
-      return false;
+      return true;
     });
 
-    return habitacionesFiltradas;
+    return habitacionFiltrada;
   } catch (error) {
-    throw new Error(
-      "Error al obtener habitaciones filtradas: " + error.message
-    );
+    throw new Error("Error al obtener habitaciones filtradas: " + error.message);
   }
 };
+
 
 module.exports = {
   getAllHabitaciones,

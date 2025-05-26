@@ -14,6 +14,9 @@ const getHabitaciones = async (req, res) => {
 const getHabitacionesPorAlaYGenero = async (req, res) => {
   const { alaId, pacienteId } = req.query;
 
+  console.log('alaId:', alaId, 'pacienteId:', pacienteId);
+
+
   if (!alaId || !pacienteId) {
     return res
       .status(400)

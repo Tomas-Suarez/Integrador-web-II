@@ -4,7 +4,6 @@ mixin formAdmision(action="/admisiones/registrar")
   br
   form#form-admision(method="POST", action=action)
     input(type="hidden", name="id_paciente", id="llenar-id")
-    input(type="hidden", id="genero-paciente", value="")
     div
       label(for="llenar-nombre") Nombre:
       input(type="text", name="nombre", id="llenar-nombre", readonly)
@@ -29,16 +28,7 @@ mixin formAdmision(action="/admisiones/registrar")
     div
       label(for="llenar-fecharInternar") Fecha para internar:
       input(type="date", name="fechaInternar", id="llenar-fecharInternar")
-    div
-      label(for="registro-ala") Ala:
-      select(name="id_ala", id="registro-ala", required)
-        option(disabled selected value="") -- Seleccione el Ala --
-        each ala in alas
-          option(value=ala.id_ala)= ala.nombre
-    div
-      label(for="registro-habitacion") Habitación:
-      select(name="id_habitacion", id="registro-habitacion", required)
-        option(disabled selected value="") -- Seleccione la habitación --
+
     div
       label(for="registro-detalles") Detalles:
       input(type="text", name="detalles", id="registro-detalles")

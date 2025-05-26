@@ -11,6 +11,7 @@ const medicoRoutes = require('./routes/MedicoRoutes');
 const enfermeroRoutes = require('./routes/EnfermeroRoutes');
 const admisionRoutes = require('./routes/AdmisionRoutes');
 const habitacionRoutes = require('./routes/HabitacionRoutes');
+const asignacionRoutes = require('./routes/AsignacionDormitorioRoutes');
 
 // Configuracion del motor de plantillas - PUG
 app.set('view engine', 'pug');
@@ -32,6 +33,7 @@ app.use('/medicos', medicoRoutes);
 app.use('/enfermeros', enfermeroRoutes);
 app.use('/admisiones', admisionRoutes);
 app.use('/habitaciones', habitacionRoutes);
+app.use('/asignaciones', asignacionRoutes);
 
 // Ruta principal donde se encuentra la vista principal
 app.get('/', (req, res) =>{
