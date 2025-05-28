@@ -52,7 +52,7 @@ const getHabitacionesFiltradasPorAlaYGenero = async (alaId, pacienteId) => {
         },
         {
           model: Cama,
-          attributes: ["id_cama", "libre"],
+          attributes: ["id_cama", "libre", "higienizada"],
           include: [
             {
               model: AsignacionDormitorio,
@@ -82,7 +82,17 @@ const getHabitacionesFiltradasPorAlaYGenero = async (alaId, pacienteId) => {
     // - Si hay un paciente internado en una cama, entonces el paciente el cual queremos internar debe ser del mismo genero
     const habitacionFiltrada = habitaciones.filter((habitacion) => {
       const camas = habitacion.Camas || [];
-      
+
+      // Filtramos las camas libre e higienizadas
+      const camasDisponiblesHigienizadas = camas.filter(
+        (c) => c.libre && c.higienizada
+      );
+
+      // Las camas deben estar libre e higienizadas, en caso contrario las descartamos
+      if (camasDisponiblesHigienizadas.length === 0) {
+        return false;
+      }
+
       // Obtenemos las camas ocupadas
       const camasOcupadas = camas.filter((c) => !c.libre);
 
@@ -99,7 +109,9 @@ const getHabitacionesFiltradasPorAlaYGenero = async (alaId, pacienteId) => {
       // Obtenemos el genero de los pacientes que se encuentran ocupando las camas
       const generosOcupantes = camasOcupadas.map((cama) => {
         const asignaciones = cama.AsignacionDormitorios || [];
-        const asignacion = asignaciones.find((a) => a?.Admision?.estado === true);
+        const asignacion = asignaciones.find(
+          (a) => a?.Admision?.estado === true
+        );
         return asignacion?.Admision?.Paciente?.genero;
       });
 
@@ -115,10 +127,11 @@ const getHabitacionesFiltradasPorAlaYGenero = async (alaId, pacienteId) => {
 
     return habitacionFiltrada;
   } catch (error) {
-    throw new Error("Error al obtener habitaciones filtradas: " + error.message);
+    throw new Error(
+      "Error al obtener habitaciones filtradas: " + error.message
+    );
   }
 };
-
 
 module.exports = {
   getAllHabitaciones,

@@ -1,0 +1,17 @@
+mixin formDarAlta(action="*")
+  h1 Registrar internacion
+  br
+  form#form-internacion(method="POST", action=action)
+    input(type="hidden", name="id_admision", id="id-admision")
+    input(type="hidden", id="id-paciente")
+    div
+      label(for="registro-ala") Ala:
+      select(name="id_ala", id="registro-ala", required)
+        option(disabled selected value="") -- Seleccione el Ala --
+    div
+      label(for="registro-habitacion") Habitación:
+      select(name="id_habitacion", id="registro-habitacion", required)
+        option(disabled selected value="") -- Seleccione la habitación --
+    div
+      button(type="submit") Admitir paciente
+      button(type="button", id="cerrar-modal") Cancelar

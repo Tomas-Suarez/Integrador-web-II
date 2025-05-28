@@ -30,6 +30,14 @@ AsignacionDormitorio.init(
       },
       onDelete: "CASCADE",
     },
+      fecha_inicio: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+      fecha_fin: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
   },
   {
     sequelize,

@@ -1,4 +1,15 @@
-const AsignacionDormitorio = require("../service/AsignacionDormitorioService");
+const AsignacionDormitorioService = require("../service/AsignacionDormitorioService");
+
+const getAsignacionesActuales = async (req, res) => {
+  try {
+    const internaciones = await AsignacionDormitorioService.getAsignacionesActuales();
+    res.render("GestionarInternacion/GestionarInternacion", { internaciones });
+  } catch (error) {
+    res
+      .status(500)
+      .send("Ocurrio un error en obtener las internaciones.." + error.message);
+  }
+};
 
 const createAsignacionDormitorio = async (req, res) => {
   try {
@@ -7,7 +18,7 @@ const createAsignacionDormitorio = async (req, res) => {
       id_habitacion: req.body.id_habitacion,
     };
 
-    const { asignacion, creado } = await AsignacionDormitorio.createAsignacionDormitorio(datos);
+    const { asignacion, creado } = await AsignacionDormitorioService.createAsignacionDormitorio(datos);
 
     if (creado) {
       res.redirect("/pacientes/GestionPaciente");
@@ -27,4 +38,5 @@ const createAsignacionDormitorio = async (req, res) => {
 
 module.exports = {
     createAsignacionDormitorio,
+    getAsignacionesActuales,
 };

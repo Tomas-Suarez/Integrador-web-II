@@ -1,0 +1,39 @@
+//- mixin para una fila de admisiones
+mixin filaInternaciones(internacion)
+  tr
+    td= internacion.Admision.Paciente.documento
+    td= internacion.Admision.Paciente.nombre
+    td= internacion.Admision.Paciente.apellido
+    td= internacion.Cama.Habitacion.Ala.nombre
+    td= internacion.Cama.Habitacion.numero
+    td= internacion.Cama.numero
+    td
+      button.btn-dar-alta-hospitalaria(
+        type="button",
+      )
+        img.icono-info(src="/img/icon-crearPaciente.png", alt="crear")
+        |  Dar alta hospitalaria
+        
+      button.btn-cambiar-habitacion(
+        type="button",
+      )
+        img.icono-info(src="/img/icon-crearPaciente.png", alt="crear")
+        |  Cambiar de habitacion
+
+//- mixin para la tabla de admision
+mixin tablaGestionInternacion(internaciones)
+  .contenido
+    h1 Registro de admisión
+    table#TablaInternaciones
+      thead
+        tr
+          th Documento
+          th Nombre
+          th Apellido
+          th Ala
+          th N° Habitacion
+          th N° Cama
+          th Acciones
+      tbody
+        each internacion in internaciones
+          +filaInternaciones(internacion)

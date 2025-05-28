@@ -5,7 +5,7 @@ const getAllAdmisiones = async (req, res) => {
   try {
     const admisiones = await AdmisionService.getAllAdmisiones();
     const alas = await AlaService.getAllAlas();
-    res.render("Internacion/GestionInternacion", { admisiones, alas });
+    res.render("Internacion/InternacionPaciente", { admisiones, alas });
   } catch (error) {
     res
       .status(500)
@@ -29,7 +29,7 @@ const createAdmision = async (req, res) => {
     const { admisiones, creado } = await AdmisionService.createAdmision(datos);
 
     if (creado) {
-      res.redirect("/admisiones/GestionAdmision/");
+      res.redirect("/admisiones/InternacionPaciente/");
     } else {
       res
         .status(400)

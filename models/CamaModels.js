@@ -24,6 +24,14 @@ Cama.init(
       type: DataTypes.BOOLEAN,
       allowNull: false,
     },
+    higienizada: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
+    numero: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
   },
   {
     sequelize,

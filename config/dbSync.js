@@ -19,7 +19,8 @@ require("../models/TipoIngresoModels");
 require("../models/TratamientoModels");
 require("../models/AlaModels");
 require("../models/GuardiaModels");
-
+require("../models/AltaHospitalariaModels")
+require("../models/MotivoAltaModels");
 
 (async () => {
   try {
