@@ -1,5 +1,8 @@
 const AdmisionService = require("../service/AdmisionService");
 const AlaService = require("../service/AlaService");
+const MotivoService = require("../service/MotivoAdmisionService");
+const PacienteService = require("../service/PacienteService");
+const TipoIngresoService = require("../service/TipoIngresoService");
 
 const getAllAdmisiones = async (req, res) => {
   try {
@@ -15,10 +18,7 @@ const getAllAdmisiones = async (req, res) => {
 
 const createAdmision = async (req, res) => {
   try {
-    console.log("BODY: ", req.body);
-
     const datos = {
-      //Pasamos los datos del form
       id_paciente: req.body.id_paciente,
       id_tipo: req.body.id_tipo,
       id_motivo: req.body.id_motivo,
@@ -29,16 +29,22 @@ const createAdmision = async (req, res) => {
     const { admisiones, creado } = await AdmisionService.createAdmision(datos);
 
     if (creado) {
-      res.redirect("/admisiones/InternacionPaciente/");
+      return res.redirect("/admisiones/InternacionPaciente/");
     } else {
-      res
-        .status(400)
-        .send("No se pudo crear la admision. Ya existe un admision activa");
+      const paciente = await PacienteService.getPacienteById(req.body.id_paciente);
+      const ingresos = await TipoIngresoService.getAllIngreso();
+      const motivos = await MotivoService.getAllMotivos();
+
+      return res.status(200).render("Admision/RegistrarAdmision", {
+        paciente,
+        ingresos,
+        motivos,
+        admisionActiva: true,
+        documento: req.body.documento,
+      });
     }
   } catch (error) {
-    res
-      .status(500)
-      .send("Ocurrió un error al crear la admision: " + error.message);
+    res.status(500).send("Ocurrió un error al crear la admisión: " + error.message);
   }
 };
 

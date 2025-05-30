@@ -31,7 +31,11 @@ router.get("/GestionPaciente", pacienteController.getAllPacientes);
 //Mostrar todos los pacientes activos en mi admision
 router.get("/RegistrarAdmision", pacienteController.getAllPacientesActivos);
 
+//Obtenemos el paciente por su documento(DNI)
+router.get("/obtener-paciente", pacienteController.getPacienteByDNI);
+
 // Cambiar el estado del paciente
 router.post("/cambiar-estado/:id", pacienteController.changeStatusPaciente);
+
 
 module.exports = router;

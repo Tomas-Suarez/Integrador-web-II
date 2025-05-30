@@ -1,6 +1,8 @@
+// Importamos modelos
 const Paciente = require("../models/PacienteModels");
 const SeguroMedico = require("../models/SeguroMedicoModels");
 
+// Nos permite obtener todos los pacientes, incluyendo el seguro medico
 const getAllPacientes = async () => {
   try {
     const pacientes = await Paciente.findAll({
@@ -17,6 +19,7 @@ const getAllPacientes = async () => {
   }
 };
 
+// Nos permite obtener solamente los pacientes que se encuentran activos
 const getAllPacientesActivos = async () => {
   try {
     const pacientes = await Paciente.findAll({
@@ -30,6 +33,7 @@ const getAllPacientesActivos = async () => {
   }
 };
 
+// Nos permite crear un paciente, solamente si no existe otro paciente con el mismo DNI
 const createPaciente = async (datos) => {
   try {
     const [paciente, creado] = await Paciente.findOrCreate({
@@ -44,15 +48,16 @@ const createPaciente = async (datos) => {
         estatura: datos.estatura,
         peso: datos.peso,
         id_seguro: datos.id_seguro,
-        estado: true,
+        estado: true, // Se crea el paciente con el estado true por defecto
       },
     });
-    return { paciente, creado };
+    return { paciente, creado }; //Retornamos el paciente. tambien Si fue creado o no
   } catch (error) {
     throw new Error("Ocurrio un error al crear el paciente" + error.message);
   }
 };
 
+//Nos permite actualizar un paciente mediante su ID
 const updatePaciente = async (datos) => {
   try {
     const [pacienteActualizado] = await Paciente.update(
@@ -84,6 +89,7 @@ const updatePaciente = async (datos) => {
   }
 };
 
+// Nos permite cambiar el estado de un paciente (TRUE, FALSE)
 const changeStatusPaciente = async (datos) => {
   try {
     const [actualizado] = await Paciente.update(
@@ -98,10 +104,48 @@ const changeStatusPaciente = async (datos) => {
   }
 };
 
+// Nos permite obtener un paciente mediante su documento(DNI)
+const getPacienteByDNI = async (documento) => {
+  try {
+    const paciente = await Paciente.findOne({
+      where: { documento: documento }
+    })
+
+    return paciente;
+  } catch (error) {
+    throw new Error(
+      "Ocurrio un error al encontrar el paciente. " + error.message
+    );
+  }
+};
+
+// Nos permite obtener un paciente mediante su ID
+const getPacienteById = async (id_paciente) => {
+  try {
+    const paciente = await Paciente.findByPk(id_paciente, {
+      include: {
+        model: SeguroMedico,
+        attributes: ["id_seguro", "nombre"],
+      },
+    });
+
+    if (!paciente) {
+      throw new Error("Paciente no encontrado");
+    }
+
+    return paciente;
+  } catch (error) {
+    throw new Error("Ocurrió un error al buscar el paciente por ID: " + error.message);
+  }
+};
+
+// Exportamos las funciones para poder utilizarlas en los controllers
 module.exports = {
   getAllPacientes,
   getAllPacientesActivos,
   createPaciente,
   updatePaciente,
   changeStatusPaciente,
+  getPacienteByDNI,
+  getPacienteById,
 };
