@@ -1,5 +1,6 @@
 const SeguroMedico = require("../models/SeguroMedicoModels");
 
+// Obtenemos los seguros medicos
 const getAllSegurosMedicos = async () => {
   try {
     const seguros = await SeguroMedico.findAll();

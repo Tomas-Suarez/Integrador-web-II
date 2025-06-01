@@ -1,3 +1,4 @@
+// Logging para ver las peticiones y estado del servidor. con la hora actual.
 function logging(req, res, next){
 
     res.on('finish', ()=>{

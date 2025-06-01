@@ -1,5 +1,6 @@
 const HabitacionService = require("../service/HabitacionService");
 
+// Controlador para ovtener todas las habitaciones con sus camas
 const getHabitaciones = async (req, res) => {
   try {
     const habitaciones = await HabitacionService.getAllHabitaciones();
@@ -7,15 +8,18 @@ const getHabitaciones = async (req, res) => {
   } catch (error) {
     res
       .status(500)
-      .send("Ocurrió un error al obtener las habitaciones: " + error.message);
+      .render("Ocurrio un error al obtener las habitaciones", {
+        message: error.message,
+      });
   }
 };
 
+// Controlador para obtener las habitaciones filtradas por ala y genero del paciente ocupante y el ingresante
+// Aca pasamos a JSON, porque hacemos un fetch para cuando se seleccione un ala en especifica filtre
 const getHabitacionesPorAlaYGenero = async (req, res) => {
   const { alaId, pacienteId } = req.query;
 
-  console.log('alaId:', alaId, 'pacienteId:', pacienteId);
-
+  console.log("alaId:", alaId, "pacienteId:", pacienteId);
 
   if (!alaId || !pacienteId) {
     return res
@@ -36,7 +40,22 @@ const getHabitacionesPorAlaYGenero = async (req, res) => {
   }
 };
 
+// Controlador para obtener las habitaciones de emergencia con su respectiva cama y luego renderizamos en la vista
+const getHabitacionesEmergencia = async (req, res) => {
+  try {
+    const habitaciones = await HabitacionService.getHabitacionesEmergencia;
+    res.render("Emergencia/RegistrarEmergencia", { habitaciones });
+  } catch (error) {
+    res
+      .status(500)
+      .render("Ocurrio un error al obtener las habitaciones de emergencia", {
+        message: error.message,
+      });
+  }
+};
+
 module.exports = {
   getHabitaciones,
   getHabitacionesPorAlaYGenero,
+  getHabitacionesEmergencia,
 };

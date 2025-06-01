@@ -1,5 +1,6 @@
 const sequelize = require("../models/db");
 
+// Importamos todos los models para el funcionamiento del async
 require("../models/AdmisionModels");
 require("../models/AsignDormitorioModels");
 require("../models/CamaModels");

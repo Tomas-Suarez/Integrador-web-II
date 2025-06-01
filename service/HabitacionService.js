@@ -5,6 +5,7 @@ const AsignacionDormitorio = require("../models/AsignDormitorioModels");
 const Admision = require("../models/AdmisionModels");
 const Paciente = require("../models/PacienteModels");
 
+// Obtenemos todas las habitaciones con sus respectivas camas
 const getAllHabitaciones = async () => {
   try {
     const habitaciones = await Habitacion.findAll({
@@ -133,7 +134,29 @@ const getHabitacionesFiltradasPorAlaYGenero = async (alaId, pacienteId) => {
   }
 };
 
+//Obtenemos todas las habitciones de emergencia, por el id del ala
+const getHabitacionesEmergencia = async (alaId) => {
+  try {
+    const habitaciones = await Habitacion.findAll({
+      where: { id_ala: alaId },
+      include: [
+        {
+          model: Cama,
+          where: {
+            libre: true,
+            higienizada: true,
+          },
+          attributes: ["id_cama", "libre", "higienizada"],
+        },
+      ],
+      attributes: ["id_habitacion", "numero", "capacidad"],
+    });
+    return habitaciones;
+  } catch (error) {}
+};
+
 module.exports = {
   getAllHabitaciones,
   getHabitacionesFiltradasPorAlaYGenero,
+  getHabitacionesEmergencia,
 };

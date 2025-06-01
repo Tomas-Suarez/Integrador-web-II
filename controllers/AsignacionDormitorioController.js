@@ -1,5 +1,6 @@
 const AsignacionDormitorioService = require("../service/AsignacionDormitorioService");
 
+// Controlador para obtener todas las asignaciones de dormitorio, de cierto paciente (Internados)
 const getAsignacionesActuales = async (req, res) => {
   try {
     const internaciones = await AsignacionDormitorioService.getAsignacionesActuales();
@@ -11,6 +12,7 @@ const getAsignacionesActuales = async (req, res) => {
   }
 };
 
+// Le asignamos un dormitorio a un paciente admitido 
 const createAsignacionDormitorio = async (req, res) => {
   try {
     const datos = {
@@ -21,7 +23,7 @@ const createAsignacionDormitorio = async (req, res) => {
     const { asignacion, creado } = await AsignacionDormitorioService.createAsignacionDormitorio(datos);
 
     if (creado) {
-      res.redirect("/pacientes/GestionPaciente");
+      res.redirect("/pacientes/GestionPaciente"); // Revisar
     } else {
       res.status(404).render("Paciente/GestionPaciente", {
         error:

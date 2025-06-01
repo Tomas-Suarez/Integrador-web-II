@@ -4,14 +4,15 @@ const medicoController = require("../controllers/MedicoController");
 const { validarMedico } = require("../middlewares/medicoValidator");
 const { validationResult } = require("express-validator");
 
+// Mostrar medico
 router.get("/GestionMedico", medicoController.getAllMedico);
 
+// Crear medico
 router.post(
     "/registro",
-    validarMedico,
+    validarMedico, // Validacion
     (req, res, next) => {
       const errors = validationResult(req);
-      console.log(errors)
       if (!errors.isEmpty()) {
         return res.status(400).render("Medicos/RegistrarMedico", {
           errors: errors.array(),
@@ -23,8 +24,10 @@ router.post(
     medicoController.createMedico
   );
   
+  // Actualizar medico
   router.post("/actualizar", medicoController.updateMedico);
 
+  // Cambiar el estado de un medico
   router.post("/cambiar-estado", medicoController.changeStatusMedico);
 
 module.exports = router;

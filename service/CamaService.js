@@ -1,5 +1,6 @@
 const Cama = require("../models/CamaModels");
 
+//Obtenemos todas las camas
 const getAllCamas = async () => {
   try {
     const camas = await Cama.findAll();

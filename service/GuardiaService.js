@@ -1,5 +1,6 @@
 const Guardia = require("../models/GuardiaModels");
 
+//Obtenemos todas las guardias (Horarios, turno);
 const getAllGuardia = async () => {
   try {
     const guardias = await Guardia.findAll();

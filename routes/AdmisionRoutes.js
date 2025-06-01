@@ -4,8 +4,10 @@ const AdmisionController = require("../controllers/AdmisionController");
 const { validarAdmision } = require("../middlewares/admisionValidator");
 const { validationResult } = require("express-validator");
 
+// Obtenes las admisiones
 router.get("/InternacionPaciente", AdmisionController.getAllAdmisiones);
 
+// Crear una nueva admision
 router.post(
   "/registrar",
   validarAdmision,
