@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
   // Pasamos a variables los elementos por su ID
-  const formInternacion = document.getElementById("form-internacion");
   const modal = document.getElementById("modal-internar");
   const cerrarModalBtn = document.getElementById("cerrar-modal");
 

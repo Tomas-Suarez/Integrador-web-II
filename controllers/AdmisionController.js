@@ -5,6 +5,8 @@ const AlaService = require("../service/AlaService");
 const MotivoService = require("../service/MotivoAdmisionService");
 const PacienteService = require("../service/PacienteService");
 const TipoIngresoService = require("../service/TipoIngresoService");
+const AsignacionDormitorioService = require("../service/AsignacionDormitorioService");
+const HabitacionService = require("../service/HabitacionService");
 
 // Controlador para obtener las admisiones, ala y habitacion
 const getAllAdmisiones = async (req, res) => {
@@ -60,7 +62,81 @@ const createAdmision = async (req, res) => {
   }
 };
 
+// Controlador para el paciente NN, Crea la admision y luego le asigna la habitacion(Interna)
+const registrarYAsignar = async (req, res) => { // FALTA VER PORQUE ME TIRA STATUS 400
+  try {
+
+    const datosAdmision = {
+      id_paciente: 11,
+      id_tipo: req.body.id_tipo,
+      id_motivo: req.body.id_motivo,
+      fecha_entrada: new Date(),
+      detalles: req.body.detalles,
+    };
+
+    const { admision, creado: creadoAdmision } = await AdmisionService.createAdmision(
+      datosAdmision
+    );
+
+    if (!creadoAdmision) {
+      const ingresos = await TipoIngresoService.getAllIngreso();
+      const motivos = await MotivoService.getAllMotivos();
+      const alas = await AlaService.getAllAlas();
+      const habitaciones = await HabitacionService.getHabitacionesEmergencia(6);
+
+      return res.status(400).render("Emergencia/RegistrarEmergencia", {
+        ingresos,
+        motivos,
+        alas,
+        habitaciones,
+        error: "No se pudo crear la admisión",
+      });
+    }
+
+    const datosAsignacion = {
+      id_admision: admision.id_admision,
+      id_habitacion: req.body.id_habitacion,
+    };
+
+    const { asignacion, creado: creadoAsignacion } =
+      await AsignacionDormitorioService.createAsignacionDormitorio(
+        datosAsignacion
+      );
+    
+    if (!creadoAsignacion) {
+      const ingresos = await TipoIngresoService.getAllIngreso();
+      const motivos = await MotivoService.getAllMotivos();
+      const alas = await AlaService.getAllAlas();
+      const habitaciones = await HabitacionService.getHabitacionesEmergencia(6);
+
+      return res.status(400).render("Emergencia/RegistrarEmergencia", {
+        ingresos,
+        motivos,
+        alas,
+        habitaciones,
+        error: "No se pudo asignar la habitación.",
+      });
+    }
+
+    res.redirect("/pacientes/GestionPaciente");
+  } catch (error) {
+    const ingresos = await TipoIngresoService.getAllIngreso();
+    const motivos = await MotivoService.getAllMotivos();
+    const alas = await AlaService.getAllAlas();
+    const habitaciones = await HabitacionService.getHabitacionesEmergencia(6);
+
+    return res.status(500).render("Emergencia/RegistrarEmergencia", {
+      ingresos,
+      motivos,
+      alas,
+      habitaciones,
+      error: "Ocurrió un error: " + error.message,
+    });
+  }
+};
+
 module.exports = {
   getAllAdmisiones,
   createAdmision,
+  registrarYAsignar,
 };

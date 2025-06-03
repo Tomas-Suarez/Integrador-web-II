@@ -25,4 +25,7 @@ router.post(
   AdmisionController.createAdmision
 );
 
+// Creamos una admision y luego asignamos una habitacion
+router.post("/registrarEmergencia", AdmisionController.registrarYAsignar)
+
 module.exports = router;

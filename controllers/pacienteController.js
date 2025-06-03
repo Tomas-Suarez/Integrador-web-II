@@ -4,6 +4,8 @@ const SeguroService = require("../service/SeguroMedicoService");
 const IngresoService = require("../service/TipoIngresoService");
 const MotivoService = require("../service/MotivoAdmisionService");
 const AlaService = require("../service/AlaService");
+const HabitacionService = require("../service/HabitacionService");
+
 
 // Controlador para obtener los pacientes con sus respectivos seguros medicos.
 const getAllPacientes = async (req, res) => {
@@ -152,8 +154,8 @@ const changeStatusPaciente = async (req, res) => {
   }
 };
 
-// Controlador para buscar un paciente por su documento(DNI)
-const getPacienteByDNI = async (req, res) => {
+// Controlador para el form de admision, donde cargamos el paciente por el dni
+const formAdmision = async (req, res) => {
   try {
     // Obtenemos el documento de la query string
     const documento = req.query.documento;
@@ -199,6 +201,25 @@ const getPacienteByDNI = async (req, res) => {
   }
 };
 
+// Controlador para el form de emergencia, cuando tenemos un paciente NN
+const formEmergencia = async (req, res) => {
+  try {
+    const ingresos = await IngresoService.getAllIngreso();
+    const motivos = await MotivoService.getAllMotivos();
+    const alas = await AlaService.getAllAlas();
+    const habitaciones = await HabitacionService.getHabitacionesEmergencia(6);
+
+    res.render("Emergencia/RegistrarEmergencia", {
+      ingresos,
+      motivos,
+      alas,
+      habitaciones,
+    });
+  } catch (error) {
+    res.status(500).send("Error al cargar la vista de emergencia");
+  }
+};
+
 // Exportamos controladores para usarlos en las rutas
 module.exports = {
   getAllPacientes,
@@ -206,5 +227,6 @@ module.exports = {
   createPaciente,
   updatePaciente,
   changeStatusPaciente,
-  getPacienteByDNI,
+  formAdmision,
+  formEmergencia,
 };

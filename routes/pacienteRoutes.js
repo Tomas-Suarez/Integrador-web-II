@@ -32,7 +32,10 @@ router.get("/GestionPaciente", pacienteController.getAllPacientes);
 router.get("/RegistrarAdmision", pacienteController.getAllPacientesActivos);
 
 //Obtenemos el paciente por su documento(DNI)
-router.get("/obtener-paciente", pacienteController.getPacienteByDNI);
+router.get("/obtener-paciente", pacienteController.formAdmision);
+
+//Obtenemos los datos para el funcionamiento del form de emergencia
+router.get("/internacion-emergencia", pacienteController.formEmergencia);
 
 // Cambiar el estado del paciente
 router.post("/cambiar-estado/:id", pacienteController.changeStatusPaciente);

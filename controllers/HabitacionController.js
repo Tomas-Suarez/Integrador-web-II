@@ -40,22 +40,7 @@ const getHabitacionesPorAlaYGenero = async (req, res) => {
   }
 };
 
-// Controlador para obtener las habitaciones de emergencia con su respectiva cama y luego renderizamos en la vista
-const getHabitacionesEmergencia = async (req, res) => {
-  try {
-    const habitaciones = await HabitacionService.getHabitacionesEmergencia;
-    res.render("Emergencia/RegistrarEmergencia", { habitaciones });
-  } catch (error) {
-    res
-      .status(500)
-      .render("Ocurrio un error al obtener las habitaciones de emergencia", {
-        message: error.message,
-      });
-  }
-};
-
 module.exports = {
   getHabitaciones,
   getHabitacionesPorAlaYGenero,
-  getHabitacionesEmergencia,
 };

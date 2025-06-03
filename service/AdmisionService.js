@@ -58,7 +58,7 @@ const createAdmision = async (datos) => {
     // REVISAR, Si un paciente es NN (Se salta la verificacion) - ANOTACION //
 
     //Si no es paciente NN, revisa si existe una admision activa
-    if (datos.id_paciente !== 1) {
+    if (datos.id_paciente !== 11) {
       //ID DEL NN
       const admisionExistente = await getAdmisionActivaByPaciente(
         datos.id_paciente
@@ -77,6 +77,7 @@ const createAdmision = async (datos) => {
       detalles: datos.detalles,
       estado: true,
     });
+    
 
     return { admision, creado: true };
   } catch (error) {
