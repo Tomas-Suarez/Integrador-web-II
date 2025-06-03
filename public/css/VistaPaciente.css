@@ -1,20 +1,19 @@
-.container {
-  display: flex;
-  height: 100vh;
-}
-
-.contenido {
-  flex: 1;
+.contenido-paciente {
+  position: absolute;
+  left: 16%; /* espacio igual al sidebar */
+  width: 84%; /* resto del ancho */
   padding: 20px;
-  max-width: 100%;
   box-sizing: border-box;
+  height: 100vh;
+  overflow: auto; /* scroll solo en contenido si hace falta */
+  background-color: #f7f7f7;
 }
 
 #TablaPaciente {
   width: 100%;
   border-radius: 8px;
   font-weight: 300;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 #TablaPaciente thead th {
@@ -31,7 +30,6 @@
   padding: 10px;
 }
 
-
 button, .btn-editar, .btn-historial {
   background: none;
   border: none;
@@ -40,17 +38,7 @@ button, .btn-editar, .btn-historial {
 }
 
 /* MODAL */
-#modal-editar {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-/* CAMBIAR DESPUES */
+#modal-editar,
 #modal-internar {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
@@ -60,7 +48,6 @@ button, .btn-editar, .btn-historial {
   justify-content: center;
   z-index: 1000;
 }
-
 
 .modal-contenido {
   background: #eeffff;
@@ -162,6 +149,10 @@ button, .btn-editar, .btn-historial {
   transition: background-color 0.3s ease;
 }
 
+.editar-boton:hover {
+  background-color: #1ba179;
+}
+
 /* Botón Contacto Emergencia */
 .contacto-boton {
   display: inline-flex;
@@ -180,11 +171,7 @@ button, .btn-editar, .btn-historial {
   background-color: #af3f65;
 }
 
-.editar-boton:hover {
-  background-color: #1ba179;
-}
-
-/* Columna accion */
+/* Columna acción */
 #TablaPaciente td:last-child,
 #TablaPaciente th:last-child {
   white-space: nowrap;
@@ -199,9 +186,11 @@ button, .btn-editar, .btn-historial {
   margin-right: 5px;
   vertical-align: middle;
 }
+
 .estado-indicador.activo {
   background-color: #4CAF50;
 }
+
 .estado-indicador.inactivo {
   background-color: #F44336;
 }
@@ -240,8 +229,8 @@ button, .btn-editar, .btn-historial {
   background-color: #c82333;
 }
 
-button, .btn-editar, .btn-historial, .btn-cambiar-estado, 
-.historial-boton, .informacion-boton, .editar-boton, 
+button, .btn-editar, .btn-historial, .btn-cambiar-estado,
+.historial-boton, .informacion-boton, .editar-boton,
 .estado-boton-verde, .estado-boton-rojo {
   font-family: 'Arial', sans-serif;
   font-weight: bold;
@@ -251,4 +240,3 @@ button, .btn-editar, .btn-historial, .btn-cambiar-estado,
   cursor: pointer;
   user-select: none;
 }
-

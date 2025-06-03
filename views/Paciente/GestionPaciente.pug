@@ -1,22 +1,99 @@
-doctype html
-html(lang="es")
-  head
-    meta(charset="UTF-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title Gestion de pacientes
-    link(rel="stylesheet", href="/css/VistaPaciente.css")
-    link(rel="stylesheet", href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css")
-    script(src="https://code.jquery.com/jquery-3.6.0.min.js")
-    script(src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js")
-    script(src="/js/DataTablePaciente.js")
-    script(src="/js/paciente.js")
-  body
-    .container
-      include ../includes/nav.pug
-      include includes/tablaPaciente.pug
-      include includes/modalPaciente.pug
-      include includes/formPacientes.pug
+extends ../layout
 
-      +nav()
-      +tablaPacientes(pacientes)
-      +modalPaciente()
+block head
+  link(rel="stylesheet", href="/css/VistaPaciente.css")
+  link(rel="stylesheet", href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css")
+
+block scripts
+  script(src="https://code.jquery.com/jquery-3.6.0.min.js")
+  script(src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js")
+  script(src="/js/DataTablePaciente.js")
+  script(src="/js/paciente.js")
+
+block content
+
+  .contenido-paciente
+    h1 Lista de Pacientes
+    button#btn-abrir-crearPaciente.btn-crearPaciente(type="button")
+      span.editar-boton
+        img.icono-info(src="/img/icon-crearPaciente.png", alt="crear")
+        |  Crear Paciente
+
+    table#TablaPaciente
+      thead
+        tr
+          th Documento
+          th Nombre
+          th Apellido
+          th Edad
+          th Género
+          th Estado
+          th Acciones
+      tbody
+        each paciente in pacientes
+          tr
+            td= paciente.documento
+            td= paciente.nombre
+            td= paciente.apellido
+            td.edad(data-fecha=paciente.fecha_nacimiento)
+            td= paciente.genero
+            td.estado
+              span.estado-indicador(class=paciente.estado ? 'activo' : 'inactivo')
+              | #{paciente.estado ? 'Activo' : 'Inactivo'}
+            td
+              button.btn-editar(
+                type="button",
+                data-id=paciente.id_paciente,
+                data-nombre=paciente.nombre,
+                data-apellido=paciente.apellido,
+                data-fecha_nacimiento=paciente.fecha_nacimiento,
+                data-genero=paciente.genero,
+                data-documento=paciente.documento,
+                data-telefono=paciente.telefono,
+                data-domicilio=paciente.domicilio,
+                data-estatura=paciente.estatura,
+                data-peso=paciente.peso,
+                data-contacto_emergencia=paciente.contacto_emergencia,
+                data-id_seguro=paciente.id_seguro
+              )
+                span.editar-boton
+                  img.icono-info(src="/img/icon-editar.png", alt="editar")
+                  |  Editar
+
+              a.btn-historial(href="#")
+                span.historial-boton
+                  img.icono-info(src="/img/icon-historial.png", alt="historial")
+                  |  Historial
+
+              a.btn-informacion(href="#")
+                span.informacion-boton
+                  img.icono-info(src="/img/icon-info.png", alt="info")
+                  |  Información
+
+              form(method="POST", action=`/pacientes/cambiar-estado/${paciente.id_paciente}`, style="display:inline")
+                input(type="hidden", name="id_paciente", value=paciente.id_paciente)
+                input(type="hidden", name="estado", value=paciente.estado ? 'false' : 'true')
+                button(type="submit", class="btn-cambiar-estado")
+                  if paciente.estado
+                    span.estado-boton-rojo
+                      img.icono-info(src="/img/icon-inactivo.png", alt="Dar de baja", title="Dar de baja")
+                      |  Dar de baja
+                  else
+                    span.estado-boton-verde
+                      img.icono-info(src="/img/icon-activo.png", alt="Dar de alta", title="Dar de alta")
+                      |  Dar de alta
+
+  script.
+    document.querySelectorAll('.edad').forEach(td => {
+      const fecha = new Date(td.dataset.fecha);
+      const hoy = new Date();
+      let edad = hoy.getFullYear() - fecha.getFullYear();
+      const mes = hoy.getMonth() - fecha.getMonth();
+      if (mes < 0 || (mes === 0 && hoy.getDate() < fecha.getDate())) {
+        edad--;
+      }
+      td.textContent = `${edad} años`;
+    });
+
+  include includes/modalPaciente.pug
+  +modalPaciente()

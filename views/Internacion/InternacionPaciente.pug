@@ -1,22 +1,46 @@
-doctype html
-html(lang="es")
-  head
-    meta(charset="UTF-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title Registrar admision
-    link(rel="stylesheet", href="/css/VistaPaciente.css")
-    link(rel="stylesheet", href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css")
-    script(src="https://code.jquery.com/jquery-3.6.0.min.js")
-    script(src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js")
-    script(src="/js/DataTableAdmision.js")
-    script(src="/js/Internacion.js")
-  body
-    .container
-      include ../includes/nav.pug
-      include includes/tablaAdmision.pug
-      include includes/modalInternacion.pug
-      include includes/formInternacion.pug
+extends ../layout
 
-      +nav()
-      +tablaAdmision(admisiones)
-      +modalInternacion()
+block head
+  link(rel="stylesheet", href="/css/VistaPaciente.css")
+  link(rel="stylesheet", href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css")
+
+block scripts
+  script(src="https://code.jquery.com/jquery-3.6.0.min.js")
+  script(src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js")
+  script(src="/js/DataTablePaciente.js")
+  script(src="/js/Internacion.js")
+
+block content
+  .contenido-paciente
+    h1 InternarPaciente
+
+    table#TablaPaciente
+      thead
+        tr
+          th Documento
+          th Nombre
+          th Apellido
+          th Vía ingreso
+          th Fecha para internación
+          th Acciones
+      tbody
+        each admision in admisiones
+          tr
+            td= admision.Paciente.documento
+            td= admision.Paciente.nombre
+            td= admision.Paciente.apellido
+            td= admision.TipoIngreso.descripcion
+            td= new Date(admision.fecha_entrada).toLocaleDateString('es-AR')
+            td
+              button.btn-abrir-internacion(
+                type="button",
+                data-id=admision.id_admision,
+                data-idPaciente=admision.Paciente.id_paciente
+              )
+                span.editar-boton
+                  img.icono-info(src="/img/icon-crearPaciente.png", alt="Registrar")
+                  |  Registrar
+
+    include includes/modalInternacion.pug
+    include includes/formInternacion.pug
+    +modalInternacion()

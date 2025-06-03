@@ -63,7 +63,7 @@ const createAdmision = async (req, res) => {
 };
 
 // Controlador para el paciente NN, Crea la admision y luego le asigna la habitacion(Interna)
-const registrarYAsignar = async (req, res) => { // FALTA VER PORQUE ME TIRA STATUS 400
+const registrarYAsignar = async (req, res) => {
   try {
 
     const datosAdmision = {

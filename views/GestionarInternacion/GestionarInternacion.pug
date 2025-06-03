@@ -1,22 +1,47 @@
-doctype html
-html(lang="es")
-  head
-    meta(charset="UTF-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title Registrar admision
-    link(rel="stylesheet", href="/css/VistaPaciente.css")
-    link(rel="stylesheet", href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css")
-    script(src="https://code.jquery.com/jquery-3.6.0.min.js")
-    script(src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js")
-    script(src="/js/DataTableGestionInternacion.js")
-    script(src="/js/GestionInternacion.js")
-  body
-    .container
-      include ../includes/nav.pug
-      include includes/tablaGestionInternacion.pug
-      include includes/modalInternacion.pug
-      include includes/formDarAlta.pug
+extends ../layout
 
-      +nav()
-      +tablaGestionInternacion(internaciones)
-      +modalInternacion()
+block head
+  link(rel="stylesheet", href="/css/GestionInternacion.css")
+  link(rel="stylesheet", href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css")
+
+block scripts
+  script(src="https://code.jquery.com/jquery-3.6.0.min.js")
+  script(src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js")
+  script(src="/js/DataTableGestionInternacion.js")
+  script(src="/js/GestionInternacion.js")
+
+block content
+  .contenido-internacion
+    h1 Lista de Internaciones
+    table#TablaInternaciones
+      thead
+        tr
+          th Documento
+          th Nombre
+          th Apellido
+          th Ala
+          th N° Habitación
+          th N° Cama
+          th Acciones
+      tbody
+        each internacion in internaciones
+          tr
+            td= internacion.Admision.Paciente.documento
+            td= internacion.Admision.Paciente.nombre
+            td= internacion.Admision.Paciente.apellido
+            td= internacion.Cama.Habitacion.Ala.nombre
+            td= internacion.Cama.Habitacion.numero
+            td= internacion.Cama.numero
+            td
+              button.btn-dar-alta-hospitalaria(
+                type="button",
+                data-id=internacion.id_internacion
+              )
+                img.icono-info(src="/img/icon-crearPaciente.png", alt="Dar alta")
+                |  Dar alta hospitalaria
+              button.btn-cambiar-habitacion(
+                type="button",
+                data-id=internacion.id_internacion
+              )
+                img.icono-info(src="/img/icon-crearPaciente.png", alt="Cambiar habitación")
+                |  Cambiar de habitación

@@ -1,69 +1,68 @@
-doctype html
-html(lang="en")
-  head
-    meta(charset="UTF-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title Registrar Admision
-    script(src="/js/Admision.js")
-    link(rel="stylesheet", href="/css/RegistrarAdmision.css")
-  body
-    .container
-      include ../includes/nav.pug 
-      +nav()
+extends ../layout
 
-      .contenido
-        h1 Registrar Admision 
+block head
+  link(rel="stylesheet", href="/css/RegistrarAdmision.css")
 
-        //- Buscamos el paciente por el DNI
-        .form-card
-          form(action="/pacientes/obtener-paciente/" method="GET")
-            label(for="documento") DNI:
-            input(type="text", name="documento", id="documento", required, placeholder="Ingrese DNI", value=documento)
-            button(type="submit") Buscar paciente
-          if error
-            p(style="color: red")
-              | #{error}
-              br
-              a(href="/pacientes/GestionPaciente/") ¿Deseas registrar el paciente?
+block scripts
+  script(src="/js/Admision.js")
 
-        .form-card
+block content
+  .container
+
+    .contenido
+      h1 Registrar Admisión
+
+      //- Buscar paciente por DNI
+      .form-card
+        form(action="/pacientes/obtener-paciente/" method="GET")
+          label(for="documento") DNI:
+          input(type="text", name="documento", id="documento", required, placeholder="Ingrese DNI", value=documento)
+          button(type="submit") Buscar paciente
+        if error
+          p(style="color: red")
+            | #{error}
+            br
+            a(href="/pacientes/GestionPaciente/") ¿Deseas registrar el paciente?
+
+      //- Mostrar datos del paciente si existe
+      .form-card
+        if paciente
+          h2 Datos del Paciente Encontrado
+          ul
+            li(style="color:rgb(33, 35, 172); font-weight: bold;")
+              | Nombre completo: #{paciente.apellido} #{paciente.nombre} - DNI: #{paciente.documento}
+
+        //- Registrar nueva admisión
+        form(action="/admisiones/registrar" method="POST")
           if paciente
-            h2 Datos del Paciente Encontrado
-            ul
-              li(style="color:rgb(33, 35, 172); font-weight: bold;") 
-                | Nombre completo: #{paciente.apellido} #{paciente.nombre} - DNI: #{paciente.documento}
+            input(type="hidden", name="id_paciente", value=paciente.id_paciente)
+            input(type="hidden", name="documento", value=paciente.documento)
+          - var disabled = !paciente ? true : false;
+          div
+            label(for="registro-tipo") Vía de ingreso:
+            select(name="id_tipo", id="registro-tipo", required, disabled=disabled)
+              option(disabled selected value="") -- Seleccione el ingreso --
+              each ingreso in ingresos
+                option(value=ingreso.id_tipo)= ingreso.descripcion
+          div
+            label(for="registro-motivo") Motivo:
+            select(name="id_motivo", id="registro-motivo", required, disabled=disabled)
+              option(disabled selected value="") -- Seleccione el motivo --
+              each motivo in motivos
+                option(value=motivo.id_motivo)= motivo.descripcion
+          div
+            - const hoy = new Date().toISOString().split('T')[0];
+            label(for="llenar-fecharInternar") Fecha para internar:
+            input(type="date", name="fechaInternar", id="llenar-fecharInternar", min=hoy, disabled=disabled)
+          div
+            label(for="registro-detalles") Detalles:
+            textarea(name="detalles", id="registro-detalles", disabled=disabled placeholder="Campo opcional")
+          div
+            button(type="submit", disabled=disabled) Admitir paciente
 
-          //- Registramos una admision del paciente
-          form(action="/admisiones/registrar" method="POST")
-            if paciente
-              input(type="hidden", name="id_paciente", value=paciente.id_paciente)
-              input(type="hidden", name="documento", value=paciente.documento) 
-            - var disabled = !paciente ? true : false;
-            div
-              label(for="registro-tipo") Vía de ingreso:
-              select(name="id_tipo", id="registro-tipo", required, disabled=disabled)
-                option(disabled selected value="") -- Seleccione el ingreso --
-                each ingreso in ingresos
-                  option(value=ingreso.id_tipo)= ingreso.descripcion
-            div
-              label(for="registro-motivo") Motivo:
-              select(name="id_motivo", id="registro-motivo", required, disabled=disabled)
-                option(disabled selected value="") -- Seleccione el motivo --
-                each motivo in motivos
-                  option(value=motivo.id_motivo)= motivo.descripcion
-            div
-              //- Colocamos un control para que solamente se pueda seleccionar la fecha apartir del dia de hoy
-              - const hoy = new Date().toISOString().split('T')[0];
-              label(for="llenar-fecharInternar") Fecha para internar:
-              input(type="date", name="fechaInternar", id="llenar-fecharInternar", min=hoy, disabled=disabled)
-            div
-              label(for="registro-detalles") Detalles:
-              textarea(type="text", name="detalles", id="registro-detalles", disabled=disabled placeholder="Campo opcional")
-            div
-              button(type="submit", disabled=disabled) Admitir paciente
-
-    //- Nos saldra una notifacion flotante en caso que el paciente ya se encuentre admitido
+    //- Notificación flotante si ya hay admisión activa
     if admisionActiva
       .notificacion-flotante
         span El paciente ya tiene una admisión activa.
         button(type="button", class="cerrar-notificacion", onclick="this.parentElement.style.display='none'") ×
+

@@ -1,0 +1,77 @@
+.contenido-internacion {
+  position: absolute;
+  left: 16%;
+  width: 84%;
+  padding: 20px;
+  box-sizing: border-box;
+  height: 100vh;
+  overflow: auto;
+  background-color: #f1fbfc;
+}
+
+#TablaInternaciones {
+  width: 100%;
+  border-radius: 8px;
+  font-weight: 300;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-collapse: collapse;
+}
+
+#TablaInternaciones thead th {
+  background-color: #28b3ca;
+  color: #ffffff;
+  padding: 12px;
+  text-align: left;
+}
+
+#TablaInternaciones td {
+  background-color: #8bd9e4;
+  border: 1px solid #bcecf2;
+  padding: 10px;
+  vertical-align: middle;
+}
+
+.btn-dar-alta-hospitalaria,
+.btn-cambiar-habitacion {
+  display: inline-flex;
+  align-items: center;
+  background-color: #00796b;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: none;
+  font-weight: bold;
+  margin-right: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-cambiar-habitacion {
+  background-color: #5d4037;
+}
+
+.btn-dar-alta-hospitalaria:hover {
+  background-color: #004d40;
+}
+
+.btn-cambiar-habitacion:hover {
+  background-color: #4e342e;
+}
+
+.icono-info {
+  width: 16px;
+  height: 16px;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+h1 {
+  color: #000000;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+#TablaInternaciones td:last-child,
+#TablaInternaciones th:last-child {
+  white-space: nowrap;
+}

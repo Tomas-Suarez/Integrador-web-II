@@ -1,50 +1,51 @@
-doctype html
-html(lang="en")
-  head
-    meta(charset="UTF-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title Registrar Emergencia
-    link(rel="stylesheet", href="/css/RegistrarAdmision.css")
-  body
-    .container
-      include ../includes/nav.pug 
-      +nav()
+extends ../layout
 
-      .contenido
-        h1 Registrar Emergencia 
-        
-        .form-card
-          form(action="/admisiones/registrarEmergencia" method="POST")
-            h3 Paciente NN
-            br
-            div
-              label(for="registro-tipo-visible") Vía de ingreso:
-              select(id="registro-tipo-visible" disabled)
-                each ingreso in ingresos
-                  if ingreso.id_tipo == 2
-                    option(value=ingreso.id_tipo)= ingreso.descripcion
-              input(type="hidden", name="id_tipo", value="2")
-            div
-              label(for="registro-motivo") Motivo:
-              select(name="id_motivo", id="registro-motivo", required)
-                option(disabled selected value="") -- Seleccione el motivo --
-                each motivo in motivos
-                  option(value=motivo.id_motivo)= motivo.descripcion
-            div
-              label(for="registro-detalles") Detalles:
-              textarea(name="detalles", id="registro-detalles", placeholder="Campo opcional")
-            div
-              label(for="registro-ala-visible") Ala:
-              select(id="registro-ala-visible" disabled)
-                each ala in alas
-                  if ala.id_ala == 6
-                    option(value=ala.id_ala)= ala.nombre
-              input(type="hidden", name="id_ala", value="6")
-            div
-              label(for="registro-habitacion") Habitación:
-              select(name="id_habitacion", id="registro-habitacion", required)
-                option(disabled selected value="") -- Seleccione la habitación --
-                each habitacion in habitaciones
-                  option(value=habitacion.id_habitacion)= "Habitación " + habitacion.numero
-            div
-              button(type="submit") Admitir paciente
+block head
+  link(rel="stylesheet", href="/css/RegistrarAdmision.css")
+
+block content
+  .container
+    .contenido
+      h1 Registrar Emergencia
+
+      .form-card
+        form(action="/admisiones/registrarEmergencia" method="POST")
+          h3 Paciente NN
+          br
+
+          div
+            label(for="registro-tipo-visible") Vía de ingreso:
+            select(id="registro-tipo-visible", disabled)
+              each ingreso in ingresos
+                if ingreso.id_tipo == 2
+                  option(value=ingreso.id_tipo selected)= ingreso.descripcion
+            input(type="hidden", name="id_tipo", value="2")
+
+          div
+            label(for="registro-motivo") Motivo:
+            select(name="id_motivo", id="registro-motivo", required)
+              option(disabled selected value="") -- Seleccione el motivo --
+              each motivo in motivos
+                option(value=motivo.id_motivo)= motivo.descripcion
+
+          div
+            label(for="registro-detalles") Detalles:
+            textarea(name="detalles", id="registro-detalles", placeholder="Campo opcional")
+
+          div
+            label(for="registro-ala-visible") Ala:
+            select(id="registro-ala-visible", disabled)
+              each ala in alas
+                if ala.id_ala == 6
+                  option(value=ala.id_ala selected)= ala.nombre
+            input(type="hidden", name="id_ala", value="6")
+
+          div
+            label(for="registro-habitacion") Habitación:
+            select(name="id_habitacion", id="registro-habitacion", required)
+              option(disabled selected value="") -- Seleccione la habitación --
+              each habitacion in habitaciones
+                option(value=habitacion.id_habitacion)= "Habitación " + habitacion.numero
+
+          div
+            button(type="submit") Admitir paciente

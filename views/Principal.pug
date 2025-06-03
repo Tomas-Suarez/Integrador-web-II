@@ -1,12 +1,8 @@
-doctype html
-html(lang="en")
-    head
-        meta(charset="UTF-8")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        title HIS
-        link(rel="stylesheet", href="/css/principal.css")
-    body
-        div.separador
-            include includes/nav.pug
-            +nav()
-            img.img-principal(src="/img/image-principal.png", alt="principal")
+extends ./layout
+
+block head
+  link(rel="stylesheet", href="/css/principal.css")
+
+block content
+  .contenido-principal
+    img.img-principal(src="/img/image-principal.png", alt="principal")
