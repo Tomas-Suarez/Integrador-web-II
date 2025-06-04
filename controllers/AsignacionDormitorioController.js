@@ -23,16 +23,16 @@ const createAsignacionDormitorio = async (req, res) => {
     const { asignacion, creado } = await AsignacionDormitorioService.createAsignacionDormitorio(datos);
 
     if (creado) {
-      res.redirect("/pacientes/GestionPaciente"); // Revisar
+      res.redirect("/asignaciones/GestionInternacion");
     } else {
-      res.status(404).render("Paciente/GestionPaciente", {
+      res.status(404).render("GestionarInternacion/GestionarInternacion", {
         error:
           "Error al asignar el dormitorio.",
       });
     }
   } catch (error) {
     console.error(error);
-    res.status(500).render("Paciente/GestionPaciente", {
+    res.status(500).render("GestionarInternacion/GestionarInternacion", {
       error: "Error al asignar el dormitorio",
     });
   }

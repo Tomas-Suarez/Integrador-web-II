@@ -4,10 +4,4 @@ mixin modalPaciente()
   #modal-editar.hidden
     .modal-contenido
       h2 Editar Paciente
-      +formPaciente("/pacientes/actualizar")
-
-mixin modalAdmision()
-  #modal-registrarAdmision.hidden
-    .modal-contenido
-      h2 Registrar Admisión
-      +formPaciente("/admisiones/registrar")
+      +formPaciente("#")

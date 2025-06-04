@@ -240,3 +240,28 @@ button, .btn-editar, .btn-historial, .btn-cambiar-estado,
   cursor: pointer;
   user-select: none;
 }
+
+.notificacion-flotante {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #f44336; /* rojo */
+  color: white;
+  padding: 16px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 1;
+  transition: opacity 1s ease;
+  z-index: 9999;
+}
+
+.notificacion-flotante button.cerrar-notificacion {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}

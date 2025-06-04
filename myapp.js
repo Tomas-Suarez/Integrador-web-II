@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const methodOverride = require('method-override');
 require('./models/Asociaciones'); //Importa y ejecuta todas las asociaciones de los models - SEQUELIZE
 const logging = require('./middlewares/logging');
 const error404 = require('./middlewares/404notFound');
@@ -26,6 +27,15 @@ app.use(logging);
 // Middleware para obtener datos del formulario
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+// Permite sobreexribir los metodos, para poder usar put, path, etc
+app.use(methodOverride((req, res) => {
+  const method = req.body && req.body._method;
+  const allowed = ['PATCH', 'PUT'];
+  if (method && allowed.includes(method.toUpperCase())) {
+    return method;
+  }
+})); // NOTA: No me funciona el app.use(methodOverride('_method')); Lo tuve que hacer de la otra forma
 
 // Rutas
 app.use('/pacientes', pacienteRoutes);

@@ -57,7 +57,7 @@ const createPaciente = async (datos) => {
   }
 };
 
-//Nos permite actualizar un paciente mediante su ID
+// Nos permite actualizar un paciente mediante su ID
 const updatePaciente = async (datos) => {
   try {
     const [pacienteActualizado] = await Paciente.update(
@@ -79,12 +79,11 @@ const updatePaciente = async (datos) => {
         },
       }
     );
-    if (pacienteActualizado === 0) {
-      throw new Error("No se encontro ningun paciente para actualizar!");
-    }
+
+    return { actualizado: pacienteActualizado > 0 };
   } catch (error) {
     throw new Error(
-      "Ocurrio un error al actualizar el paciente" + error.message
+      "Ocurrió un error al actualizar el paciente: " + error.message
     );
   }
 };
@@ -100,7 +99,9 @@ const changeStatusPaciente = async (datos) => {
       throw new Error("No se encontró ningún paciente para cambiar el estado.");
     }
   } catch (error) {
-    throw new Error("Ocurrió un error al cambiar el estado del paciente: " + error.message);
+    throw new Error(
+      "Ocurrió un error al cambiar el estado del paciente: " + error.message
+    );
   }
 };
 
@@ -108,8 +109,8 @@ const changeStatusPaciente = async (datos) => {
 const getPacienteByDNI = async (documento) => {
   try {
     const paciente = await Paciente.findOne({
-      where: { documento: documento }
-    })
+      where: { documento: documento },
+    });
 
     return paciente;
   } catch (error) {
@@ -135,7 +136,9 @@ const getPacienteById = async (id_paciente) => {
 
     return paciente;
   } catch (error) {
-    throw new Error("Ocurrió un error al buscar el paciente por ID: " + error.message);
+    throw new Error(
+      "Ocurrió un error al buscar el paciente por ID: " + error.message
+    );
   }
 };
 

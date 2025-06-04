@@ -55,7 +55,6 @@ const getAsignacionesActuales = async () => {
 const createAsignacionDormitorio = async (datos) => {
   try {
     // Buscamos la primera cama que este libre en la habitacion, si esta ocupada la primera, se le asignara la segunda
-    console.log("Datos recibidos en createAsignacionDormitorio:", datos);
     const buscarCamaLibre = await Cama.findOne({
       where: {
         id_habitacion: datos.id_habitacion,
@@ -63,9 +62,6 @@ const createAsignacionDormitorio = async (datos) => {
         higienizada: true,
       },
     });
-
-    console.log("Cama libre encontrada:", buscarCamaLibre);
-
 
     // Verificamos que se encuentre una cama libre
     if (!buscarCamaLibre) {

@@ -23,7 +23,7 @@ router.post(
 
 
 // Actualizar paciente
-router.post("/actualizar/:id", pacienteController.updatePaciente);
+router.put("/actualizar/:id", pacienteController.updatePaciente);
 
 // Mostrar todos los pacientes
 router.get("/GestionPaciente", pacienteController.getAllPacientes);
@@ -38,7 +38,7 @@ router.get("/obtener-paciente", pacienteController.formAdmision);
 router.get("/internacion-emergencia", pacienteController.formEmergencia);
 
 // Cambiar el estado del paciente
-router.post("/cambiar-estado/:id", pacienteController.changeStatusPaciente);
+router.patch("/cambiar-estado/:id", pacienteController.changeStatusPaciente);
 
 
 module.exports = router;

@@ -1,5 +1,9 @@
 mixin formPaciente(action)
   form#form-paciente(method="POST", action=action)
+    //- Sobre escribe a PATH, si estoy editando el paciente
+    if action.includes('actualizar')
+      input(type="hidden", name="_method", value="PUT")
+
     input(type="hidden", name="id_paciente", id="edit-id")
     div
       label(for="edit-nombre") Nombre:
@@ -24,12 +28,11 @@ mixin formPaciente(action)
       select(name="genero", id="edit-genero", required)
         option(value="Masculino") Masculino
         option(value="Femenino") Femenino
-        option(value="Otro") Otro
     div
-      label(for="edit-estatura") Estatura:
+      label(for="edit-estatura") Estatura (cm):
       input(type="text", name="estatura", id="edit-estatura", required)
     div
-      label(for="edit-peso") Peso:
+      label(for="edit-peso") Peso (kg):
       input(type="text", name="peso", id="edit-peso", required)
     div
       label(for="edit-seguro") Seguro médico:

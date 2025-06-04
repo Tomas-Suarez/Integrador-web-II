@@ -38,16 +38,15 @@ const createAdmision = async (req, res) => {
     const { admisiones, creado } = await AdmisionService.createAdmision(datos);
 
     if (creado) {
+      // Si se creó correctamente, redirigimos a la gestión de internaciones
       return res.redirect("/admisiones/InternacionPaciente/");
     } else {
       // En caso de no ser creado por no encontrar el DNI, pasamos la notificacion de que no se encontro
-      const paciente = await PacienteService.getPacienteById(
-        req.body.id_paciente
-      );
+      const paciente = await PacienteService.getPacienteById(req.body.id_paciente);
       const ingresos = await TipoIngresoService.getAllIngreso();
       const motivos = await MotivoService.getAllMotivos();
 
-      return res.status(200).render("Admision/RegistrarAdmision", {
+      return res.status(409).render("Admision/RegistrarAdmision", {
         paciente,
         ingresos,
         motivos,
@@ -62,22 +61,25 @@ const createAdmision = async (req, res) => {
   }
 };
 
+
 // Controlador para el paciente NN, Crea la admision y luego le asigna la habitacion(Interna)
 const registrarYAsignar = async (req, res) => {
   try {
-
+    
     const datosAdmision = {
-      id_paciente: 11,
+      id_paciente: 11, // ID del paciente NN
       id_tipo: req.body.id_tipo,
       id_motivo: req.body.id_motivo,
-      fecha_entrada: new Date(),
+      fecha_entrada: new Date(), // Fecha de hoy
       detalles: req.body.detalles,
     };
 
+    // Creamos la admision
     const { admision, creado: creadoAdmision } = await AdmisionService.createAdmision(
       datosAdmision
     );
 
+    // Si no fue creada, mostramos el error
     if (!creadoAdmision) {
       const ingresos = await TipoIngresoService.getAllIngreso();
       const motivos = await MotivoService.getAllMotivos();
@@ -93,16 +95,19 @@ const registrarYAsignar = async (req, res) => {
       });
     }
 
+    // Si fue creada la admision, agarramos los otros datos del form para la asignacion de dormitorio(Internacion)
     const datosAsignacion = {
       id_admision: admision.id_admision,
       id_habitacion: req.body.id_habitacion,
     };
 
+    // Le asignamos el dormitorio
     const { asignacion, creado: creadoAsignacion } =
       await AsignacionDormitorioService.createAsignacionDormitorio(
         datosAsignacion
       );
     
+    // Si tenemos error al asignar dormitorio, mostramos el error
     if (!creadoAsignacion) {
       const ingresos = await TipoIngresoService.getAllIngreso();
       const motivos = await MotivoService.getAllMotivos();
@@ -118,6 +123,7 @@ const registrarYAsignar = async (req, res) => {
       });
     }
 
+    // Si fue creado con exito, recargamos la pagina
     res.redirect("/pacientes/GestionPaciente");
   } catch (error) {
     const ingresos = await TipoIngresoService.getAllIngreso();

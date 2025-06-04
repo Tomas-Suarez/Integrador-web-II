@@ -71,27 +71,34 @@ const createPaciente = async (req, res) => {
       estatura: parseFloat(req.body.estatura),
       peso: parseFloat(req.body.peso),
       id_seguro: idSeguro,
-      // VER SI NO SE ROMPE SI BORRO EL ESTADO
     };
 
     // Invocamos al servicio para crear el paciente, el cual nos va a devolver el paciente y si fue creado.
     const { paciente, creado } = await pacienteService.createPaciente(datos);
 
     if (creado) {
-      res.redirect("/pacientes/GestionPaciente");
+      // Si se creó correctamente, redirigimos a la gestión de pacientes
+      return res.redirect("/pacientes/GestionPaciente");
     } else {
-      res.status(404).render("Paciente/GestionPaciente", {
-        error:
-          "Error al crear un paciente, ya existe uno con el mismo documento",
-      }); // FALTA COLOCAR UNA NOTIFICACION FLOTANTE
+      // Si no se creó porque ya existe un paciente con ese documento,
+      // renderizamos la vista con el flag para mostrar la notificación flotante
+      const pacientes = await pacienteService.getAllPacientes();
+      const seguros = await SeguroService.getAllSegurosMedicos();
+      return res.status(409).render("Paciente/GestionPaciente", {
+        pacientes,
+        seguros,
+        errorDniExistente: true,
+      });
     }
   } catch (error) {
     console.error(error);
-    res.status(500).render("Paciente/GestionPaciente", {
+    return res.status(500).render("Paciente/GestionPaciente", {
       error: "Error al crear el paciente",
     });
   }
 };
+
+
 
 // Controlador para actualizar un paciente existente con los datos del formulario
 const updatePaciente = async (req, res) => {
@@ -120,12 +127,20 @@ const updatePaciente = async (req, res) => {
       id_seguro: idSeguro,
     };
 
-    await pacienteService.updatePaciente(datos);
+    const { actualizado } =  await pacienteService.updatePaciente(datos);
+
+    if(!actualizado){
+      return res.redirect("/pacientes/GestionPaciente");
+    }
 
     res.redirect("/pacientes/GestionPaciente");
   } catch (error) {
-    console.error(error);
+    const pacientes = await pacienteService.getAllPacientes();
+    const seguros = await SeguroService.getAllSegurosMedicos();
+
     res.status(500).render("Paciente/GestionPaciente", {
+      pacientes,
+      seguros,
       error: "Error al actualizar el paciente",
     });
   }
