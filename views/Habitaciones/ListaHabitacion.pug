@@ -1,35 +1,32 @@
-doctype html
-html(lang="es")
-  head
-    meta(charset="UTF-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title Información de las habitaciones
-    link(rel="stylesheet", href="/css/VistaPaciente.css")
-    link(rel="stylesheet", href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css")
-    script(src="https://code.jquery.com/jquery-3.6.0.min.js")
-    script(src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js")
-    script(src="/js/DataTableHabitacion.js")
-  body
-    .container
-      include ../includes/nav.pug
-      +nav()
-      .contenido
-        h1 Información de las habitaciones
-        table#TablaHabitacion
-          thead
-            tr
-              th N° Habitación
-              th Ala
-              th Género permitido
-              th Capacidad
-              th Estado Cama N°1
-              th Estado Cama N°2
-          tbody
-            each habitacion in habitaciones
-              tr
-                td= habitacion.numero
-                td= habitacion.Ala.nombre
-                td= habitacion.genero
-                td= habitacion.capacidad
-                td= habitacion.Camas && habitacion.Camas.length > 0 && habitacion.Camas[0].libre ? 'Libre' : 'Ocupado'
-                td= habitacion.Camas && habitacion.Camas.length > 1 && habitacion.Camas[1].libre ? 'Libre' : 'Ocupado'
+extends ../layout
+
+block head
+  title Información de las habitaciones
+  link(rel="stylesheet", href="/css/VistaPaciente.css")
+  link(rel="stylesheet", href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css")
+
+block scripts
+  script(src="https://code.jquery.com/jquery-3.6.0.min.js")
+  script(src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js")
+  script(src="/js/DataTablePaciente.js")
+
+block content
+  .contenido-paciente
+    h1 Información de las habitaciones
+
+    table#TablaPaciente
+      thead
+        tr
+          th N° Habitación
+          th Ala
+          th Capacidad
+          th Estado Cama N°1
+          th Estado Cama N°2
+      tbody
+        each habitacion in habitaciones
+          tr
+            td= habitacion.numero
+            td= habitacion.Ala.nombre
+            td= habitacion.capacidad
+            td= habitacion.Camas && habitacion.Camas.length > 0 && habitacion.Camas[0].libre ? 'Libre' : 'Ocupado'
+            td= habitacion.Camas && habitacion.Camas.length > 1 && habitacion.Camas[1].libre ? 'Libre' : 'Ocupado'

@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Validacion del campo dni
     const dniInput = document.getElementById("edit-documento");
     const dni = dniInput.value.trim();
-    if (dni.length < 7 || dni.length > 10) {
+    if (!/^\d{7,10}$/.test(dni)) {
       dniInput.setCustomValidity("El DNI debe contener entre 7 y 10 números.");
       dniInput.reportValidity();
       valido = false;

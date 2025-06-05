@@ -26,6 +26,9 @@ router.post(
 );
 
 // Creamos una admision y luego asignamos una habitacion
-router.post("/registrarEmergencia", AdmisionController.registrarYAsignar)
+router.post("/registrarEmergencia", AdmisionController.registrarYAsignar);
+
+// Cancelar una admision - Cambiar el estado del estado booleano a false
+router.patch("/cancelarAdmision/:id", AdmisionController.darDeBajaAdmision);
 
 module.exports = router;

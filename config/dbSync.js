@@ -1,6 +1,6 @@
 const sequelize = require("../models/db");
 
-// Importamos todos los models para el funcionamiento del async
+// Importamos todos los models
 require("../models/AdmisionModels");
 require("../models/AsignDormitorioModels");
 require("../models/CamaModels");
@@ -20,15 +20,18 @@ require("../models/TipoIngresoModels");
 require("../models/TratamientoModels");
 require("../models/AlaModels");
 require("../models/GuardiaModels");
-require("../models/AltaHospitalariaModels")
+require("../models/AltaHospitalariaModels");
 require("../models/MotivoAltaModels");
 
-(async () => {
+async function syncDatabase() {
   try {
     console.log("Conectando a la base de datos...");
-    await sequelize.sync({ force: false }); // true para reiniciar la BD
-    console.log("¡Las tablas fueron creadas con exito!");
+    await sequelize.sync({ force: false });
+    console.log("¡Las tablas fueron creadas con éxito!");
   } catch (error) {
     console.error("Error en la base de datos:", error);
+    process.exit(1);
   }
-})();
+}
+
+module.exports = syncDatabase;

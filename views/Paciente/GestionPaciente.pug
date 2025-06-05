@@ -83,11 +83,11 @@ block content
                   if paciente.estado
                     span.estado-boton-rojo
                       img.icono-info(src="/img/icon-inactivo.png", alt="Dar de baja", title="Dar de baja")
-                      |  Dar de baja
+                      |  Eliminar
                   else
                     span.estado-boton-verde
                       img.icono-info(src="/img/icon-activo.png", alt="Dar de alta", title="Dar de alta")
-                      |  Dar de alta
+                      |  Restaurar
 
   script.
     document.querySelectorAll('.edad').forEach(td => {

@@ -1,11 +1,16 @@
 // Importamos modelos
 const Paciente = require("../models/PacienteModels");
 const SeguroMedico = require("../models/SeguroMedicoModels");
+const { Op } = require("sequelize");
+
 
 // Nos permite obtener todos los pacientes, incluyendo el seguro medico
 const getAllPacientes = async () => {
   try {
     const pacientes = await Paciente.findAll({
+      where: {
+        id_paciente: { [Op.ne]: 1 }, // Traemos a todos pacientes menos al que tiene id 1, que seria el paciente NN
+      },
       include: {
         model: SeguroMedico,
         attributes: ["id_seguro", "nombre"],
@@ -18,6 +23,7 @@ const getAllPacientes = async () => {
     );
   }
 };
+
 
 // Nos permite obtener solamente los pacientes que se encuentran activos
 const getAllPacientesActivos = async () => {

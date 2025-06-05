@@ -1,3 +1,4 @@
+const syncDatabase = require("./config/dbSync");
 const express = require('express');
 const path = require('path');
 const methodOverride = require('method-override');
@@ -53,7 +54,10 @@ app.get('/', (req, res) =>{
 //Middleware para renderizar cuando ocurre un error 404 (Osea cuando no se encuentra la ruta)
 app.use(error404);
 
-// Inicio del servidor
-app.listen(3000, ()=>{ //Puerto 3000
-    console.log("Iniciando el servidor...");
+// Sincronización de la Base de datos antes de iniciar el servidor
+syncDatabase().then(() => {
+  // Inicio del servidor
+  app.listen(3000, () => {
+    console.log("Servidor iniciado en el puerto 3000...");
+  });
 });

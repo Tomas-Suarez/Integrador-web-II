@@ -7,6 +7,9 @@ const AsignacionDormitorio = require("../models/AsignDormitorioModels");
 const getAllAdmisiones = async () => {
   try {
     const admisiones = await Admision.findAll({
+      where: {
+        estado: true,
+      },
       include: [
         {
           model: TipoIngreso,
@@ -55,10 +58,9 @@ const getAdmisionActivaByPaciente = async (id_paciente) => {
 // Crea la admision
 const createAdmision = async (datos) => {
   try {
-    // REVISAR, Si un paciente es NN (Se salta la verificacion) - ANOTACION //
 
     //Si no es paciente NN, revisa si existe una admision activa
-    if (datos.id_paciente !== 11) {
+    if (datos.id_paciente !== 1) {
       //ID DEL NN
       const admisionExistente = await getAdmisionActivaByPaciente(
         datos.id_paciente
@@ -85,7 +87,26 @@ const createAdmision = async (datos) => {
   }
 };
 
+// Cancelamos una admision - Cambiamos el estado booleano, a false
+const darDeBajaAdmision = async (id_admision) => {
+  try {
+    const [actualizado] = await Admision.update(
+      { estado: false },
+      { where: { id_admision } }
+    );
+
+    if (actualizado === 0) {
+      throw new Error("No se encontró ninguna admisión para cancelarla");
+    }
+  } catch (error) {
+    throw new Error("Error al cancelar una admisión: " + error.message);
+  }
+};
+
+
+
 module.exports = {
   getAllAdmisiones,
   createAdmision,
+  darDeBajaAdmision,
 };

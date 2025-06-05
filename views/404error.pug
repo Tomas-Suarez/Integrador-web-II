@@ -1,8 +1,44 @@
 doctype html
-html(lang="en")
-    head
-        meta(charset="UTF-8")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        title 404
-        img(src="https://http.cat/images/404.jpg", alt="404")
-    body 
+html(lang="es")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Página no encontrada
+    style.
+      body {
+        margin: 0;
+        padding: 0;
+        background-color:rgb(74, 198, 202);
+        font-family: Arial, sans-serif;
+      }
+      .error-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        text-align: center;
+      }
+      .error-container img {
+        max-width: 90%;
+        max-height: 400px;
+        margin-bottom: 20px;
+      }
+      .boton-regresar {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+      }
+      .boton-regresar:hover {
+        background-color: #0056b3;
+      }
+
+  body
+    .error-container
+      img(src="https://http.cat/images/404.jpg", alt="404 - Página no encontrada")
+      h1 ¡Oops! Página no encontrada
+      a.boton-regresar(href="/") ⬅ Regresar al inicio

@@ -32,14 +32,22 @@ block content
             td= admision.TipoIngreso.descripcion
             td= new Date(admision.fecha_entrada).toLocaleDateString('es-AR')
             td
+              // Botón para registrar internación
               button.btn-abrir-internacion(
                 type="button",
                 data-id=admision.id_admision,
                 data-idPaciente=admision.Paciente.id_paciente
               )
                 span.editar-boton
-                  img.icono-info(src="/img/icon-crearPaciente.png", alt="Registrar")
-                  |  Registrar
+                  img.icono-info(src="/img/icon-crearPaciente.png", alt="Registrar internacion")
+                  |  Registrar internación
+
+              form(method="POST", action=`/admisiones/cancelarAdmision/${admision.id_admision}`, style="display:inline")
+                input(type="hidden", name="_method", value="PATCH")
+                button(type="submit", class="btn-cancelar-admision")
+                  span.estado-boton-rojo
+                    img.icono-info(src="/img/icon-inactivo.png", alt="Cancelar admision", title="Cancelar admision")
+                    |  Cancelar admisión
 
     include includes/modalInternacion.pug
     include includes/formInternacion.pug

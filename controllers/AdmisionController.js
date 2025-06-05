@@ -67,7 +67,7 @@ const registrarYAsignar = async (req, res) => {
   try {
     
     const datosAdmision = {
-      id_paciente: 11, // ID del paciente NN
+      id_paciente: 1, // ID del paciente NN
       id_tipo: req.body.id_tipo,
       id_motivo: req.body.id_motivo,
       fecha_entrada: new Date(), // Fecha de hoy
@@ -123,8 +123,8 @@ const registrarYAsignar = async (req, res) => {
       });
     }
 
-    // Si fue creado con exito, recargamos la pagina
-    res.redirect("/pacientes/GestionPaciente");
+    // Si fue creado con exito, redirigimos a la vista de listado de internaciones
+    res.redirect("/asignaciones/GestionInternacion/");
   } catch (error) {
     const ingresos = await TipoIngresoService.getAllIngreso();
     const motivos = await MotivoService.getAllMotivos();
@@ -141,8 +141,19 @@ const registrarYAsignar = async (req, res) => {
   }
 };
 
+// Controlador para cancelar una admision 
+const darDeBajaAdmision = async (req, res) => {
+  try {
+    await AdmisionService.darDeBajaAdmision(req.params.id);
+    res.redirect("/admisiones/InternacionPaciente/");
+  } catch (error) {
+    res.status(500).send("Error al cancelar una admisión: " + error.message);
+  }
+};
+
 module.exports = {
   getAllAdmisiones,
   createAdmision,
   registrarYAsignar,
+  darDeBajaAdmision,
 };
