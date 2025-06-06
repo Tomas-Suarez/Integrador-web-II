@@ -65,80 +65,83 @@ npm start
 - **Nodemon:** herramienta para reiniciar el servidor durante el desarrollo.
 - **DataTable:** mostrar informacion paciente, admision, habitacion, etc
 
-### EndPoints 📚
+## EndPoints 📚
 
-##### 🧍‍♂️Pacientes:
+### 🧍‍♂️ Pacientes
 
-#####🔹GET	/GestionPaciente
-** Descripcion: ** Muestra todos los pacientes registrados
-** Renderiza: ** `Pacientes/GestionPaciente.pug`
+- **GET** `/GestionPaciente`  
+  Muestra todos los pacientes registrados  
+  🖼️ Renderiza: `Pacientes/GestionPaciente.pug`
 
-#####🔹POST	/registro
-** Descripcion: ** Registrar un nuevo paciente desde un formulario
-** Body: ** Datos del paciente
+- **POST** `/registro`  
+  Registra un nuevo paciente desde un formulario
 
-#####🔹PUT	/actualizar/:id
-** Descripcion: ** Actualiza la información de un paciente especificado
-** Parametros: ** ID del paciente
-** Body: ** Datos actualizados del paciente
+- **PUT** `/actualizar/:id`  
+  Actualiza la información de un paciente especificado  
+  🧾 Parámetros: ID del paciente
 
-#####🔹GET	/RegistrarAdmision
-** Descripcion: ** Carga el formulario para el registro de admision
-** Renderiza: ** `Admision/RegistrarAdmision.pug`
+- **GET** `/RegistrarAdmision`  
+  Carga el formulario para el registro de admisión  
+  🖼️ Renderiza: `Admision/RegistrarAdmision.pug`
 
-#####🔹GET	/obtener-paciente
-** Descripcion: ** Me carga el paciente por el ID, en el formulario de registrar admision
-** Renderiza: ** `Admision/RegistrarAdmision.pug`
+- **GET** `/obtener-paciente`  
+  Carga los datos del paciente por ID para el formulario de admisión  
+  🖼️ Renderiza: `Admision/RegistrarAdmision.pug`
 
-#####🔹GET	/internacion-emergencia
-** Descripcion: ** Cargar el formulario para la emergencia, donde va el paciente NN
-** Renderiza: ** `Emergencia/RegistrarEmergencia.pug`
+- **GET** `/internacion-emergencia`  
+  Carga el formulario para emergencia (paciente NN)  
+  🖼️ Renderiza: `Emergencia/RegistrarEmergencia.pug`
 
-#####🔹PATCH	/cambiar-estado/:id
-** Descripcion: ** Realiza un borrado logico de un paciente en particular, a través del DNI
-**Parámetros:** ID del paciente  
+- **PATCH** `/cambiar-estado/:id`  
+  Realiza un borrado lógico de un paciente  
+  🧾 Parámetros: ID del paciente
 
-##### 💉Admision:
+---
 
-#####🔹GET	/InternacionPaciente
-** Descripcion: ** Muestra todos las admisiones pendientes
-** Renderiza: ** `Internacion/InternacionPaciente.pug`
+### 💉 Admisión
 
-##### 🔹POST /registrar
-**Descripción:** Registra una nueva admisión para un paciente existente  
-**Body:** Datos del paciente (ID) y detalles de la admisión (vía de ingreso, motivo, fecha, etc.)
+- **GET** `/InternacionPaciente`  
+  Lista todas las admisiones pendientes  
+  🖼️ Renderiza: `Internacion/InternacionPaciente.pug`
 
-##### 🔹POST /registrarEmergencia
-**Descripción:** Registra una admisión de emergencia para el paciente NN y le asigna una habitación 
-**Body:** Datos de un paciente(NN), detalles de la admision y asignacion de habitacion
+- **POST** `/registrar`  
+  Registra una nueva admisión  
+  📦 Body: ID del paciente + detalles de la admisión
 
-##### 🔹PATCH /cancelarAdmision/:id
-** Descripcion: ** Realiza un borrado logico de una admision
-**Parámetros:** ID de la admision 
+- **POST** `/registrarEmergencia`  
+  Registra una admisión para paciente NN  
+  📦 Body: Datos del paciente NN + detalles + habitación
 
-##### 🛏️Habitacion:
+- **PATCH** `/cancelarAdmision/:id`  
+  Borrado lógico de una admisión  
+  🧾 Parámetros: ID de la admisión
 
-#####🔹GET	/ListaHabitacion
-** Descripcion: ** Muestra todas las habitaciones con sus respectivas camas y alas.
-** Renderiza: ** `Habitacion/ListaHabitacion.pug`
+---
 
-#####🔹GET	/por-ala
-** Descripcion: ** Obtiene las habitaciones disponibles filtradas por el ala y el genero del paciente
-** Query params: **
-- `alaId`: ID del ala seleccionada  
-- `pacienteId`: ID del paciente (se usa para obtener el genero)
+### 🛏️ Habitaciones
 
-** Nos devolvera un json**
+- **GET** `/ListaHabitacion`  
+  Lista todas las habitaciones con camas y alas  
+  🖼️ Renderiza: `Habitacion/ListaHabitacion.pug`
 
-##### 🛏️AsignacionDormitorio:
+- **GET** `/por-ala`  
+  Devuelve habitaciones disponibles según ala y género  
+  📤 Devuelve: JSON  
+  🔸 Query Params:  
+    - `alaId`: ID del ala seleccionada  
+    - `pacienteId`: ID del paciente
 
-#####🔹GET	/GestionInternacion
-** Descripcion: ** Muestra las internaciones activas con sus respectivos pacientes y habitacion
-** Renderiza: ** `GestionarInternacion/GestionarInternacion.pug`
+---
 
-#####🔹POST	/asignar
-** Descripcion: ** Le asignamos una habitacion a un paciente (Internacion)
-**Body:** ID de la admision y ID de la habitacion
+### 🛌 Asignación de Dormitorio
+
+- **GET** `/GestionInternacion`  
+  Muestra internaciones activas con sus respectivas habitaciones  
+  🖼️ Renderiza: `GestionarInternacion/GestionarInternacion.pug`
+
+- **POST** `/asignar`  
+  Asigna una habitación a una admisión  
+  📦 Body: ID de la admisión y ID de la habitación
 
 ## Autores ✒️
 
