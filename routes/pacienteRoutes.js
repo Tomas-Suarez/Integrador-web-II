@@ -28,13 +28,13 @@ router.put("/actualizar/:id", pacienteController.updatePaciente);
 // Mostrar todos los pacientes
 router.get("/GestionPaciente", pacienteController.getAllPacientes);
 
-//Mostrar todos los pacientes activos en mi admision
-router.get("/RegistrarAdmision", pacienteController.getAllPacientesActivos);
+//Permite cargar el form de la parte de registro admision
+router.get("/RegistrarAdmision", pacienteController.formAdmision);
 
 //Obtenemos el paciente por su documento(DNI)
-router.get("/obtener-paciente", pacienteController.formAdmision);
+router.get("/obtener-paciente", pacienteController.cargarPaciente);
 
-//Obtenemos los datos para el funcionamiento del form de emergencia
+//permite cargar el form de la parte de emergencia
 router.get("/internacion-emergencia", pacienteController.formEmergencia);
 
 // Cambiar el estado del paciente

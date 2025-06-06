@@ -26,18 +26,14 @@ const getAllPacientes = async (req, res) => {
 
 
 // Controlador para obtener todos los pacientes activos, incluyendo los ingresos, motivos, alas 
-const getAllPacientesActivos = async (req, res) => {
+const formAdmision = async (req, res) => {
   try {
-    // Obtenemos los datos de todos los pacietnes activos
-    const pacientes = await pacienteService.getAllPacientesActivos();
-    
     // Obtenemos los datos para el formulario de admision
     const ingresos = await IngresoService.getAllIngreso();
     const motivos = await MotivoService.getAllMotivos();
     const alas = await AlaService.getAllAlas();
     // Renderizamos en la vista, con los datos obtenidos
     res.render("Admision/RegistrarAdmision", {
-      pacientes,
       ingresos,
       motivos,
       alas,
@@ -45,7 +41,7 @@ const getAllPacientesActivos = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).render("Admision/RegistrarAdmision", {
-      error: "Error al mostrar pacientes activos",
+      error: "Error al formulario de registro",
     });
   }
 };
@@ -170,7 +166,7 @@ const changeStatusPaciente = async (req, res) => {
 };
 
 // Controlador para el form de admision, donde cargamos el paciente por el dni
-const formAdmision = async (req, res) => {
+const cargarPaciente = async (req, res) => {
   try {
     // Obtenemos el documento de la query string
     const documento = req.query.documento;
@@ -238,10 +234,10 @@ const formEmergencia = async (req, res) => {
 // Exportamos controladores para usarlos en las rutas
 module.exports = {
   getAllPacientes,
-  getAllPacientesActivos,
+  formAdmision,
   createPaciente,
   updatePaciente,
   changeStatusPaciente,
-  formAdmision,
+  cargarPaciente,
   formEmergencia,
 };
