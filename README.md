@@ -22,26 +22,34 @@ Este proyecto fue desarrollado durante la cursada de la materia **Programación 
 ```
 git clone https://github.com/Tomas-Suarez/Integrador-web-II.git
 ```
-1. Ingresa al directorio del proyecto: 
+2. Ingresa al directorio del proyecto: 
 ```
 cd Integrador-web-II
 ```
-1. Instala las dependencias:
+3. Instala las dependencias:
 ```
 npm install
 ```
-1. Configura la base de datos MySQL y actualiza los datos de conexión en `config/dbConfig.js` si es necesario.
+4. Creá un archivo .env en la raíz del proyecto para configurar las variables de entorno de la base de datos. Un ejemplo del contenido sería:
+```
+DB_NAME=hospital
+DB_USER=root
+DB_PASS=iokc
+DB_HOST=111.11.1
+DB_PORT=3306
+DB_DIALECT=mysql
+```
 
-1. Sincroniza la base de datos y carga datos de ejemplo (opcional):
+5. Sincroniza la base de datos y carga datos de ejemplo (opcional):
 ```
 node seeders/seed.js
 ```
-1. Inicia la aplicación:
+6. Inicia la aplicación:
 ```
 npm start
 ```
 
-1. Accedé a la app en tu navegador en http://localhost:3000
+7. Accedé a la app en tu navegador en http://localhost:3000
 
 
 ## Funcionalidades requeridas ⚙️
