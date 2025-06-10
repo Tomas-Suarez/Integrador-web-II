@@ -9,7 +9,7 @@ block scripts
   script(src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js")
   script(src="/js/DataTablePaciente.js")
 
-  script(src="/js/paciente.js")
+  script(src="/js/Paciente.js")
 
 block content
   .contenido-paciente
@@ -82,11 +82,11 @@ block content
                 button(type="submit", class="btn-cambiar-estado")
                   if paciente.estado
                     span.estado-boton-rojo
-                      img.icono-info(src="/img/icon-inactivo.png", alt="Dar de baja", title="Dar de baja")
+                      img.icono-info(src="/img/icon-estado.png", alt="Dar de baja", title="Dar de baja")
                       |  Eliminar
                   else
                     span.estado-boton-verde
-                      img.icono-info(src="/img/icon-activo.png", alt="Dar de alta", title="Dar de alta")
+                      img.icono-info(src="/img/icon-estado.png", alt="Dar de alta", title="Dar de alta")
                       |  Restaurar
 
   script.
