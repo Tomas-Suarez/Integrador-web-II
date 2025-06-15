@@ -21,6 +21,7 @@ block content
           th Nombre
           th Apellido
           th Vía ingreso
+          th Motivo
           th Fecha para internación
           th Acciones
       tbody
@@ -30,6 +31,7 @@ block content
             td= admision.Paciente.nombre
             td= admision.Paciente.apellido
             td= admision.TipoIngreso.descripcion
+            td= admision.MotivoAdmision.descripcion
             td= new Date(admision.fecha_entrada).toLocaleDateString('es-AR')
             td
               // Botón para registrar internación

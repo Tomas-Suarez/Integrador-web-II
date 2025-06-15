@@ -57,9 +57,13 @@ block content
           div
             button(type="submit", disabled=disabled) Admitir paciente
 
-    //- Notificación flotante si ya hay admisión activa
+    //- Notificación flotantes en caso de error
     if admisionActiva
       .notificacion-flotante
         span El paciente ya tiene una admisión activa.
+        button(type="button", class="cerrar-notificacion", onclick="this.parentElement.style.display='none'") ×
+    if pacienteInactivo
+      .notificacion-flotante
+        span El paciente esta inactivo. No es posible crear la admisión.
         button(type="button", class="cerrar-notificacion", onclick="this.parentElement.style.display='none'") ×
 

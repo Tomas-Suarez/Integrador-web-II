@@ -26,7 +26,30 @@ const getAllAdmisiones = async (req, res) => {
 // Controlador para crear una admision
 const createAdmision = async (req, res) => {
   try {
-    // Obtenemos los datos del form - (Body)
+    // Obtenemos ingresos y motivos
+    const ingresos = await TipoIngresoService.getAllIngreso();
+    const motivos = await MotivoService.getAllMotivos();
+
+    // Obtenemos el paciente
+    const paciente = await PacienteService.getPacienteById(req.body.id_paciente);
+
+    if (!paciente) {
+      // Si el paciente no existe, devolvemos el error
+      return res.status(404).send("El paciente no existe.");
+    }
+
+    if (!paciente.estado) {
+      // Si el paciente existe pero esta inactivo, mostramos el error
+      return res.status(409).render("Admision/RegistrarAdmision", {
+        paciente,
+        ingresos,
+        motivos,
+        pacienteInactivo: true,
+        documento: req.body.documento,
+      });
+    }
+
+    // Si pasa las validaciones, seguimos creando la admisión
     const datos = {
       id_paciente: req.body.id_paciente,
       id_tipo: req.body.id_tipo,
@@ -38,14 +61,9 @@ const createAdmision = async (req, res) => {
     const { admisiones, creado } = await AdmisionService.createAdmision(datos);
 
     if (creado) {
-      // Si se creó correctamente, redirigimos a la gestión de internaciones
       return res.redirect("/admisiones/InternacionPaciente/");
     } else {
-      // En caso de no ser creado por no encontrar el DNI, pasamos la notificacion de que no se encontro
-      const paciente = await PacienteService.getPacienteById(req.body.id_paciente);
-      const ingresos = await TipoIngresoService.getAllIngreso();
-      const motivos = await MotivoService.getAllMotivos();
-
+      // En caso de no ser creado, volvemos a cargar los datos para la vista
       return res.status(409).render("Admision/RegistrarAdmision", {
         paciente,
         ingresos,
@@ -55,12 +73,9 @@ const createAdmision = async (req, res) => {
       });
     }
   } catch (error) {
-    res
-      .status(500)
-      .send("Ocurrió un error al crear la admisión: " + error.message);
+    res.status(500).send("Ocurrió un error al crear la admisión: " + error.message);
   }
 };
-
 
 // Controlador para el paciente NN, Crea la admision y luego le asigna la habitacion(Interna)
 const registrarYAsignar = async (req, res) => {

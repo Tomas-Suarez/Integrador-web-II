@@ -22,7 +22,7 @@ const getAllPacientes = async (req, res) => {
       error: "Error al mostrar pacientes",
     });
   }
-}; //COLOCAR NOTIFICACION FLOTANTE
+};
 
 
 // Controlador para obtener todos los pacientes activos, incluyendo los ingresos, motivos, alas 
@@ -64,8 +64,8 @@ const createPaciente = async (req, res) => {
       domicilio: req.body.domicilio,
       fecha_nacimiento: req.body.fecha_nacimiento,
       genero: req.body.genero,
-      estatura: parseFloat(req.body.estatura),
-      peso: parseFloat(req.body.peso),
+      estatura: req.body.estatura ? parseFloat(req.body.estatura) : null,
+      peso: req.body.peso ? parseFloat(req.body.peso) : null,
       id_seguro: idSeguro,
     };
 
@@ -118,8 +118,8 @@ const updatePaciente = async (req, res) => {
       domicilio: req.body.domicilio,
       fecha_nacimiento: req.body.fecha_nacimiento,
       genero: req.body.genero,
-      estatura: parseFloat(req.body.estatura),
-      peso: parseFloat(req.body.peso),
+      estatura: req.body.estatura ? parseFloat(req.body.estatura) : null,
+      peso: req.body.peso ? parseFloat(req.body.peso) : null,
       id_seguro: idSeguro,
     };
 

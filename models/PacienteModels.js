@@ -51,11 +51,11 @@ Paciente.init(
     },
     estatura: {
       type: DataTypes.FLOAT,
-      allowNull: false,
+      allowNull: true,
     },
     peso: {
       type: DataTypes.FLOAT,
-      allowNull: false,
+      allowNull: true,
     },
     estado: {
       type: DataTypes.BOOLEAN,

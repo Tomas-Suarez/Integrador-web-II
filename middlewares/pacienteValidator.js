@@ -40,11 +40,11 @@ const validarPaciente = [
     .isIn(['Masculino', 'Femenino']).withMessage('Género inválido.'),
 
   body('estatura')
-    .notEmpty().withMessage('Debe ingresar la estatura.')
+    .optional({ checkFalsy: true })
     .isFloat({ min: 50, max: 250 }).withMessage('La estatura debe estar entre 50 y 250 cm.'),
 
   body('peso')
-    .notEmpty().withMessage('Debe ingresar el peso.')
+    .optional({ checkFalsy: true })
     .isFloat({ min: 1, max: 300 }).withMessage('El peso debe estar entre 1 y 300 kg.'),
 
   body('id_seguro')

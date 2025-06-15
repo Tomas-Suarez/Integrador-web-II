@@ -28,10 +28,14 @@ document.addEventListener("DOMContentLoaded", () => {
       // LLenamos los demas campos que posee el paciente del cual que seleccionamos
       document.getElementById("edit-id").value = pacienteId;
       document.getElementById("edit-nombre").value = btn.dataset.nombre || "";
-      document.getElementById("edit-apellido").value = btn.dataset.apellido || "";
-      document.getElementById("edit-documento").value = btn.dataset.documento || "";
-      document.getElementById("edit-telefono").value = btn.dataset.telefono || "";
-      document.getElementById("edit-domicilio").value = btn.dataset.domicilio || "";
+      document.getElementById("edit-apellido").value =
+        btn.dataset.apellido || "";
+      document.getElementById("edit-documento").value =
+        btn.dataset.documento || "";
+      document.getElementById("edit-telefono").value =
+        btn.dataset.telefono || "";
+      document.getElementById("edit-domicilio").value =
+        btn.dataset.domicilio || "";
 
       // Los datos los formateamos a la fecha de nacimiento del paciente
       const fechaRaw = btn.dataset.fecha_nacimiento || "";
@@ -51,12 +55,19 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       document.getElementById("edit-fecha_nacimiento").value = fechaFormateada;
 
-      document.getElementById("edit-estatura").value = btn.dataset.estatura || "";
+      document.getElementById("edit-estatura").value =
+        btn.dataset.estatura || "";
       document.getElementById("edit-peso").value = btn.dataset.peso || "";
 
       const genero = btn.dataset.genero || "Masculino";
-      document.getElementById("edit-genero").value = ["Masculino", "Femenino"].includes(genero) ? genero : "Masculino";
-      document.getElementById("edit-seguro").value = btn.dataset.id_seguro || "null";
+      document.getElementById("edit-genero").value = [
+        "Masculino",
+        "Femenino",
+      ].includes(genero)
+        ? genero
+        : "Masculino";
+      document.getElementById("edit-seguro").value =
+        btn.dataset.id_seguro || "null";
 
       // Crear o actualizar input hidden _method
       let methodInput = formPaciente.querySelector('input[name="_method"]');
@@ -91,17 +102,21 @@ document.addEventListener("DOMContentLoaded", () => {
       "edit-peso",
       "edit-telefono",
       "edit-domicilio",
-      "edit-seguro"
+      "edit-seguro",
     ];
 
-    campos.forEach(id => {
+    campos.forEach((id) => {
       const input = document.getElementById(id);
       input.setCustomValidity(""); // Limpiar errores anteriores
 
       // Limpiar el mensaje de error si el usuario empieza a escribir
-      input.addEventListener("input", () => {
-        input.setCustomValidity("");
-      }, { once: true }); // Solo se agrega una vez por submit
+      input.addEventListener(
+        "input",
+        () => {
+          input.setCustomValidity("");
+        },
+        { once: true }
+      ); // Solo se agrega una vez por submit
     });
 
     let valido = true;
@@ -110,7 +125,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const nombreInput = document.getElementById("edit-nombre");
     const nombre = nombreInput.value.trim();
     if (nombre.length < 3 || nombre.length > 40) {
-      nombreInput.setCustomValidity("El nombre debe tener entre 3 y 40 letras.");
+      nombreInput.setCustomValidity(
+        "El nombre debe tener entre 3 y 40 letras."
+      );
       nombreInput.reportValidity();
       valido = false;
     }
@@ -119,7 +136,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const apellidoInput = document.getElementById("edit-apellido");
     const apellido = apellidoInput.value.trim();
     if (apellido.length < 3 || apellido.length > 20) {
-      apellidoInput.setCustomValidity("El apellido debe tener entre 3 y 20 letras.");
+      apellidoInput.setCustomValidity(
+        "El apellido debe tener entre 3 y 20 letras."
+      );
       apellidoInput.reportValidity();
       valido = false;
     }
@@ -133,37 +152,51 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Validacion del campo fecha nacimiento
-    const fechaNacimientoInput = document.getElementById("edit-fecha_nacimiento");
+    const fechaNacimientoInput = document.getElementById(
+      "edit-fecha_nacimiento"
+    );
     const fechaNacimiento = new Date(fechaNacimientoInput.value);
     if (fechaNacimiento > new Date()) {
-      fechaNacimientoInput.setCustomValidity("La fecha de nacimiento no puede ser posterior a hoy.");
+      fechaNacimientoInput.setCustomValidity(
+        "La fecha de nacimiento no puede ser posterior a hoy."
+      );
       fechaNacimientoInput.reportValidity();
       valido = false;
     }
 
     // Validacion del campo estatura
     const estaturaInput = document.getElementById("edit-estatura");
-    const estaturaNum = parseFloat(estaturaInput.value.trim());
-    if (isNaN(estaturaNum) || estaturaNum < 50 || estaturaNum > 250) {
-      estaturaInput.setCustomValidity("La estatura debe estar entre 50 y 250 cm.");
-      estaturaInput.reportValidity();
-      valido = false;
+    const estaturaValor = estaturaInput.value.trim();
+    if (estaturaValor !== "") {
+      const estaturaNum = parseFloat(estaturaValor);
+      if (isNaN(estaturaNum) || estaturaNum < 50 || estaturaNum > 250) {
+        estaturaInput.setCustomValidity(
+          "La estatura debe estar entre 50 y 250 cm."
+        );
+        estaturaInput.reportValidity();
+        valido = false;
+      }
     }
 
     // Validacion del campo peso
     const pesoInput = document.getElementById("edit-peso");
-    const pesoNum = parseFloat(pesoInput.value.trim());
-    if (isNaN(pesoNum) || pesoNum < 1 || pesoNum > 300) {
-      pesoInput.setCustomValidity("El peso debe estar entre 1 y 300 kg.");
-      pesoInput.reportValidity();
-      valido = false;
+    const pesoValor = pesoInput.value.trim();
+    if (pesoValor !== "") {
+      const pesoNum = parseFloat(pesoValor);
+      if (isNaN(pesoNum) || pesoNum < 1 || pesoNum > 300) {
+        pesoInput.setCustomValidity("El peso debe estar entre 1 y 300 kg.");
+        pesoInput.reportValidity();
+        valido = false;
+      }
     }
 
     // Validacion del campo telefono
     const telefonoInput = document.getElementById("edit-telefono");
     const telefono = telefonoInput.value.trim();
     if (telefono.length < 6 || telefono.length > 20) {
-      telefonoInput.setCustomValidity("El teléfono debe tener entre 6 y 20 caracteres.");
+      telefonoInput.setCustomValidity(
+        "El teléfono debe tener entre 6 y 20 caracteres."
+      );
       telefonoInput.reportValidity();
       valido = false;
     }
@@ -172,7 +205,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const domicilioInput = document.getElementById("edit-domicilio");
     const domicilio = domicilioInput.value.trim();
     if (domicilio.length < 5) {
-      domicilioInput.setCustomValidity("El domicilio debe tener al menos 5 caracteres.");
+      domicilioInput.setCustomValidity(
+        "El domicilio debe tener al menos 5 caracteres."
+      );
       domicilioInput.reportValidity();
       valido = false;
     }
@@ -180,7 +215,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Validacion del campo seguro
     const seguroInput = document.getElementById("edit-seguro");
     if (seguroInput.value === "") {
-      seguroInput.setCustomValidity("Debe seleccionar un seguro médico o 'No posee'.");
+      seguroInput.setCustomValidity(
+        "Debe seleccionar un seguro médico o 'No posee'."
+      );
       seguroInput.reportValidity();
       valido = false;
     }

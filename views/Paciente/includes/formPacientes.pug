@@ -18,8 +18,9 @@ mixin formPaciente(action)
       label(for="edit-domicilio") Domicilio:
       input(type="text", name="domicilio", id="edit-domicilio", required)
     div
+      - const hoy = new Date().toISOString().split('T')[0]
       label(for="edit-fecha_nacimiento") Fecha nacimiento:
-      input(type="date", name="fecha_nacimiento", id="edit-fecha_nacimiento", required)
+      input(type="date", name="fecha_nacimiento", id="edit-fecha_nacimiento", max=hoy, required)
     div
       label(for="edit-documento") Documento:
       input(type="text", name="documento", id="edit-documento", required)
@@ -30,10 +31,10 @@ mixin formPaciente(action)
         option(value="Femenino") Femenino
     div
       label(for="edit-estatura") Estatura (cm):
-      input(type="text", name="estatura", id="edit-estatura", required)
+      input(type="text", name="estatura", id="edit-estatura" placeholder="Opcional")
     div
       label(for="edit-peso") Peso (kg):
-      input(type="text", name="peso", id="edit-peso", required)
+      input(type="text", name="peso", id="edit-peso" placeholder="Opcional")
     div
       label(for="edit-seguro") Seguro médico:
       select(name="id_seguro", id="edit-seguro", required)

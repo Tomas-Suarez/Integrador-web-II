@@ -2,6 +2,7 @@ const Admision = require("../models/AdmisionModels");
 const TipoIngreso = require("../models/TipoIngresoModels");
 const Paciente = require("../models/PacienteModels");
 const AsignacionDormitorio = require("../models/AsignDormitorioModels");
+const Motivo = require("../models/MotivoAdmisionModels");
 
 //Obtenemos todas las admisiones - incluyendo los datos de "Ingreso" y algunos de "Paciente"
 const getAllAdmisiones = async () => {
@@ -11,6 +12,10 @@ const getAllAdmisiones = async () => {
         estado: true,
       },
       include: [
+        {
+          model: Motivo,
+          attributes: ["id_motivo", "descripcion"],
+        },
         {
           model: TipoIngreso,
           attributes: ["id_tipo", "descripcion"],
